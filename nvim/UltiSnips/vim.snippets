@@ -1,0 +1,12 @@
+snippet lua "Lua heredoc"
+lua <<EOF
+$0
+EOF
+endsnippet
+
+snippet aug "autogroup"
+augroup ${1:name}
+	au!
+	$0
+augroup END
+endsnippet

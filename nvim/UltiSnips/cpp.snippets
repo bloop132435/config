@@ -1,0 +1,231 @@
+# Generic Snippets
+extends c
+
+snippet struct "struct skeleton" Abt
+struct $1{
+	$2
+};
+endsnippet
+
+snippet class "class skeleton" Abt
+class $1{
+	$2
+};
+endsnippet
+
+snippet loc "only execute on local machine" Abt
+#ifdef LOCAL
+$1
+#endif
+endsnippet
+
+snippet foe "for each loop" Abt
+for(${1:auto} ${2:i} : ${3:container}){
+	$0
+}
+endsnippet
+
+global !p
+def coutExpand(snip):
+	line = snip.buffer[snip.line]
+	indent = re.match(r"^\s*",line).group()
+	n = int(line.strip())
+	snip.buffer[snip.line] = ''
+	snp = indent + 'cout<<' + '<<'.join("$" + str(i+1)  for i in range(n)) + "$" + "{" + str(n+1) + ":<<endl};"
+	snip.expand_anon(snp)
+endglobal
+
+post_jump "coutExpand(snip)"
+snippet "cout(\d+)" "multiple cout" rt
+`!p snip.rv = match.group(1)`
+endsnippet
+
+global !p
+def cinExpand(snip):
+	line = snip.buffer[snip.line]
+	indent = re.match(r"^\s*",line).group()
+	n = int(line.strip())
+	snip.buffer[snip.line] = ''
+	snp = indent + 'cin>>' + '>>'.join("$" + str(i+1) for i in range(n)) + ";"
+	snip.expand_anon(snp)
+endglobal
+
+post_jump "cinExpand(snip)"
+snippet "cin(\d+)" "multiple cin" rt
+`!p snip.rv = match.group(1)`
+endsnippet
+
+
+#STL
+snippet erm "erase all from container satisfying condition" bt
+${1:container}.erase(remove_if(begin($1), end($1),
+		${2:condition}
+), end($1));
+endsnippet
+
+snippet fil "fill container" bt
+fill(begin(${1:container}), end($1), ${2:value});
+endsnippet
+
+snippet fln "fill n times" bt
+fill_n(begin(${1:container}), ${2:count}, ${3:value});
+endsnippet
+
+snippet gen "generate over container" bt
+generate(begin(${1:container}), end($1),
+		${2:genFun}
+);
+endsnippet
+
+snippet gnn "generate n times" bt
+generate_n(begin(${1:container}), ${2:count},
+		${3:genFun}
+);
+endsnippet
+
+snippet iot "ascending fill" bt
+iota(begin(${1:container}), end($1), ${2:start});
+endsnippet
+
+snippet trn "container 1's transform move to container 2" bt
+transform(begin(${1:container1}), end($1),
+		begin(${2:container2}),
+		${3:conversion}
+	);
+endsnippet
+
+snippet mod "modify container based on conversion function" bt
+transform(begin(${1:container}), end($1), begin($1),
+		${2:conversion}
+	);
+endsnippet
+
+snippet tr2 "transform container 1 and container 2 into container 3" bt
+transform(begin(${1:container1}), end($1),
+		begin(${2:container2}),
+		begin(${3:container3}),
+		${4:conversion}
+	);
+endsnippet
+
+
+snippet all "all of the container satisfies condition" it
+all_of(begin(${1:container}), end($1),
+		${2:condition}
+);
+endsnippet
+
+snippet non "none of" it
+none_of(begin(${1:container}), end($1),
+		${2:condition}
+);
+endsnippet
+
+snippet any "any of the container satisfies condition" it
+any_of(begin(${1:container}), end($1),
+		${2:condition}
+);
+endsnippet
+
+
+snippet fin "find if the condition is true" bt
+find_if(begin(${1:container}), end($1), $2);
+endsnippet
+
+snippet mis "find the first differing element" it
+mismatch(begin(${1:container1}), end($1),
+		begin(${2:container2}), end($2),
+		${3:condition}
+	);
+endsnippet
+
+snippet count "count all in container filling condition" bt
+count_if(begin(${1:container}), end($1),
+		${2:condition}
+);
+endsnippet
+
+snippet inc "if container 2 is a incontinuous subsequence of container 1" it
+includes(begin(${1:container}), end($1)
+		begin(${2:container}), end($2)${3:
+		, comparison}
+);
+endsnippet
+
+
+snippet mne "min element" bt
+min_element(begin(${1:container}), end($1));
+endsnippet
+
+snippet mxe "max element" bt
+max_element(begin(${1:container}), end($1));
+endsnippet
+
+snippet mme "min and max element" bt
+minmax_element(begin(${1:container}), end($1));
+endsnippet
+
+
+snippet acc "accumulate" bt
+accumulate(begin(${1:container}), end($1), ${2:starting val});
+endsnippet
+
+snippet inp "Inner Product" it
+inner_product(begin(${1:container1}), end($1)
+			,begin(${2:container2})
+			, ${3:initial}
+			, ${4:accumulator}
+			, ${5:adder}
+);
+endsnippet
+
+
+snippet prt "partition" it
+partition(begin(${1:container}), end($1),
+		${2:condition}
+);
+endsnippet
+
+snippet stq "quicksort" bt
+sort(begin(${1:container}), end($1) $2);
+endsnippet
+
+snippet stm "mergesort" bt
+stable_sort(begin(${1:container}), end($1) $2);
+endsnippet
+
+snippet sth "heapsort" bt
+sort_heap(begin(${1:container}), end($1) $2);
+endsnippet
+
+snippet ist "is sorted" it
+is_sorted(begin(${1:container}), end($1) $2);
+endsnippet
+
+snippet rev "reverse" bt
+reverse(begin(${1:container}), end($1));
+endsnippet
+
+
+snippet bns "binary search" it
+binary_search(begin(${1:container}), end($1), ${2:target}${3:, comparison function});
+endsnippet
+
+snippet low "lower bound" it
+lower_bound(begin(${1:container}), end($1), ${2:target}${3:, comparison function});
+endsnippet
+
+snippet upp "upper bound" it
+upper_bound(begin(${1:container}), end($1), ${2:target}${3:, comparison function});
+endsnippet
+
+snippet cpt "Competitive Programming Template" Abt
+#include<bits/stdc++.h>
+using namespace std;
+$1
+
+int main(int argc, char** argv){
+	$0
+}
+endsnippet
+

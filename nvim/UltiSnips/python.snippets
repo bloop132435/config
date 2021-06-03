@@ -1,0 +1,65 @@
+snippet shebang "shebang" Ab
+#!/usr/bin/env python3
+endsnippet
+global !p
+import re
+def ifExpand(snip):
+	line = snip.buffer[snip.line]
+	indent  = re.match("^\s*",line).group()
+	n = int(snip.buffer[snip.line].strip())
+	snp = indent + "if $1:\n" + indent + '\t' + "$2\n"
+	for i in range(n-2):
+		c = 3 + 2 * i
+		b = c + 1
+		snp += indent + f"elif ${c}:\n" + indent + f"\t${b}\n"
+	if n > 1:
+		snp += indent + "else:\n" + indent + '\t' + f"${2 * n - 1}\n" + indent + "$0"
+	snip.buffer[snip.line] = ''
+	snip.expand_anon(snp.rstrip())
+endglobal
+
+post_jump "ifExpand(snip)"
+snippet "if(\d+)" "chained if statements" r
+`!p snip.rv = match.group(1)`
+endsnippet
+
+
+global !p
+def function(snip):
+	line = snip.buffer[snip.line]
+	indent  = re.match("^\s*",line).group()
+	snip.buffer[snip.line] = ''
+	name = line.split('|')[1].strip()
+	rtype = line.split('|')[0].strip()
+	params = ''
+	for p in line.split('|')[2].split(','):
+		t = p.strip().split(' ')[0]
+		n = p.strip().split(' ')[1]
+		params += n + ': ' + t + ', '
+	params = params.rstrip(', ')
+	if rtype != 'void':
+		snp = indent + 'def ' + name + '(' + params + ') -> ' + rtype + ' :\n' + indent + '\t${0:pass}'
+	else:
+		snp = indent + 'def ' + name + '(' + params + '):\n' + indent + '\t${0:pass}'
+	snip.expand_anon(snp)
+endglobal
+
+post_jump "function(snip)"
+snippet "(\w+):(\w+):(.*)" "function skeleton" r
+`!p snip.rv = match.group(1) + '|' + match.group(2)+ '|' + match.group(3)`
+endsnippet
+
+snippet "^(\s*)(\S+)( |)\+\+" "plus plus" r
+`!p snip.rv = match.group(1) + match.group(2) + ' = '+match.group(2) + ' + 1'`
+endsnippet
+snippet "^(\s*)(\S+)( |)\-\-" "plus plus" r
+`!p snip.rv = match.group(1) + match.group(2) + ' = '+match.group(2) + ' - 1'`
+endsnippet
+
+snippet main "starting code"
+def main():
+	$0
+
+if __name__ == "__main__":
+	main()
+endsnippet
