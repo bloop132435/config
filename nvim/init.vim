@@ -75,7 +75,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'caenrique/nvim-toggle-terminal'
 		Plug 'glacambre/firenvim', {'do':{_ -> firenvim#install(1)}}
 		Plug 'svermeulen/vim-subversive'
-		Plug 'lambdalisue/suda.vim'
+		Plug 'tpope/vim-eunuch'
 
 "}}}
 call plug#end()
