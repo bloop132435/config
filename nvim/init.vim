@@ -34,7 +34,6 @@ call plug#begin('~/.vim/plugged')
 " }}}
 " Looks {{{
 		Plug 'gruvbox-community/gruvbox'
-		Plug 'gabrielelana/vim-markdown'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'tjdevries/express_line.nvim'
 		Plug 'jose-elias-alvarez/buftabline.nvim'
@@ -465,9 +464,6 @@ EOF
 	let g:jupytext_enable = 1
 	let g:jupytext_fmt = 'py'
 	let g:jupytext_filetype_map = {'py':'python'}
-" }}}
-" Markdown {{{
-
 " }}}
 " Maximizer {{{
 	nnoremap <leader>m :MaximizerToggle!<CR>
