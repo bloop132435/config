@@ -255,7 +255,7 @@ while(!bfs.empty()) {
 }
 endsnippet
 
-snippet bfs "breadth first search"
+snippet dfs "dreadth first search"
 
 //All in main
 // TODO : Modify code to fit your needs
@@ -265,16 +265,16 @@ vector<vector<int>> adj; //The adjacency list of the graph
 vector<int> dist; //stores the distances of each node from root
 dist.resize(-1); //initializes all distance to -1
 dist[root] = 0;
-auto bfs = [&](int pos, auto& bfs_func) -> void {
+auto dfs = [&](int pos, auto& dfs_func) -> void {
 	for(int nex : adj[pos]) {
 		if(dist[nex] != -1) {
 			continue;
 		}
-		dist[nex] = dist[cur] + 1;
-		bfs_func(nex, bfs_func);
+		dist[nex] = dist[pos] + 1;
+		dfs_func(nex, dfs_func);
 	}
-}
-bfs(root, bfs);
+};
+dfs(root, dfs);
 endsnippet
 
 snippet ostr "ostream operator overloader for custom structs"
