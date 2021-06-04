@@ -73,7 +73,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'MilesManners/vim-stagehand'
 		Plug 'kevinhwang91/nvim-hlslens'
 		Plug 'caenrique/nvim-toggle-terminal'
-		Plug 'glacambre/firenvim', {'do':{_ -> firenvim#install(1)}}
 		Plug 'svermeulen/vim-subversive'
 		Plug 'tpope/vim-eunuch'
 
