@@ -39,6 +39,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tjdevries/express_line.nvim'
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rhysd/vim-clang-format'
+		Plug 'folke/todo-comments.nvim'
 
 "}}}
 " Finders {{{
@@ -677,6 +678,10 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+" }}}
+" TODOs {{{
+lua require'todo-comments'.setup()
+
 " }}}
 " ToggleTerminal {{{
 	nnoremap <silent> <leader>t :ToggleTerminal
