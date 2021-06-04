@@ -64,14 +64,10 @@ call plug#begin('~/.vim/plugged')
 		Plug 'yuttie/comfortable-motion.vim'  "smooth scroll
 		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
 		Plug 'dstein64/vim-startuptime' "Startuptime logging
-		Plug 'bfredl/nvim-ipy'
-		Plug 'antoinemadec/FixCursorHold.nvim'
 		Plug 'tversteeg/registers.nvim'
 		Plug 'mtth/scratch.vim'
-		Plug 'pbrisbin/vim-mkdir'
 		Plug 'windwp/nvim-autopairs'
 		Plug 'godlygeek/tabular'
-		Plug 'MilesManners/vim-stagehand'
 		Plug 'kevinhwang91/nvim-hlslens'
 		Plug 'caenrique/nvim-toggle-terminal'
 		Plug 'svermeulen/vim-subversive'
@@ -111,7 +107,7 @@ call plug#end()
 	set inccommand=split
 	set exrc
 	set noemoji
-	set scrolloff=1000
+	set scrolloff=0
 	set gdefault
 	set completeopt=menuone,noselect
 	set path+=**
@@ -236,6 +232,8 @@ call plug#end()
 	nnoremap <leader>bp :bp<CR>
 	nnoremap <leader><leader>a GVgg
 	nnoremap <leader><leader>t :ToggleTerminal<CR>
+	nnoremap j jzz
+	nnoremap k kzz
 
 	inoremap  <C-W>
 
