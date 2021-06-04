@@ -158,11 +158,6 @@ call plug#end()
 		au!
 		au BufEnter kitty.conf setlocal foldmethod=marker
 	augroup END
-	"highlight just yanked text
-	augroup LuaHighlight
-		autocmd!
-		autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
-	augroup END
 	set guifont=JetBrainsMono\ NF:h11
 	set fillchars=eob:\ ,
 	set foldmethod=manual
