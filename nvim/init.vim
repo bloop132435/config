@@ -350,6 +350,8 @@ EOF
 		nnoremap <silent><buffer> <tab> :call defx#call_async_action("toggle_select")<CR>
 		vnoremap <silent><buffer>       <tab> :call defx#call_async_action("toggle_select_visual")<CR>
 
+		nnoremap <silent><buffer> t :call defx#call_async_action('execute_command',[input("command> "),"async"])<CR>
+
 		nnoremap <silent><buffer>  :call defx#call_async_action("quit")<CR>
 		nnoremap <silent><buffer>  :call DefxCP()<CR>
 
@@ -357,7 +359,7 @@ EOF
 	endfun
 	augroup Defx
 		au!
-		autocmd FileType defx call DefxSettings()
+		autocmd Filetype defx call DefxSettings()
 		au VimEnter * sil! au! FileExplorer *
 		au BufEnter * if s:isdir(expand('%')) | bd | exe 'Defx' | endif
 	augroup END
