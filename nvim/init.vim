@@ -328,21 +328,21 @@ EOF
 	let g:__t_func_list = 4
 	let g:isInDefx = v:false
 	function DefxSettings()
-		nnoremap <silent><expr><buffer> <CR> defx#call_async_action("open")
-		nnoremap <silent><expr><buffer> l defx#call_async_action("open")
-		nnoremap <silent><expr><buffer> <BS> defx#call_async_action("cd","..")
-		nnoremap <silent><expr><buffer> h defx#call_async_action("cd","..")
+		nnoremap <silent><buffer> <CR> :call defx#call_async_action("open")<CR>:let g:isInDefx = v:false<CR>
+		nnoremap <silent><buffer> l :call defx#call_async_action("open")<CR>:let g:isInDefx = v:false<CR>
+		nnoremap <silent><buffer> <BS> :call defx#call_async_action("cd","..")<CR>
+		nnoremap <silent><buffer> h :call defx#call_async_action("cd","..")<CR>
 
-		nnoremap <silent><expr><buffer> mk defx#call_async_action("new_file")
-		nnoremap <silent><expr><buffer> rm defx#call_async_action("remove_trash")
-		nnoremap <silent><expr><buffer> p defx#call_async_action("paste")
-		nnoremap <silent><expr><buffer> c defx#call_async_action("copy")
-		nnoremap <silent><expr><buffer> mv defx#call_async_action("rename")
+		nnoremap <silent><buffer> mk :call defx#call_async_action("new_file")<CR>
+		nnoremap <silent><buffer> rm :call defx#call_async_action("remove_trash")<CR>
+		nnoremap <silent><buffer> p :call defx#call_async_action("paste")<CR>
+		nnoremap <silent><buffer> c :call defx#call_async_action("copy")<CR>
+		nnoremap <silent><buffer> mv :call defx#call_async_action("rename")<CR>
 
-		nnoremap <silent><expr><buffer> <tab> defx#call_async_action("toggle_select")
+		nnoremap <silent><buffer> <tab> :call defx#call_async_action("toggle_select")<CR>
 		vnoremap <silent><buffer>       <tab> :call defx#call_async_action("toggle_select_visual")<CR>
 
-		nnoremap <silent><expr><buffer>  defx#call_async_action("quit")
+		nnoremap <silent><buffer>  :call defx#call_async_action("quit")<CR>:let g:isInDefx = v:false<CR>
 
 
 		nnoremap <buffer>        :let g:isInDefx = v:true<CR>:  Clap blines<CR>
@@ -396,7 +396,7 @@ EOF
 
 	let g:clap_provider_buffers_cur_tab_only = v:false
 	nnoremap <silent>  :Clap! files ++finder=fd -E\ .git --hidden
-	nnoremap <silent>  :let g:isInDefx = v:false<CR>:Clap! blines
+	nnoremap <silent>  :Clap! blines
 	nnoremap <silent>  :Clap! buffers
 	nnoremap <silent>  :lua require'spectre'.open()
     nnoremap <silent>  :Clap! grep
@@ -404,7 +404,7 @@ EOF
     nnoremap <silent>  :Clap! quickfix
 
 	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden 
-	nnoremap <silent> <leader>fl :let g:isInDefx = v:false<CR>:Clap! blines
+	nnoremap <silent> <leader>fl :Clap! blines
 	nnoremap <silent> <leader>fb :Clap! buffers
 
 	nnoremap <silent> <leader>fC :Clap!
