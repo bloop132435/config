@@ -448,8 +448,8 @@ EOF
 
 " }}}
 " Hop {{{
-	nnoremap H  :HopWord<CR>
-	nnoremap <leader>h :HopPattern<CR>
+	nnoremap <leader>h  :HopWord<CR>
+	nnoremap <leader>H :HopPattern<CR>
 	nnoremap <silent> ,f :HopChar1<CR>
 	nnoremap <silent> ,F :HopChar2<CR>
 lua <<EOF
