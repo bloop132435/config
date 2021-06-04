@@ -330,6 +330,13 @@ EOF
 		  \ 'columns': 'mark:git:filename:type:space:size:space:space:space:time',
 		  \ })
 	let g:__t_func_list = 4
+	function DefxCP()
+		normal! gg
+		normal! "zyy
+		let s:rootdir =  @z
+		let s:rootdir = substitute(s:rootdir, "\\[in\\]","","")
+		execute 'Clap! files ++finder=fd -E\ .git --hidden -I  . ' .  s:rootdir
+	endfunction
 	function DefxSettings()
 		nnoremap <silent><buffer> <CR> :call defx#call_async_action("open")<CR>
 		nnoremap <silent><buffer> l :call defx#call_async_action("open")<CR>
@@ -346,6 +353,7 @@ EOF
 		vnoremap <silent><buffer>       <tab> :call defx#call_async_action("toggle_select_visual")<CR>
 
 		nnoremap <silent><buffer>  :call defx#call_async_action("quit")<CR>
+		nnoremap <silent><buffer>  :call DefxCP()<CR>
 
 
 	endfun
