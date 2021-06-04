@@ -47,7 +47,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'Shougo/defx.nvim'
 		Plug 'kristijanhusak/defx-git'
 		Plug 'liuchengxu/vim-clap'  ,{'do':':Clap install-binary!'}
-		Plug 'Shougo/denite.nvim'
 
 "}}}
 " Git {{{
@@ -703,22 +702,7 @@ EOF
 
 " }}}
 " Testing {{{
-" Testing out Denite.nvim, could potentialy replace vim clap
-call denite#custom#var('file/rec', 'command',
-			\ ['fd','I','-i','-L','-E ".git,__pycache__"' ,'-H','.']
-			\)
-function DeniteSettings()
-	call compe#setup({'enabled': v:false},0) " disable compe
-	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-	nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-endfunction
 
-augroup Denites
-	au!
-	au FileType denite call DeniteSettings()
-	au FileType denite-filter call compe#setup({'enabled': v:false},0)
-augroup END
-nmap  :Denite file/reci
 
 
 "}}}
