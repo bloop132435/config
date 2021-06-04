@@ -319,7 +319,7 @@ EOF
 	nnoremap <silent> <ScrollWheelUp> :call comfortable_motion#flick(-40)<CR>
 "}}}
 " Finders {{{
-	nnoremap <silent>  :Defx . -show-ignored-files<CR>
+	nnoremap <silent>  :Defx `expand('%:p:h')`  -show-ignored-files<CR>
 
 	fu! s:isdir(dir) abort
 		return !empty(a:dir) && (isdirectory(a:dir) ||
