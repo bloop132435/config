@@ -412,15 +412,15 @@ EOF
     nnoremap <silent>  :Clap! loclist
     nnoremap <silent>  :Clap! quickfix
 
-	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden 
+	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden -I 
 	nnoremap <silent> <leader>fl :Clap! blines
 	nnoremap <silent> <leader>fb :Clap! buffers
 
 	nnoremap <silent> <leader>fC :Clap!
 	nnoremap <silent> <leader>ff :Clap! grep2
 	nnoremap <silent> <leader>fq :Clap! quickfix
-	nnoremap <silent> <leader>fc :Clap! files  ++finder=fd -E\ .git --hidden . '/home/gqian/programs/lib'
-	nnoremap <silent> <leader>fd :Clap! files  ++finder=fd -E\ .git --hidden . '/home/gqian/.config/nvim'
+	nnoremap <silent> <leader>fc :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/programs/lib'
+	nnoremap <silent> <leader>fd :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/.config/nvim'
 	nnoremap <silent> <leader>fh :Clap! help_tags
 	nnoremap <silent> <leader>fg :Clap! grep
 	nnoremap <silent> <leader>fy :Clap! yanks
