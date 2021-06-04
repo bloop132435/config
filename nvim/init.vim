@@ -173,8 +173,6 @@ call plug#end()
 		keeppatterns %s/\s\+$//e
 		call winrestview(l:save)
 	endfun
-	highlight ExtraWhitespace ctermbg=red guibg=red
-	match ExtraWhitespace /\s+$/
 	augroup trimwhitespace
 		autocmd!
 		au BufWritePre * call TrimWhitespace()
