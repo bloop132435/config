@@ -33,7 +33,8 @@ call plug#begin('~/.vim/plugged')
 
 " }}}
 " Looks {{{
-		Plug 'gruvbox-community/gruvbox'
+		Plug 'rktjmp/lush.nvim'
+		Plug 'npxbr/gruvbox.nvim'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'tjdevries/express_line.nvim'
 		Plug 'jose-elias-alvarez/buftabline.nvim'
