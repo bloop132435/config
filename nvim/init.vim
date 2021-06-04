@@ -225,17 +225,15 @@ call plug#end()
 	nnoremap <leader>wl <C-W>l
 	nnoremap <leader>wk <C-W>k
 	nnoremap <leader>wH <C-W>5<
-	nnoremap <leader>wJ :resize +5
 	nnoremap <leader>wL <C-W>5>
-	nnoremap <leader>wK :resize -5
+	nnoremap <leader>wJ :resize +5<CR>
+	nnoremap <leader>wK :resize -5<CR>
 	nnoremap <leader>w= <C-W>=
 	nnoremap <leader>ws <C-W>s
 	nnoremap <leader>wv <C-W>v
-	nnoremap {{ A{<CR>}<ESC>O
 	nnoremap <leader>bd :bd! %<CR>
 	nnoremap <leader>bn :bn<CR>
 	nnoremap <leader>bp :bp<CR>
-	nnoremap <leader>bp :BufferPick<CR>
 	nnoremap <leader><leader>a GVgg
 	nnoremap <leader><leader>t :ToggleTerminal<CR>
 
