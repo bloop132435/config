@@ -198,6 +198,15 @@ call plug#end()
 		autocmd BufEnter COMMIT_EDITMSG set bufhidden
 	augroup END
 
+	function! OpenHelpInCurrentWindow(topic)
+		view $VIMRUNTIME/doc/help.txt
+		setl filetype=help
+		setl buftype=help
+		setl nomodifiable
+		exe 'keepjumps help ' . a:topic
+	endfunction
+	command! -nargs=? -complete=help Help call OpenHelpInCurrentWindow(<q-args>)
+
 " }}}
 " Vanilla_Vim_Mappings {{{
 	nnoremap B ^
@@ -360,6 +369,11 @@ EOF
 	  if g:isInDefx
 		  call defx#call_async_action("open")
 	  endif
+	endfunction
+	let g:HelpT = g:clap#provider#help_tags#
+	function! HelpT.sink(line) abort
+		let [tag, doc_fname] = split(a:line, "\t")
+		execute 'Help ' . tag
 	endfunction
 
 	augroup ClapFiler
