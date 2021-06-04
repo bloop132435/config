@@ -229,3 +229,57 @@ int main(int argc, char** argv){
 }
 endsnippet
 
+# Algorithms
+
+snippet bfs "breadth first search"
+//All in main
+// TODO : Modify code to fit your needs
+int n; //The number of nodes in the graph
+int root; // The starting node
+vector<vector<int>> adj; //The adjacency list of the graph
+vector<int> dist; //stores the distances of each node from root
+dist.resize(-1); //initializes all distance to -1
+dist[root] = 0;
+queue<int> bfs; //stores the numbers to process in order
+bfs.push(root);
+while(!bfs.empty()) {
+	int cur = bfs.front();
+	bfs.pop();
+	for(int nex : adj[cur]) { //Finds the next nodes to visit
+		if(dist[nex] != -1) {
+			continue;
+		}
+		dist[nex] = dist[cur] + 1;
+		bfs.push(nex);
+	}
+}
+endsnippet
+
+snippet bfs "breadth first search"
+
+//All in main
+// TODO : Modify code to fit your needs
+int n; //The number of nodes in the graph
+int root; // The starting node
+vector<vector<int>> adj; //The adjacency list of the graph
+vector<int> dist; //stores the distances of each node from root
+dist.resize(-1); //initializes all distance to -1
+dist[root] = 0;
+auto bfs = [&](int pos, auto& bfs_func) -> void {
+	for(int nex : adj[pos]) {
+		if(dist[nex] != -1) {
+			continue;
+		}
+		dist[nex] = dist[cur] + 1;
+		bfs_func(nex, bfs_func);
+	}
+}
+bfs(root, bfs);
+endsnippet
+
+snippet ostr "ostream operator overloader for custom structs"
+ostream& operator<<(ostream& os, const ${1:struct_name}& object){
+	${2:print members}
+	return os;
+}
+endsnippet
