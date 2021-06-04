@@ -330,10 +330,9 @@ EOF
 		  \ 'columns': 'mark:git:filename:type:space:size:space:space:space:time',
 		  \ })
 	let g:__t_func_list = 4
-	let g:isInDefx = v:false
 	function DefxSettings()
-		nnoremap <silent><buffer> <CR> :call defx#call_async_action("open")<CR>:let g:isInDefx = v:false<CR>
-		nnoremap <silent><buffer> l :call defx#call_async_action("open")<CR>:let g:isInDefx = v:false<CR>
+		nnoremap <silent><buffer> <CR> :call defx#call_async_action("open")<CR>
+		nnoremap <silent><buffer> l :call defx#call_async_action("open")<CR>
 		nnoremap <silent><buffer> <BS> :call defx#call_async_action("cd","..")<CR>
 		nnoremap <silent><buffer> h :call defx#call_async_action("cd","..")<CR>
 
@@ -346,10 +345,9 @@ EOF
 		nnoremap <silent><buffer> <tab> :call defx#call_async_action("toggle_select")<CR>
 		vnoremap <silent><buffer>       <tab> :call defx#call_async_action("toggle_select_visual")<CR>
 
-		nnoremap <silent><buffer>  :call defx#call_async_action("quit")<CR>:let g:isInDefx = v:false<CR>
+		nnoremap <silent><buffer>  :call defx#call_async_action("quit")<CR>
 
 
-		nnoremap <buffer>        :let g:isInDefx = v:true<CR>:  Clap blines<CR>
 	endfun
 	augroup Defx
 		au!
@@ -366,7 +364,7 @@ EOF
 	  normal! m'
 	  silent call cursor(lnum, 1)
 	  normal! ^zvzz
-	  if g:isInDefx
+	  if stridx(expand('%'),'defx') != -1
 		  call defx#call_async_action("open")
 	  endif
 	endfunction
