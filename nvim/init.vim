@@ -37,6 +37,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'tjdevries/express_line.nvim'
 		Plug 'jose-elias-alvarez/buftabline.nvim'
+		Plug 'rhysd/vim-clang-format'
 
 "}}}
 " Finders {{{
@@ -301,6 +302,11 @@ EOF
 	" let g:gruvbox_improved_strings = 1
 	colo gruvbox
 	set background=dark
+
+" }}}
+" Clang_Format {{{
+	let g:clang_format#detect_style_file = 1
+	let g:clang_format#auto_format = 1
 
 " }}}
 " Comfortable_Motion {{{
