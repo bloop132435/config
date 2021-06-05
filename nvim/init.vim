@@ -73,6 +73,8 @@ call plug#begin('~/.vim/plugged')
 		Plug 'caenrique/nvim-toggle-terminal'
 		Plug 'svermeulen/vim-subversive'
 		Plug 'tpope/vim-eunuch'
+		Plug 'simeji/winresizer'
+		Plug 'bfredl/nvim-ipy'
 
 "}}}
 call plug#end()
@@ -343,7 +345,7 @@ EOF
 		nnoremap <silent><buffer> mk :call defx#call_async_action("new_file")<CR>
 		nnoremap <silent><buffer> rm :call defx#call_async_action("remove_trash")<CR>
 		nnoremap <silent><buffer> p :call defx#call_async_action("paste")<CR>
-		nnoremap <silent><buffer> c :call defx#call_async_action("copy")<CR>
+		nnoremap <silent><buffer> cp :call defx#call_async_action("copy")<CR>
 		nnoremap <silent><buffer> mv :call defx#call_async_action("rename")<CR>
 
 		nnoremap <silent><buffer> <tab> :call defx#call_async_action("toggle_select")<CR>
@@ -473,7 +475,7 @@ EOF
 " Jupyter_Notebook {{{
 	let g:nvim_ipy_perform_mappings = 0
 	command! -nargs=0 RunQtConsole call jobstart("jupyter qtconsole --JupyterWidget.include_other_output=True")
-	let g:ipy_celldef = '^##'
+	let g:ipy_celldef = '^# \\+'
 
 	nmap <silent> <leader>jq :RunQtConsole<CR>
 	nmap <silent> <leader>jk :IPython<Space>--existing<Space>--no-window<CR>
