@@ -1,2 +1,2 @@
 # Config
-Git repo for my config
+Git repo for my config files
