@@ -476,6 +476,22 @@ EOF
 	let g:nvim_ipy_perform_mappings = 0
 	command! -nargs=0 RunQtConsole call jobstart("jupyter qtconsole --JupyterWidget.include_other_output=True")
 	let g:ipy_celldef = '^# %%.*$'
+	function OpenPythonNotebook()
+		let s:rootname = expand("%:r")
+		let s:pythonfile = s:rootname . ".py"
+		let s:notebookfile = expand("%")
+		echo s:pythonfile
+		silent exe "!ntop " . expand("%") . " " . s:pythonfile
+		silent exe "e " . s:pythonfile
+		cnoremap <buffer> w w <bar> !pton % %:r.ipynb
+		cnoremap <buffer> wq wq <bar> !pton % %:r.ipynb
+		cnoremap <buffer> wqa wqa
+		set ft=python
+	endfunction
+	augroup ipynb
+		au!
+		au BufRead *.ipynb call OpenPythonNotebook()
+	augroup END
 
 	nmap <silent> <leader>jq :RunQtConsole<CR>
 	nmap <silent> <leader>jk :IPython<Space>--existing<Space>--no-window<CR>
