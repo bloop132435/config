@@ -75,6 +75,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tpope/vim-eunuch'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
+		Plug 'dbeniamine/cheat.sh-vim'
 
 "}}}
 call plug#end()
@@ -282,6 +283,10 @@ end
 remap('i','<CR>', 'v:lua.MUtils.completion_confirm()',{expr = true, noremap = true})
 EOF
 " }}}
+" Cheat.sh {{{
+	let g:CheatSheetDoNotMap = 1
+
+" }}}
 " Color Schemes {{{
 	let g:gruvbox_contrast_dark = "hard"
 	let g:gruvbox_italicize_comments = 0
@@ -350,6 +355,17 @@ EOF
 		au BufEnter * if s:isdir(expand('%')) | bd | exe 'Defx' | endif
 	augroup END
 
+	function CheatSource(...)
+		if a:0 > 0
+			return "curl https://cheat.sh/" . a:1 . "/:list"
+		endif
+			return "curl https://cheat.sh//:list"
+	endfunction
+	let g:clap_provider_cheat = {
+				\ 'source' : funcref("CheatSource"),
+				\ 'sink' : "Cheat ",
+				\}
+	nnoremap <silent>  :Clap cheat<CR>
 	let g:Blines = g:clap#provider#blines#
 	function! g:Blines.sink(selected) abort
 	  let lnum = matchstr(a:selected, '^\s*\(\d\+\) ')
