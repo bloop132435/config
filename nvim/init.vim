@@ -76,7 +76,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
 		Plug 'dbeniamine/cheat.sh-vim'
-		Plug 'vim-ctrlspace/vim-ctrlspace'
 
 "}}}
 call plug#end()
