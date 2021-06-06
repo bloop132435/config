@@ -29,7 +29,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'glepnir/lspsaga.nvim'
 		Plug 'ray-x/lsp_signature.nvim'  "function signature help for lsp
 		Plug 'hrsh7th/nvim-compe'
-		Plug 'SirVer/ultisnips'
+		Plug 'bloop132435/ultisnips'
 
 " }}}
 " Looks {{{
@@ -217,24 +217,9 @@ call plug#end()
 	nnoremap <C-s> :Scratch<CR>
 	nmap <leader><leader>s :so $MYVIMRC<CR>
 	nnoremap Y y$
-	nnoremap <leader>wd <C-W>c
-	nnoremap <leader>w2 <C-W>v
-	nnoremap <leader>wh <C-W>h
-	nnoremap <leader>wj <C-W>j
-	nnoremap <leader>wl <C-W>l
-	nnoremap <leader>wk <C-W>k
-	nnoremap <leader>wH <C-W>5<
-	nnoremap <leader>wL <C-W>5>
-	nnoremap <leader>wJ :resize +5<CR>
-	nnoremap <leader>wK :resize -5<CR>
-	nnoremap <leader>w= <C-W>=
-	nnoremap <leader>ws <C-W>s
-	nnoremap <leader>wv <C-W>v
 	nnoremap <leader>bd :bd! %<CR>
-	nnoremap <leader>bn :bn<CR>
-	nnoremap <leader>bp :bp<CR>
 	nnoremap <leader><leader>a GVgg
-	nnoremap <leader><leader>t :ToggleTerminal<CR>
+	nnoremap <leader>t :ToggleTerminal<CR>
 	nnoremap j jzz
 	nnoremap k kzz
 
@@ -738,7 +723,6 @@ EOF
 
 " }}}
 " Testing {{{
-
 
 
 "}}}
