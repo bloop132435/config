@@ -408,6 +408,8 @@ EOF
     nnoremap <silent>  :Clap! grep
     nnoremap <silent>  :Clap! loclist
     nnoremap <silent>  :Clap! quickfix
+	nnoremap <silent>  :Clap!
+	nnoremap <silent>  :Clap! helptags
 
 	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden -I 
 	nnoremap <silent> <leader>fl :Clap! blines
