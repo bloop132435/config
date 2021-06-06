@@ -76,6 +76,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
 		Plug 'dbeniamine/cheat.sh-vim'
+		Plug 'vim-ctrlspace/vim-ctrlspace'
 
 "}}}
 call plug#end()
@@ -355,17 +356,6 @@ EOF
 		au BufEnter * if s:isdir(expand('%')) | bd | exe 'Defx' | endif
 	augroup END
 
-	function CheatSource(...)
-		if a:0 > 0
-			return "curl https://cheat.sh/" . a:1 . "/:list"
-		endif
-			return "curl https://cheat.sh//:list"
-	endfunction
-	let g:clap_provider_cheat = {
-				\ 'source' : funcref("CheatSource"),
-				\ 'sink' : "Cheat ",
-				\}
-	nnoremap <silent>  :Clap cheat<CR>
 	let g:Blines = g:clap#provider#blines#
 	function! g:Blines.sink(selected) abort
 	  let lnum = matchstr(a:selected, '^\s*\(\d\+\) ')
