@@ -24,6 +24,22 @@ for(${1:auto} ${2:i} : ${3:container}) {
 	$4
 }
 endsnippet
+snippet def "function definition skeleton"
+// NOTE: ${4:description}
+${1:return type} ${2:name}(${3:parameters});
+endsnippet
+
+snippet fnc "function skeleton" Abt
+${1:return type} ${2:name}(${3:parameters}) {
+	${4}
+}
+endsnippet
+
+snippet lmb "lambda" iA
+[${1:&}](${2:parameters})->${3:return type} {
+	${4}
+}
+endsnippet
 
 global !p
 def coutExpand(snip):
@@ -198,7 +214,7 @@ snippet sth "heapsort" bt
 sort_heap(begin(${1:container}), end($1) $2);
 endsnippet
 
-snippet ist "is sorted" it
+snippet isrt "is sorted" bt
 is_sorted(begin(${1:container}), end($1) $2);
 endsnippet
 
@@ -282,4 +298,10 @@ ostream& operator<<(ostream& os, const ${1:struct_name}& object){
 	${2:print members}
 	return os;
 }
+endsnippet
+
+# Useful things I type sometimes
+
+snippet .pb "push back" Ai
+.push_back($1);$0
 endsnippet
