@@ -379,7 +379,6 @@ EOF
 		au Filetype clap_input imap  <Down>
 		au Filetype clap_input imap  <Up>
 	augroup END
-	" let g:clap_layout = {'relative':'editor','width':'100%','col':'0%','height':'95%','row':'0%'}
 	let g:clap_layout = {'relative':'window','width':'100%','col':'0%','height':'100%','row':'0%'}
 	let g:clap_open_preview = 'never'
 	let g:clap_disable_run_rooter = v:true
@@ -409,7 +408,7 @@ EOF
     nnoremap <silent>  :Clap! loclist
     nnoremap <silent>  :Clap! quickfix
 	nnoremap <silent>  :Clap!
-	nnoremap <silent>  :Clap! helptags
+	nnoremap <silent>  :Clap! help_tags
 
 	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden -I 
 	nnoremap <silent> <leader>fl :Clap! blines
