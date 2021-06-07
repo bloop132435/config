@@ -57,11 +57,10 @@ def caseCreate(snip):
 	for i in range(n):
 		c = 2 + 2 * i
 		b = c + 1
-		if i == n-1:
-			case = indent + f"default:\n" + indent + '\t' + f"${c}\n" + indent + '\t' + "break;\n"
-		else:
-			case = indent + f"case ${c}:\n" + indent + '\t' + f"${b}\n" + indent + '\t' + "break;\n"
+		case = indent + f"case ${c}:\n" + indent + '\t' + f"${b}\n" + indent + '\t' + "break;\n"
 		snippet += case
+	last = 2 + 2 * n
+	snippet += indent + f"default:\n{indent}\t${last}\n{indent}\tbreak;\n"
 	snippet +=  indent + '}'
 	snip.expand_anon(snippet)
 endglobal
