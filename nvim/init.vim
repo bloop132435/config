@@ -379,6 +379,7 @@ EOF
 		au Filetype clap_input imap  <Down>
 		au Filetype clap_input imap  <Up>
 	augroup END
+	highlight ClapDisplay guibg=#000000
 	let g:clap_layout = {'relative':'window','width':'100%','col':'0%','height':'100%','row':'0%'}
 	let g:clap_open_preview = 'never'
 	let g:clap_disable_run_rooter = v:true
@@ -729,6 +730,14 @@ EOF
 
 " }}}
 " Testing {{{
+highlight ActiveNormal guibg=#1d2021
+highlight InactiveNormal guibg=#3c3836
+augroup focus
+	au!
+	au WinEnter * setlocal winhighlight=Normal:ActiveNormal
+	au WinLeave * setlocal winhighlight=Normal:InactiveNormal
+augroup END
+
 
 
 "}}}
