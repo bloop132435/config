@@ -111,7 +111,7 @@ call plug#end()
 	set inccommand=split
 	set exrc
 	set noemoji
-	set scrolloff=0
+	set scrolloff=10
 	set gdefault
 	set completeopt=menuone,noselect
 	set path+=**
@@ -374,7 +374,6 @@ EOF
 		au Filetype clap_input imap  <Down>
 		au Filetype clap_input imap  <Up>
 	augroup END
-	highlight ClapDisplay guibg=#000000
 	let g:clap_layout = {'relative':'window','width':'100%','col':'0%','height':'100%','row':'0%'}
 	let g:clap_open_preview = 'never'
 	let g:clap_disable_run_rooter = v:true
@@ -391,7 +390,7 @@ EOF
 	let g:clap_provider_grep_delay = 0
 	let g:clap_provider_grep_blink = [0,0]
 	let g:clap_provider_grep_opts = '-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
-	let g:clap_provider_grep_enable_icon = 1
+	let g:clap_provider_grep_enable_icon = 0
 
 	let g:clap_provider_yanks_history = "~/.clap_yanks"
 
@@ -489,7 +488,7 @@ EOF
 	let g:jupytext_filetype_map = {'py':'python'}
 " }}}
 " Maximizer {{{
-	nnoremap <leader>m :MaximizerToggle!<CR>
+	nnoremap <silent> <leader>m :MaximizerToggle!<CR>
 
 " }}}
 " Nvim-lsp {{{
@@ -732,7 +731,6 @@ augroup focus
 	au WinEnter * setlocal winhighlight=Normal:ActiveNormal
 	au WinLeave * setlocal winhighlight=Normal:InactiveNormal
 augroup END
-
 
 
 "}}}
