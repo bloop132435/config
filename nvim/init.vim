@@ -126,7 +126,6 @@ call plug#end()
 	set mps+=<:>
 	set backspace=indent,eol,start " fix backspace
 	set belloff=all
-	let g:netrw_bufsettings = 'ignorecase noma nomod nu nowrap ro nobl relativenumber'
 	set nohlsearch
 	set incsearch
 	set cmdheight=2
@@ -310,10 +309,6 @@ EOF
 " Finders {{{
 	nnoremap <silent>  :Defx `expand('%:p:h')`  -show-ignored-files<CR>
 
-	fu! s:isdir(dir) abort
-		return !empty(a:dir) && (isdirectory(a:dir) ||
-		   \ (!empty($SYSTEMDRIVE) && isdirectory('/'.tolower($SYSTEMDRIVE[0]).a:dir)))
-	endfu
 	call defx#custom#column('git','raw_mode',1)
 	call defx#custom#option('_', {
 		  \ 'columns': 'mark:git:filename:type:space:size:space:space:space:time',
@@ -327,6 +322,7 @@ EOF
 		execute 'Clap! files ++finder=fd -E\ .git --hidden -I  . ' .  s:rootdir
 	endfunction
 	function DefxSettings()
+		set number relativenumber
 		nnoremap <silent><buffer> <CR> :call defx#call_async_action("open")<CR>
 		nnoremap <silent><buffer> l :call defx#call_async_action("open")<CR>
 		nnoremap <silent><buffer> <BS> :call defx#call_async_action("cd","..")<CR>
@@ -348,11 +344,10 @@ EOF
 
 
 	endfun
+	let g:loaded_netrwPlugin = 1
 	augroup Defx
 		au!
 		autocmd Filetype defx call DefxSettings()
-		au VimEnter * sil! au! FileExplorer *
-		au BufEnter * if s:isdir(expand('%')) | bd | exe 'Defx' | endif
 	augroup END
 
 	let g:Blines = g:clap#provider#blines#
