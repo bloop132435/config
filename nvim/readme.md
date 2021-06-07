@@ -3,3 +3,8 @@
 * curl https://cht.sh/:list shows all categories
 	* The result is line separated
 * everthing ending with / will be another section, which we can use :list on again
+* use --xxx=something to find specifics
+## Clap notes
+* highlight groups
+## Ultisnips notes
+* `if &previewwindow` could be used to selectively disable the ultisnips
