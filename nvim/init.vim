@@ -162,13 +162,6 @@ call plug#end()
 	set foldmethod=manual
 	set mouse=a
 	set ruler
-	highlight ActiveNormal guibg=#1d2021
-	highlight InactiveNormal guibg=#282828
-	augroup focus
-		au!
-		au WinEnter * setlocal winhighlight=Normal:ActiveNormal
-		au WinLeave * setlocal winhighlight=Normal:InactiveNormal
-	augroup END
 	fun! TrimWhitespace()
 		let l:save = winsaveview()
 		keeppatterns %s/\s\+$//e
@@ -347,6 +340,13 @@ EOF
 	" let g:gruvbox_improved_strings = 1
 	colo gruvbox
 	set background=dark
+	highlight ActiveNormal guibg=#1d2021
+	highlight InactiveNormal guibg=#282828
+	augroup focus
+		au!
+		au WinEnter * setlocal winhighlight=Normal:ActiveNormal
+		au WinLeave * setlocal winhighlight=Normal:InactiveNormal
+	augroup END
 
 " }}}
 " Clang_Format {{{
