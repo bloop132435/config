@@ -373,13 +373,6 @@ EOF
 		  \ 'columns': 'mark:git:filename:type:space:size:space:space:space:time',
 		  \ })
 	let g:__t_func_list = 4
-	function DefxCP()
-		normal! gg
-		normal! "zyy
-		let s:rootdir =  @z
-		let s:rootdir = substitute(s:rootdir, "\\[in\\]","","")
-		execute 'Clap! files ++finder=fd -E\ .git --hidden -I  . ' .  s:rootdir
-	endfunction
 	function DefxSettings()
 		set number relativenumber
 		nnoremap <silent><buffer> <CR> :call defx#call_async_action("open")<CR>
@@ -399,7 +392,6 @@ EOF
 		nnoremap <silent><buffer> t :call defx#call_async_action('execute_command',[input("command> "),"async"])<CR>
 
 		nnoremap <silent><buffer>  :call defx#call_async_action("quit")<CR>
-		nnoremap <silent><buffer>  :call DefxCP()<CR>
 
 
 	endfun
@@ -409,18 +401,6 @@ EOF
 		autocmd Filetype defx call DefxSettings()
 	augroup END
 
-	let g:Blines = g:clap#provider#blines#
-	function! g:Blines.sink(selected) abort
-	  let lnum = matchstr(a:selected, '^\s*\(\d\+\) ')
-	  let lnum = str2nr(trim(lnum))
-	  " Push the current position to the jumplist
-	  normal! m'
-	  silent call cursor(lnum, 1)
-	  normal! ^zvzz
-	  if stridx(expand('%'),'defx') != -1
-		  call defx#call_async_action("open")
-	  endif
-	endfunction
 	let g:HelpT = g:clap#provider#help_tags#
 	function! HelpT.sink(line) abort
 		let [tag, doc_fname] = split(a:line, "\t")
