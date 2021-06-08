@@ -19,7 +19,7 @@
 " Plugins{{{
 "be sure to install Vim Plug
 call plug#begin('~/.vim/plugged')
-" p-lua {{{{{{
+" p-lua {{{
 		Plug 'nvim-lua/popup.nvim'  "pop up api for nvim
 		Plug 'nvim-lua/plenary.nvim'  "assorted functions for lua neovim
 
@@ -81,7 +81,6 @@ call plug#begin('~/.vim/plugged')
 " p-Testing {{{
 " }}}
 "
-" }}}
 call plug#end()
 
 " }}}
@@ -744,6 +743,12 @@ require'nvim-treesitter.configs'.setup{
 	},
 }
 EOF
+augroup tsfold
+	au!
+	au Filetype cpp set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr()
+	au Filetype java set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr()
+	au Filetype py set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr()
+augroup END
 " }}}
 " Undo_Tree {{{
 	nnoremap <silent> <leader>u :MundoToggle<CR>
