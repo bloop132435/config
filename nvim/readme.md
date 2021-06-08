@@ -7,4 +7,4 @@
 ## Clap notes
 * highlight groups
 ## Ultisnips notes
-* `if &previewwindow` could be used to selectively disable the ultisnips
+* ~~`if &previewwindow` could be used to selectively disable the ultisnips~~ Already used
