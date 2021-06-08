@@ -111,6 +111,7 @@ call plug#end()
 	set relativenumber number
 
 	set nowrap
+	set noshowmode
 	set autowriteall
 	set inccommand=split
 	set exrc
