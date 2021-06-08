@@ -229,6 +229,54 @@ call plug#end()
 	nnoremap <leader>t :ToggleTerminal<CR>
 	nnoremap j jzz
 	nnoremap k kzz
+	nnoremap ;+       <C-w>+
+	nnoremap ;-       <C-w>-
+	nnoremap ;<       <C-w><
+	nnoremap ;=       <C-w>=
+	nnoremap ;>       <C-w>>
+	nnoremap ;H       <C-w>H
+	nnoremap ;J       <C-w>J
+	nnoremap ;K       <C-w>K
+	nnoremap ;L       <C-w>L
+	nnoremap ;P       <C-w>P
+	nnoremap ;R       <C-w>R
+	nnoremap ;S       <C-w>S
+	nnoremap ;T       <C-w>T
+	nnoremap ;W       <C-w>W
+	nnoremap ;]       <C-w>]
+	nnoremap ;^       <C-w>^
+	nnoremap ;_       <C-w>_
+	nnoremap ;b       <C-w>b
+	nnoremap ;c       <C-w>c
+	nnoremap ;d       <C-w>d
+	nnoremap ;f       <C-w>f
+	nnoremap ;F       <C-w>F
+	nnoremap ;g_      <C-w>g_
+	nnoremap ;g]      <C-w>g]
+	nnoremap ;g}      <C-w>g}
+	nnoremap ;gf      <C-w>gf
+	nnoremap ;gF      <C-w>gF
+	nnoremap ;gt      <C-w>gt
+	nnoremap ;gT      <C-w>gT
+	nnoremap ;g<Tab>  <C-w>g<Tab>
+	nnoremap ;h       <C-w>h
+	nnoremap ;i       <C-w>i
+	nnoremap ;j       <C-w>j
+	nnoremap ;k       <C-w>k
+	nnoremap ;l       <C-w>l
+	nnoremap ;n       <C-w>n
+	nnoremap ;o       <C-w>o
+	nnoremap ;p       <C-w>p
+	nnoremap ;q       <C-w>q
+	nnoremap ;r       <C-w>r
+	nnoremap ;s       <C-w>s
+	nnoremap ;t       <C-w>t
+	nnoremap ;v       <C-w>v
+	nnoremap ;w       <C-w>w
+	nnoremap ;x       <C-w>x
+	nnoremap ;z       <C-w>z
+	nnoremap ;bar     <C-w>bar
+	nnoremap ;}       <C-w>}
 
 	inoremap  <C-W>
 
