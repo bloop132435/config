@@ -19,12 +19,12 @@
 " Plugins{{{
 "be sure to install Vim Plug
 call plug#begin('~/.vim/plugged')
-" lua {{{
+" p-lua {{{{{{
 		Plug 'nvim-lua/popup.nvim'  "pop up api for nvim
 		Plug 'nvim-lua/plenary.nvim'  "assorted functions for lua neovim
 
 "}}}
-" Language_Support {{{
+" p-Language_Support {{{
 		Plug 'neovim/nvim-lspconfig'  "nvim builtin lsp
 		Plug 'glepnir/lspsaga.nvim'
 		Plug 'ray-x/lsp_signature.nvim'  "function signature help for lsp
@@ -32,7 +32,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'bloop132435/ultisnips'
 
 " }}}
-" Looks {{{
+" p-Looks {{{
 		Plug 'rktjmp/lush.nvim'
 		Plug 'npxbr/gruvbox.nvim'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
@@ -42,7 +42,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'folke/todo-comments.nvim'
 
 "}}}
-" Finders {{{
+" p-Finders {{{
 		Plug 'phaazon/hop.nvim'  "easy motion but for nvim
 		Plug 'wincent/loupe' "better incsearch for vim
 		Plug 'windwp/nvim-spectre'
@@ -50,13 +50,13 @@ call plug#begin('~/.vim/plugged')
 		Plug 'kristijanhusak/defx-git'
 		Plug 'liuchengxu/vim-clap'  ,{'do':':Clap install-binary!'}
 
-"}}}
-" Git {{{
+		"}}}
+" p-Git {{{
 		Plug 'kdheepak/lazygit.nvim' "lazy git integration for neovim
 		Plug 'tpope/vim-fugitive'
 
 "}}}
-" Misc {{{
+" p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
 		Plug 'b3nj5m1n/kommentary'  "comments
 		Plug 'simnalamburt/vim-mundo'
@@ -78,6 +78,10 @@ call plug#begin('~/.vim/plugged')
 		Plug 'dbeniamine/cheat.sh-vim'
 
 "}}}
+" p-Testing {{{
+" }}}
+"
+" }}}
 call plug#end()
 
 " }}}
