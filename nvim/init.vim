@@ -275,7 +275,6 @@ call plug#end()
 	nnoremap ;z       <C-w>z
 	nnoremap ;bar     <C-w>bar
 	nnoremap ;}       <C-w>}
-	nnoremap <leader>z 
 
 	inoremap  <C-W>
 

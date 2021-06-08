@@ -7,8 +7,7 @@ export PYTHONPATH=$PYTHONPATH:$HOME/gdbutils
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
 export EDITOR=nvim
 export PAGER="nvim -c 'set ft=man'"
-nvim -c "call feedkeys('')"
-alias v=fg
+alias v=nvim
 alias python=python3
 source <(kitty + complete setup bash)
 set -o vi
