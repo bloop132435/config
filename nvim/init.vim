@@ -650,26 +650,12 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
 )
 EOF
 	"Mappings
-	nnoremap <silent> <leader>cD :lua vim.lsp.buf.declaration()<CR>
-	nnoremap <silent> <leader>cd   :lua vim.lsp.buf.definition()<CR>
-	nnoremap <silent> K :lua vim.lsp.buf.hover()<CR>
-	nnoremap <silent> gh :lua vim.lsp.buf.hover()<CR>:lua vim.lsp.buf.hover()<CR>
-	nnoremap  <leader>cr :lua vim.lsp.buf.references()<CR>
-	nnoremap <silent> <leader>cs :lua vim.lsp.buf.signature_help()<CR>
-	nnoremap <silent> <leader>ci :lua vim.lsp.buf.implementation()<CR>
-	nnoremap <silent> <leader>ct :lua vim.lsp.buf.type_definition()<CR>
-	nnoremap <silent> <leader>cw :lua vim.lsp.buf.document_symbol()<CR>
-	nnoremap <silent> <leader>cW :lua vim.lsp.buf.workspace_symbols()<CR>
-	nnoremap <silent> <leader>cf :lua vim.lsp.buf.code_action()<CR>
-	nnoremap <silent> <leader>cR :lua vim.lsp.buf.rename()<CR>
-	nnoremap <silent> <leader>cF :lua vim.lsp.buf.formatting()<CR>
-
-	nnoremap <silent> ;f :Lspsaga lsp_finder<CR>
-	nnoremap <silent> ;a :Lspsaga code_action<CR>
-	vnoremap <silent> ;a :Lspsaga range_code_action<CR>
+	nnoremap <silent> ,f :Lspsaga lsp_finder<CR>
+	nnoremap <silent> ,a :Lspsaga code_action<CR>
+	vnoremap <silent> ,a :Lspsaga range_code_action<CR>
 	nnoremap <silent> K :Lspsaga hover_doc<CR>
-	nnoremap <silent> ;r :Lspsaga rename<CR>
-	nnoremap <silent> ;d :Lspsaga preview_definition<CR>
+	nnoremap <silent> ,r :Lspsaga rename<CR>
+	nnoremap <silent> ,d :Lspsaga preview_definition<CR>
 
 	augroup NvimLsp
 		au!
