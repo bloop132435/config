@@ -725,7 +725,7 @@ EOF
 " }}}
 " Testing {{{
 highlight ActiveNormal guibg=#1d2021
-highlight InactiveNormal guibg=#3c3836
+highlight InactiveNormal guibg=#282828
 augroup focus
 	au!
 	au WinEnter * setlocal winhighlight=Normal:ActiveNormal
