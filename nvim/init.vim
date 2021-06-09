@@ -79,6 +79,7 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Testing {{{
+Plug 'sakhnik/nvim-gdb' , {'do':':!./install.sh'}
 
 " }}}
 call plug#end()
