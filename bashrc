@@ -1,9 +1,6 @@
 export PATH=$PATH:~/programs/scripts/
 export PATH=$PATH:~/downloads/squashfs-root/usr/bin
-export PATH=$PATH:~/.local/share/gem/ruby/3.0.0:/usr/lib/ruby/gems/3.0.0
-export PATH=$PATH:/home/gqian/.local/share/gem/ruby/3.0.0/bin
 export PATH=$PATH:/home/gqian/cling/bin
-export PYTHONPATH=$PYTHONPATH:$HOME/gdbutils
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
 export EDITOR=nvim
 export PAGER="nvim -c 'set ft=man'"
