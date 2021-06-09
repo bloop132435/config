@@ -80,6 +80,7 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Testing {{{
 Plug 'sakhnik/nvim-gdb' , {'do':':!./install.sh'}
+Plug 'camspiers/snap'
 
 " }}}
 call plug#end()
@@ -756,6 +757,8 @@ augroup END
 
 " }}}
 " Testing {{{
+lua snap = require('snap')
+nnoremap <leader>p :lua snap.run { producer = snap.get'consumer.fzf'(snap.get'producer.ripgrep.file'), select = snap.get'select.file'.select, multiselect = snap.get'select.file'.multiselect,  } <CR>
 
 "}}}
 " Last {{{
