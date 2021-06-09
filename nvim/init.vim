@@ -70,7 +70,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'windwp/nvim-autopairs'
 		Plug 'godlygeek/tabular'
 		Plug 'kevinhwang91/nvim-hlslens'
-		Plug 'caenrique/nvim-toggle-terminal'
+		Plug 'ThePrimeagen/harpoon'
 		Plug 'svermeulen/vim-subversive'
 		Plug 'tpope/vim-eunuch'
 		Plug 'simeji/winresizer'
@@ -79,8 +79,9 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Testing {{{
+
 " }}}
-"
+
 call plug#end()
 
 " }}}
@@ -708,12 +709,13 @@ function! s:align()
   endif
 endfunction
 " }}}
-" TODOs {{{
-lua require'todo-comments'.setup()
+" Terminal (Harpoon) {{{
+	nnoremap <leader>t :lua require("harpoon.term").gotoTerminal(1)<CR>
+	nnoremap <leader>s :lua require("harpoon.term").sendCommand(1, vim.fn.input("Command≻").."\n")<CR>
 
 " }}}
-" ToggleTerminal {{{
-	nnoremap <silent> <leader>t :ToggleTerminal
+" TODOs {{{
+lua require'todo-comments'.setup()
 
 " }}}
 "  Tresitter {{{
@@ -755,8 +757,6 @@ augroup END
 
 " }}}
 " Testing {{{
-
-
 
 "}}}
 " Last {{{
