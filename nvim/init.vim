@@ -40,6 +40,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rhysd/vim-clang-format'
 		Plug 'folke/todo-comments.nvim'
+		Plug 'yamatsum/nvim-cursorline'
 
 "}}}
 " p-Finders {{{
