@@ -410,6 +410,7 @@ EOF
 	augroup ClapFiler
 		au!
 		au Filetype clap_input call compe#setup({'enabled': v:false},0)
+		au Filetype help setlocal nobuflisted
 		au Filetype clap_input imap  <Down>
 		au Filetype clap_input imap  <Up>
 	augroup END
