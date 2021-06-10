@@ -367,7 +367,7 @@ EOF
 	nnoremap <silent> <ScrollWheelUp> :call comfortable_motion#flick(-40)<CR>
 "}}}
 " Finders {{{
-	nnoremap <silent>  :Defx `expand('%:p:h')`  -show-ignored-files<CR>
+	nnoremap <silent>  :Defx .  -show-ignored-files<CR>
 
 	call defx#custom#column('git','raw_mode',1)
 	call defx#custom#option('_', {
