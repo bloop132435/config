@@ -199,7 +199,7 @@ call plug#end()
 		autocmd FileType python iabbrev <buffer> cell ##o##O
         autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ]
         autocmd Filetype markdown setlocal formatoptions=ctnqro
-		autocmd BufWinEnter COMMIT_EDITMSG set bufhidden
+		autocmd BufWinEnter COMMIT_EDITMSG set nobuflisted
 	augroup END
 
 	function! OpenHelpInCurrentWindow(topic)
@@ -367,7 +367,7 @@ EOF
 	nnoremap <silent> <ScrollWheelUp> :call comfortable_motion#flick(-40)<CR>
 "}}}
 " Finders {{{
-	nnoremap <silent>  :Defx `expand('%:p:h')`  -show-ignored-files<CR>
+	nnoremap <silent>  :Defx .  -show-ignored-files<CR>
 
 	call defx#custom#column('git','raw_mode',1)
 	call defx#custom#option('_', {
