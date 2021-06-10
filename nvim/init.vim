@@ -199,7 +199,7 @@ call plug#end()
 		autocmd FileType python iabbrev <buffer> cell ##o##O
         autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ]
         autocmd Filetype markdown setlocal formatoptions=ctnqro
-		autocmd BufWinEnter COMMIT_EDITMSG set bufhidden
+		autocmd BufWinEnter COMMIT_EDITMSG set nobuflisted
 	augroup END
 
 	function! OpenHelpInCurrentWindow(topic)
