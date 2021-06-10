@@ -656,9 +656,9 @@ EOF
 " }}}
 " Snippets {{{
 	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = "~/.config/nvim/UltiSnips"
-	let g:UltiSnipsExpandTrigger="<tab>"
-	let g:UltiSnipsJumpBackwardTrigger='<S-tab>'
-	let g:UltiSnipsJumpForwardTrigger='<tab>'
+	let g:UltiSnipsExpandTrigger="<c-j>"
+	let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+	let g:UltiSnipsJumpForwardTrigger='<c-j>'
 
 "}}}
 "  Statusline {{{
