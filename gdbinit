@@ -1,6 +1,8 @@
 set history filename ~/.gdb_history
 set history save on
 set print pretty on
+set print array on
+set print null-stop
 skip -gfi /usr/include/**/*
 skip -gfi /usr/include/c++/11.1.0/**/*
 skip -gfi /usr/include/c++/11.1.0/*
