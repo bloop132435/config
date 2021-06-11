@@ -16,6 +16,7 @@
 " N::::::N        N::::::N E::::::::::::::::::::E    OO:::::::::OO               V:::V            I::::::::I M::::::M               M::::::M
 " NNNNNNNN         NNNNNNN EEEEEEEEEEEEEEEEEEEEEE      OOOOOOOOO                  VVV             IIIIIIIIII MMMMMMMM               MMMMMMMM
 " " }}}
+luafile ~/.config/nvim/config.lua
 " Plugins{{{
 "be sure to install Vim Plug
 call plug#begin('~/.vim/plugged')
