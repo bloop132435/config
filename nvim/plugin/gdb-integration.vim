@@ -1,4 +1,4 @@
-function! GDBBreakpointLaunch() abort
+function! GDBBreakpoint() abort
 	let s:cond = input("Condition > ")
 	let s:cmd = input("Command > ")
 	let s:line = line('.')
@@ -12,4 +12,19 @@ function! GDBBreakpointLaunch() abort
 	lua require("harpoon.term").sendCommand(1, vim.api.nvim_eval('s:prompt'))
 endfunction
 
-nnoremap <leader><cr> :call GDBBreakpointLaunch()<CR>
+function! GDBEnterMode() abort
+	"Break Point
+	nnoremap b :call GDBBreakpoint()<CR>
+	"Continue
+	nnoremap c :lua require("harpoon.term").sendCommand(1, "continue\n")<CR>
+	"Printing
+	nnoremap p :lua require("harpoon.term").sendCommand(1, "print " .. vim.fn.input("What to print > ") .. "\n" )<CR>
+endfunction
+
+function! GDBLeaveMode() abort
+	nunmap b
+	nunmap c
+	nunmap p
+endfunction
+
+" nnoremap <leader><cr> :call GDBBreakpointLaunch()<CR>
