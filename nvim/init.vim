@@ -642,12 +642,13 @@ EOF
 	nnoremap <silent> K :Lspsaga hover_doc<CR>
 	nnoremap <silent> ,r :Lspsaga rename<CR>
 	nnoremap <silent> ,d :Lspsaga preview_definition<CR>
-
+	nnoremap <silent> gh :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 	augroup NvimLsp
 		au!
 		autocmd Filetype lspsagafinder setlocal scrolloff=0
 		autocmd CursorHold * lua vim.lsp.diagnostic.set_loclist({open_loclist = false,severity_limit="Hint",})
 		autocmd BufEnter * lua require'compe'.setup{ enabled = true; autocomplete = true; debug = false; min_lenth = 1; preselect = 'enable'; throttle_time = 80; source_timeout = 2000; imcomplete_delay = 400; max_abbr_width = 100; max_kind_width = 100; max_menu_width = 100; documentation = true; source = { path = true; buffer = true; calc = true; nvim_lsp = true; nvim_lua = true; vsnip = false; ultisnips = true; tabnine = true;}; }
+
 	augroup END
 
 " }}}
