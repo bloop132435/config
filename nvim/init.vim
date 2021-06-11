@@ -421,7 +421,7 @@ EOF
 	let g:clap_disable_run_rooter = v:true
 	let g:clap_popup_border = "sharp"
 	let g:clap_search_box_border_style = "nil"
-	let g:clap_default_external_filter = 'fzy'
+	let g:clap_default_external_filter = 'fzf'
 	let g:clap_enable_icon = 0
 	let g:clap_enable_background_shadow = v:false
 	let g:clap_background_shadow_blend = 0
