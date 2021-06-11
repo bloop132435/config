@@ -663,7 +663,33 @@ EOF
 
 "}}}
 "  Statusline {{{
-
+	set statusline=
+	" LEFT
+		" Mode
+		let g:modeToText = {
+					\ "n" : "NORMAL",
+					\ "i" : "INSERT",
+					\ "v" : "VISUAL",
+					\ "V" : "V-LINE",
+					\ "\<C-v>" : "VBLOCK",
+					\ "R" : "RPLACE" ,
+					\ "c" : "COMMND",
+					\ "t" : "TERMNL",
+					\ "s" : "SELECT",
+					\}
+		set statusline+=[%{g:modeToText[mode()]}]
+		" show full file path
+		set statusline+=[%F]
+		set statusline+=
+		" Modified and Read-only
+		set statusline+=%m
+	"RIGHT
+		set statusline+=%=
+		" Filetype
+		set statusline+=%y
+		" show current line number out of total lines
+		set statusline+=[%p%%]
+		set statusline+=:[%l/%L]
 " }}}
 " Subversive {{{
 	nmap s <plug>(SubversiveSubstitute)
