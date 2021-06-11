@@ -677,16 +677,22 @@ EOF
 					\ "t" : "TERMNL",
 					\ "s" : "SELECT",
 					\}
+		highlight User2 guifg=#4f4945 guibg=#1d2021
 		set statusline+=[%{g:modeToText[mode()]}]
+		set statusline+=%2*%*
 		" show full file path
 		set statusline+=[%F]
 		set statusline+=
+		set statusline+=%2*%*
 		" Modified and Read-only
 		set statusline+=%m
+		set statusline+=%2*%*
 	"RIGHT
 		set statusline+=%=
+		set statusline+=%2*%*
 		" Filetype
 		set statusline+=%y
+		set statusline+=%2*%*
 		" show current line number out of total lines
 		set statusline+=[%p%%]
 		set statusline+=:[%l/%L]
