@@ -37,7 +37,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'rktjmp/lush.nvim'
 		Plug 'npxbr/gruvbox.nvim'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
-		Plug 'tjdevries/express_line.nvim'
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rhysd/vim-clang-format'
 		Plug 'folke/todo-comments.nvim'
@@ -664,14 +663,7 @@ EOF
 
 "}}}
 "  Statusline {{{
-lua <<EOF
-local function generator()
-	local extensions = require("el.extensions")
-	local helper = require("el.helper")
-	local builtin = require("el.builtin")
-end
-require('el').setup({})
-EOF
+
 " }}}
 " Subversive {{{
 	nmap s <plug>(SubversiveSubstitute)
