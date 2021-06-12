@@ -19,6 +19,7 @@ google-chrome-unstable/**
 google-chrome-beta/**
 gtk-3.0/**
 gtk-4.0/**
+guake/**
 hexchat/**
 htop/**
 ibus/**
