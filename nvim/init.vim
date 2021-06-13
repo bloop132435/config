@@ -278,8 +278,6 @@ call plug#end()
 
 	inoremap  <C-W>
 
-	:command Source :so $MYVIMRC
-
 	vnoremap , <gv
 	vnoremap . >gv
 	vnoremap <BS> zf
@@ -782,7 +780,21 @@ augroup END
 
 " }}}
 " Testing {{{
-
+	packadd termdebug
+	let g:termdebug_wide = 163
+	nnoremap [e :Evaluate
+	nnoremap [r :Run <CR>
+	nnoremap [a :Arguments <CR>
+	nnoremap [b :Break<CR>
+	nnoremap [B :call GDBBreakpoint()<CR>
+	nnoremap [<space> :call TermDebugSendCommand(input("Command to send"))<CR>
+	nnoremap [s :Step<CR>
+	nnoremap [n :Over<CR>
+	nnoremap [f :Finish<CR>
+	nnoremap [c :Continue<CR>
+	nnoremap [q :Stop<CR>
+	hi debugPC term=reverse ctermbg=darkblue guibg=darkblue
+	hi debugBreakpoint term=reverse ctermbg=red guibg=red
 
 "}}}
 " Last {{{
