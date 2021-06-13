@@ -254,7 +254,7 @@ int n; //The number of nodes in the graph
 int root; // The starting node
 vector<vector<int>> adj; //The adjacency list of the graph
 vector<int> dist; //stores the distances of each node from root
-dist.resize(-1); //initializes all distance to -1
+dist.resize(n,-1); //initializes all distance to -1
 dist[root] = 0;
 queue<int> bfs; //stores the numbers to process in order
 bfs.push(root);
@@ -279,7 +279,7 @@ int n; //The number of nodes in the graph
 int root; // The starting node
 vector<vector<int>> adj; //The adjacency list of the graph
 vector<int> dist; //stores the distances of each node from root
-dist.resize(-1); //initializes all distance to -1
+dist.resize(n,-1); //initializes all distance to -1
 dist[root] = 0;
 auto dfs = [&](int pos, auto& dfs_func) -> void {
 	for(int nex : adj[pos]) {
