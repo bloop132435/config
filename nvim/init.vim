@@ -40,6 +40,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rhysd/vim-clang-format'
 		Plug 'folke/todo-comments.nvim'
+		Plug 'rktjmp/git-info.vim'
 
 "}}}
 " p-Finders {{{
@@ -697,10 +698,14 @@ EOF
 		" show full file path
 		set statusline+=[%F]
 		set statusline+=
+		" Git Branch
+		set statusline+=[%{git_info#branch_name()}]
 		" Modified and Read-only
 		set statusline+=%m
 	"RIGHT
 		set statusline+=%=
+		" Git status
+		set statusline+=[%{git_info#changes()['as_string']}]
 		" Filetype
 		set statusline+=%y
 		" show current line number out of total lines
