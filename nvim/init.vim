@@ -549,6 +549,10 @@ EOF
 	nnoremap <silent> <leader>m :MaximizerToggle!<CR>
 
 " }}}
+" Markdown {{{
+	let g:markdown_fenced_languages =	['html', 'python', 'ruby', 'vim', 'cpp', 'java']
+
+" }}}
 " Nvim-lsp {{{
 	lua << EOF
 require('lspsaga').init_lsp_saga({
