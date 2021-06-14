@@ -21,7 +21,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rhysd/vim-clang-format'
 		Plug 'rktjmp/git-info.vim'
-		Plug 'folke/lsp-colors.nvim'
 
 "}}}
 " p-Finders {{{
@@ -314,6 +313,7 @@ EOF
 
 " }}}
 " Color Schemes {{{
+	let g:gruvbox_plugin_hi_groups = 1
 	colo gruvbox8_hard
 	set background=dark
 	highlight ActiveNormal guibg=#1d2021
