@@ -1,21 +1,3 @@
-" TITLE {{{
-" NNNNNNNN        NNNNNNNN EEEEEEEEEEEEEEEEEEEEEE      OOOOOOOOO      VVVVVVVV           VVVVVVVV IIIIIIIIII MMMMMMMM               MMMMMMMM
-" N:::::::N       N::::::N E::::::::::::::::::::E    OO:::::::::OO    V::::::V           V::::::V I::::::::I M:::::::M             M:::::::M
-" N::::::::N      N::::::N E::::::::::::::::::::E  OO:::::::::::::OO  V::::::V           V::::::V I::::::::I M::::::::M           M::::::::M
-" N:::::::::N     N::::::N EE::::::EEEEEEEEE::::E O:::::::OOO:::::::O V::::::V           V::::::V II::::::II M:::::::::M         M:::::::::M
-" N::::::::::N    N::::::N   E:::::E       EEEEEE O::::::O   O::::::O  V:::::V           V:::::V    I::::I   M::::::::::M       M::::::::::M
-" N:::::::::::N   N::::::N   E:::::E              O:::::O     O:::::O   V:::::V         V:::::V     I::::I   M:::::::::::M     M:::::::::::M
-" N:::::::N::::N  N::::::N   E::::::EEEEEEEEEE    O:::::O     O:::::O    V:::::V       V:::::V      I::::I   M:::::::M::::M   M::::M:::::::M
-" N::::::N N::::N N::::::N   E:::::::::::::::E    O:::::O     O:::::O     V:::::V     V:::::V       I::::I   M::::::M M::::M M::::M M::::::M
-" N::::::N  N::::N:::::::N   E:::::::::::::::E    O:::::O     O:::::O      V:::::V   V:::::V        I::::I   M::::::M  M::::M::::M  M::::::M
-" N::::::N   N:::::::::::N   E::::::EEEEEEEEEE    O:::::O     O:::::O       V:::::V V:::::V         I::::I   M::::::M   M:::::::M   M::::::M
-" N::::::N    N::::::::::N   E:::::E              O:::::O     O:::::O        V:::::V:::::V          I::::I   M::::::M    M:::::M    M::::::M
-" N::::::N     N:::::::::N   E:::::E       EEEEEE O::::::O   O::::::O         V:::::::::V           I::::I   M::::::M     MMMMM     M::::::M
-" N::::::N      N::::::::N EE::::::EEEEEEEE:::::E O:::::::OOO:::::::O          V:::::::V          II::::::II M::::::M               M::::::M
-" N::::::N       N:::::::N E::::::::::::::::::::E  OO:::::::::::::OO            V:::::V           I::::::::I M::::::M               M::::::M
-" N::::::N        N::::::N E::::::::::::::::::::E    OO:::::::::OO               V:::V            I::::::::I M::::::M               M::::::M
-" NNNNNNNN         NNNNNNN EEEEEEEEEEEEEEEEEEEEEE      OOOOOOOOO                  VVV             IIIIIIIIII MMMMMMMM               MMMMMMMM
-" " }}}
 luafile ~/.config/nvim/config.lua
 " Plugins{{{
 "be sure to install Vim Plug
@@ -34,13 +16,12 @@ call plug#begin('~/.vim/plugged')
 
 " }}}
 " p-Looks {{{
-		Plug 'rktjmp/lush.nvim'
-		Plug 'npxbr/gruvbox.nvim'
+		Plug 'lifepillar/vim-gruvbox8'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rhysd/vim-clang-format'
-		Plug 'folke/todo-comments.nvim'
 		Plug 'rktjmp/git-info.vim'
+		Plug 'folke/lsp-colors.nvim'
 
 "}}}
 " p-Finders {{{
@@ -49,7 +30,8 @@ call plug#begin('~/.vim/plugged')
 		Plug 'windwp/nvim-spectre'
 		Plug 'Shougo/defx.nvim'
 		Plug 'kristijanhusak/defx-git'
-		Plug 'liuchengxu/vim-clap'  ,{'do':':Clap install-binary!'}
+		Plug 'nvim-telescope/telescope.nvim'
+		Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 		"}}}
 " p-Git {{{
@@ -63,20 +45,14 @@ call plug#begin('~/.vim/plugged')
 		Plug 'simnalamburt/vim-mundo'
 		Plug 'szw/vim-maximizer'  "mazimize a window
 		Plug 'wellle/targets.vim'  "nicer i and a motions
-		Plug 'yuttie/comfortable-motion.vim'  "smooth scroll
 		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
 		Plug 'dstein64/vim-startuptime' "Startuptime logging
 		Plug 'tversteeg/registers.nvim'
-		Plug 'mtth/scratch.vim'
 		Plug 'windwp/nvim-autopairs'
 		Plug 'godlygeek/tabular'
-		Plug 'kevinhwang91/nvim-hlslens'
 		Plug 'ThePrimeagen/harpoon'
-		Plug 'svermeulen/vim-subversive'
-		Plug 'tpope/vim-eunuch'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
-		Plug 'dbeniamine/cheat.sh-vim'
 
 "}}}
 " p-Testing {{{
@@ -220,7 +196,6 @@ call plug#end()
 	nnoremap <esc> :noh<CR>
 	nnoremap <leader><leader>a GVgg
 	nmap <BS> za
-	nnoremap <C-s> :Scratch<CR>
 	nmap <leader><leader>s :so $MYVIMRC<CR>
 	nnoremap Y y$
 	nnoremap <leader>bd :bd! %<CR>
@@ -339,10 +314,7 @@ EOF
 
 " }}}
 " Color Schemes {{{
-	let g:gruvbox_contrast_dark = "hard"
-	let g:gruvbox_italicize_comments = 0
-	" let g:gruvbox_improved_strings = 1
-	colo gruvbox
+	colo gruvbox8_hard
 	set background=dark
 	highlight ActiveNormal guibg=#1d2021
 	highlight InactiveNormal guibg=#282828
@@ -358,13 +330,6 @@ EOF
 	let g:clang_format#auto_format = 1
 
 " }}}
-" Comfortable_Motion {{{
-	let g:comfortable_motion_no_default_key_mappings = 1
-	nnoremap <silent> <C-d> :call comfortable_motion#flick(100)<CR>
-	nnoremap <silent> <C-u> :call comfortable_motion#flick(-100)<CR>
-	nnoremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-	nnoremap <silent> <ScrollWheelUp> :call comfortable_motion#flick(-40)<CR>
-"}}}
 " Debugging {{{
 	packadd termdebug
 	let g:termdebug_wide = 163
@@ -419,64 +384,6 @@ EOF
 		autocmd Filetype defx call DefxSettings()
 	augroup END
 
-	let g:HelpT = g:clap#provider#help_tags#
-	function! HelpT.sink(line) abort
-		let [tag, doc_fname] = split(a:line, "\t")
-		execute 'Help ' . tag
-	endfunction
-
-	augroup ClapFiler
-		au!
-		au Filetype clap_input call compe#setup({'enabled': v:false},0)
-		au Filetype help setlocal nobuflisted
-		au Filetype clap_input imap  <Down>
-		au Filetype clap_input imap  <Up>
-	augroup END
-	let g:clap_layout = {'relative':'window','width':'100%','col':'0%','height':'100%','row':'0%'}
-	let g:clap_open_preview = 'never'
-	let g:clap_disable_run_rooter = v:true
-	let g:clap_popup_border = "sharp"
-	let g:clap_search_box_border_style = "nil"
-	let g:clap_default_external_filter = 'fzf'
-	let g:clap_enable_icon = 0
-	let g:clap_enable_background_shadow = v:false
-	let g:clap_background_shadow_blend = 0
-	let g:clap_insert_mode_only = v:true
-	let g:clap_no_matches_msg = ""
-	let g:clap_disable_bottom_top = v:true
-
-	let g:clap_provider_grep_delay = 0
-	let g:clap_provider_grep_blink = [0,0]
-	let g:clap_provider_grep_opts = '-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
-	let g:clap_provider_grep_enable_icon = 0
-
-	let g:clap_provider_yanks_history = "~/.clap_yanks"
-
-	let g:clap_provider_buffers_cur_tab_only = v:false
-	nnoremap <silent>  :Clap! files ++finder=fd -E\ .git --hidden
-	nnoremap <silent>  :Clap! blines
-	nnoremap <silent>  :Clap! buffers
-	nnoremap <silent>  :lua require'spectre'.open()
-    nnoremap <silent>  :Clap! grep
-    nnoremap <silent>  :Clap! loclist
-    nnoremap <silent>  :Clap! quickfix
-	nnoremap <silent>  :Clap!
-	nnoremap <silent>  :Clap! help_tags
-
-	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden -I 
-	nnoremap <silent> <leader>fl :Clap! blines
-	nnoremap <silent> <leader>fb :Clap! buffers
-
-	nnoremap <silent> <leader>fC :Clap!
-	nnoremap <silent> <leader>ff :Clap! grep2
-	nnoremap <silent> <leader>fq :Clap! quickfix
-	nnoremap <silent> <leader>fc :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/programs/lib'
-	nnoremap <silent> <leader>fd :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/.config/nvim'
-	nnoremap <silent> <leader>fh :Clap! help_tags
-	nnoremap <silent> <leader>fg :Clap! grep
-	nnoremap <silent> <leader>fy :Clap! yanks
-	nnoremap <silent> <leader>fr :lua require'spectre'.open()
-    nnoremap <silent> <leader>fq :Clap! quickfix
 " }}}
 " Git {{{
 	let $GIT_EDITOR = "nvr -cc split --remote-wait "
@@ -485,17 +392,6 @@ EOF
 	nnoremap <leader>gf :diffget //2<CR>
 	nnoremap <leader>gj :diffget //3<CR>
 
-
-" }}}
-" Hlslens {{{
-	noremap <silent> n :execute('normal! ' . v:count1 . 'n')<CR>
-				\:lua require('hlslens').start()<CR>
-	noremap <silent> N :execute('normal! ' . v:count1 . 'N')<CR>
-				\:lua require('hlslens').start()<CR>
-	noremap * *:lua require('hlslens').start()<CR>
-	noremap # #:lua require('hlslens').start()<CR>
-	noremap g* g*:lua require('hlslens').start()<CR>
-	noremap g# g#:lua require('hlslens').start()<CR>
 
 " }}}
 " Hop {{{
@@ -666,7 +562,7 @@ EOF
 	augroup NvimLsp
 		au!
 		autocmd Filetype lspsagafinder setlocal scrolloff=0
-		autocmd CursorHold * lua vim.lsp.diagnostic.set_loclist({open_loclist = false,severity_limit="Hint",})
+		autocmd CursorHold * lua vim.lsp.diagnostic.set_loclist({open_loclist = false,})
 		autocmd BufEnter * lua require'compe'.setup{ enabled = true; autocomplete = true; debug = false; min_lenth = 1; preselect = 'enable'; throttle_time = 80; source_timeout = 2000; imcomplete_delay = 400; max_abbr_width = 100; max_kind_width = 100; max_menu_width = 100; documentation = true; source = { path = true; buffer = true; calc = true; nvim_lsp = true; nvim_lua = true; vsnip = false; ultisnips = true; tabnine = true;}; }
 
 	augroup END
@@ -708,6 +604,8 @@ EOF
 		set statusline+=%m
 	"RIGHT
 		set statusline+=%=
+		" Read-only
+		set statusline+=%r
 		" Git status
 		set statusline+=[%{git_info#changes()['as_string']}]
 		" Filetype
@@ -715,12 +613,6 @@ EOF
 		" show current line number out of total lines
 		set statusline+=[%p%%]
 		set statusline+=:[%l/%L]
-" }}}
-" Subversive {{{
-	nmap s <plug>(SubversiveSubstitute)
-	nmap ss <plug>(SubversiveSubstituteLine)
-	nmap S <plug>(SubversiveSubstituteToEndOfLine)
-
 " }}}
 " Tabline {{{
 lua <<EOF
@@ -756,10 +648,6 @@ endfunction
 " Terminal (Harpoon) {{{
 	nnoremap <leader>t :lua require("harpoon.term").gotoTerminal(1)<CR>
 	nnoremap <leader>s :lua require("harpoon.term").sendCommand(1, vim.fn.input("Command≻").."\n")<CR>
-
-" }}}
-" TODOs {{{
-lua require'todo-comments'.setup()
 
 " }}}
 "  Tresitter {{{
@@ -801,7 +689,79 @@ augroup END
 
 " }}}
 " Testing {{{
+lua <<EOF
+require('telescope').setup{
+defaults = {
+	vimgrep_arguments = {
+		'rg',
+		'--color=never',
+		'--no-heading',
+		'--with-filename',
+		'--line-number',
+		'--column',
+		'--smart-case'
+		},
+		prompt_position = "bottom",
+		prompt_prefix = "> ",
+		selection_caret = "> ",
+		entry_prefix = "  ",
+		initial_mode = "insert",
+		previewer = false,
+		selection_strategy = "reset",
+		sorting_strategy = "ascending",
+		layout_strategy = "vertical",
+		layout_defaults = {
+			vertical = {
+				mirror = true,
+				},
+			},
+		file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+		file_ignore_patterns = {".git","__pycache__"},
+		generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+		shorten_path = true,
+		winblend = 0,
+		width = 0.75,
+		preview_cutoff = 120,
+		results_height = 1,
+		results_width = 0.8,
+		border = {},
+		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+		color_devicons = false,
+		use_less = true,
+		set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+	},
+	extensions = {
+		fzf = {
+			fuzzy = true,                    -- false will only do exact matching
+			override_generic_sorter = true, -- override the generic sorter
+			override_file_sorter = true,     -- override the file sorter
+			case_mode = "ignore_case",        -- or "ignore_case" or "respect_case"
+			-- the default case_mode is "smart_case"
+		}
+	}
+}
+EOF
+nnoremap <silent> <C-p> :Telescope find_files previewer=false hidden=true<CR>
+nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find previewer=false <CR>
+nnoremap <silent> <C-b> :Telescope buffers previewer=false<CR>
+nnoremap <silent> <C-r> :lua require'spectre'.open()
+nnoremap <silent> <C-l> :Telescope loclist previewer=false<CR>
+nnoremap <silent> <C-q> :Telescope quickfix previewer=false<CR>
+nnoremap <silent> <C-h> :lua require('telescope.builtin').help_tags({previewer=false,mappings = {i={["<CR>"] = function(selection) vim.cmd("Help " .. selection) end,},},})<CR>
+	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden -I 
+	nnoremap <silent> <leader>fl :Clap! blines
+	nnoremap <silent> <leader>fb :Clap! buffers
 
+	nnoremap <silent> <leader>fC :Clap!
+	nnoremap <silent> <leader>ff :Clap! grep2
+	nnoremap <silent> <leader>fq :Clap! quickfix
+	nnoremap <silent> <leader>fc :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/programs/lib'
+	nnoremap <silent> <leader>fd :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/.config/nvim'
+	nnoremap <silent> <leader>fh :Clap! help_tags
+	nnoremap <silent> <leader>fg :Clap! grep
+	nnoremap <silent> <leader>fy :Clap! yanks
+	nnoremap <silent> <leader>fr :lua require'spectre'.open()
+    nnoremap <silent> <leader>fq :Clap! quickfix
 "}}}
 " Last {{{
 
