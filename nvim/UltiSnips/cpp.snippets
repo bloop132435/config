@@ -1,25 +1,25 @@
 # Generic Snippets
 extends c
 
-snippet struct "struct skeleton" bt
+snippet struct "struct skeleton" t
 struct $1 {
 	$2
 };
 endsnippet
 
-snippet class "class skeleton" bt
+snippet class "class skeleton" t
 class $1 {
 	$2
 };
 endsnippet
 
-snippet loc "only execute on local machine" bt
+snippet loc "only execute on local machine" t
 #ifdef LOCAL
 ${VISUAL}$1
 #endif
 endsnippet
 
-snippet foe "for each loop" bt
+snippet foe "for each loop" t
 for(${1:auto} ${2:i} : ${3:container}) {
 	$4
 }
@@ -29,7 +29,7 @@ snippet def "function definition skeleton"
 ${1:return type} ${2:name}(${3:parameters});
 endsnippet
 
-snippet fnc "function skeleton" bt
+snippet fnc "function skeleton" t
 ${1:return type} ${2:name}(${3:parameters}) {
 	${4}
 }
@@ -73,50 +73,50 @@ endsnippet
 
 
 #STL
-snippet erm "erase all from container satisfying condition" bt
+snippet erm "erase all from container satisfying condition" t
 ${1:container}.erase(remove_if(begin($1), end($1),
 		${2:condition}
 ), end($1));
 endsnippet
 
-snippet fil "fill container" bt
+snippet fil "fill container" t
 fill(begin(${1:container}), end($1), ${2:value});
 endsnippet
 
-snippet fln "fill n times" bt
+snippet fln "fill n times" t
 fill_n(begin(${1:container}), ${2:count}, ${3:value});
 endsnippet
 
-snippet gen "generate over container" bt
+snippet gen "generate over container" t
 generate(begin(${1:container}), end($1),
 		${2:genFun}
 );
 endsnippet
 
-snippet gnn "generate n times" bt
+snippet gnn "generate n times" t
 generate_n(begin(${1:container}), ${2:count},
 		${3:genFun}
 );
 endsnippet
 
-snippet iot "ascending fill" bt
+snippet iot "ascending fill" t
 iota(begin(${1:container}), end($1), ${2:start});
 endsnippet
 
-snippet trn "container 1's transform move to container 2" bt
+snippet trn "container 1's transform move to container 2" t
 transform(begin(${1:container1}), end($1),
 		begin(${2:container2}),
 		${3:conversion}
 	);
 endsnippet
 
-snippet mod "modify container based on conversion function" bt
+snippet mod "modify container based on conversion function" t
 transform(begin(${1:container}), end($1), begin($1),
 		${2:conversion}
 	);
 endsnippet
 
-snippet tr2 "transform container 1 and container 2 into container 3" bt
+snippet tr2 "transform container 1 and container 2 into container 3" t
 transform(begin(${1:container1}), end($1),
 		begin(${2:container2}),
 		begin(${3:container3}),
@@ -144,7 +144,7 @@ any_of(begin(${1:container}), end($1),
 endsnippet
 
 
-snippet fin "find if the condition is true" bt
+snippet fin "find if the condition is true" t
 find_if(begin(${1:container}), end($1), $2);
 endsnippet
 
@@ -155,7 +155,7 @@ mismatch(begin(${1:container1}), end($1),
 	);
 endsnippet
 
-snippet count "count all in container filling condition" bt
+snippet count "count all in container filling condition" t
 count_if(begin(${1:container}), end($1),
 		${2:condition}
 );
@@ -169,20 +169,20 @@ includes(begin(${1:container}), end($1)
 endsnippet
 
 
-snippet mne "min element" bt
+snippet mne "min element" t
 min_element(begin(${1:container}), end($1));
 endsnippet
 
-snippet mxe "max element" bt
+snippet mxe "max element" t
 max_element(begin(${1:container}), end($1));
 endsnippet
 
-snippet mme "min and max element" bt
+snippet mme "min and max element" t
 minmax_element(begin(${1:container}), end($1));
 endsnippet
 
 
-snippet acc "accumulate" bt
+snippet acc "accumulate" t
 accumulate(begin(${1:container}), end($1), ${2:starting val});
 endsnippet
 
@@ -202,23 +202,23 @@ partition(begin(${1:container}), end($1),
 );
 endsnippet
 
-snippet stq "quicksort" bt
+snippet stq "quicksort" t
 sort(begin(${1:container}), end($1) $2);
 endsnippet
 
-snippet stm "mergesort" bt
+snippet stm "mergesort" t
 stable_sort(begin(${1:container}), end($1) $2);
 endsnippet
 
-snippet sth "heapsort" bt
+snippet sth "heapsort" t
 sort_heap(begin(${1:container}), end($1) $2);
 endsnippet
 
-snippet isrt "is sorted" bt
+snippet isrt "is sorted" t
 is_sorted(begin(${1:container}), end($1) $2);
 endsnippet
 
-snippet rev "reverse" bt
+snippet rev "reverse" t
 reverse(begin(${1:container}), end($1));
 endsnippet
 
@@ -235,7 +235,7 @@ snippet upp "upper bound" it
 upper_bound(begin(${1:container}), end($1), ${2:target}${3:, comparison function});
 endsnippet
 
-snippet cpt "Competitive Programming Template" bt
+snippet cpt "Competitive Programming Template" t
 #include<bits/stdc++.h>
 using namespace std;
 $1
