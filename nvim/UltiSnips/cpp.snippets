@@ -1,25 +1,25 @@
 # Generic Snippets
 extends c
 
-snippet struct "struct skeleton" Abt
+snippet struct "struct skeleton" bt
 struct $1 {
 	$2
 };
 endsnippet
 
-snippet class "class skeleton" Abt
+snippet class "class skeleton" bt
 class $1 {
 	$2
 };
 endsnippet
 
-snippet loc "only execute on local machine" Abt
+snippet loc "only execute on local machine" bt
 #ifdef LOCAL
 ${VISUAL}$1
 #endif
 endsnippet
 
-snippet foe "for each loop" Abt
+snippet foe "for each loop" bt
 for(${1:auto} ${2:i} : ${3:container}) {
 	$4
 }
@@ -29,13 +29,13 @@ snippet def "function definition skeleton"
 ${1:return type} ${2:name}(${3:parameters});
 endsnippet
 
-snippet fnc "function skeleton" Abt
+snippet fnc "function skeleton" bt
 ${1:return type} ${2:name}(${3:parameters}) {
 	${4}
 }
 endsnippet
 
-snippet lmb "lambda" iA
+snippet lmb "lambda" i
 [${1:&}](${2:parameters})->${3:return type} {
 	${4}
 }
@@ -235,7 +235,7 @@ snippet upp "upper bound" it
 upper_bound(begin(${1:container}), end($1), ${2:target}${3:, comparison function});
 endsnippet
 
-snippet cpt "Competitive Programming Template" Abt
+snippet cpt "Competitive Programming Template" bt
 #include<bits/stdc++.h>
 using namespace std;
 $1
@@ -302,6 +302,6 @@ endsnippet
 
 # Useful things I type sometimes
 
-snippet .pb "push back" Ai
+snippet .pb "push back" i
 .push_back($1);$0
 endsnippet
