@@ -51,6 +51,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'godlygeek/tabular'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
+		Plug 'rhysd/clever-f.vim'
 
 "}}}
 " p-Testing {{{
