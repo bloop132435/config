@@ -170,7 +170,6 @@ call plug#end()
 		autocmd!
 		autocmd BufWritePre * :call TrimWhitespace()
 		autocmd filetype vim setlocal foldmethod=marker
-		autocmd FileType python iabbrev <buffer> cell ##o##O
         autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ]
         autocmd Filetype markdown setlocal formatoptions=ctnqro
 		autocmd BufWinEnter COMMIT_EDITMSG set nobuflisted
@@ -464,18 +463,10 @@ EOF
 	nnoremap <leader>H :HopPattern<CR>
 	nnoremap <silent> ,f :HopChar1<CR>
 	nnoremap <silent> ,F :HopChar2<CR>
-lua <<EOF
-  vim.api.nvim_command('highlight default HopNextKey  guifg=#ff007c gui=bold ctermfg=198 cterm=bold')
-
-  -- Highlight used for the first key in a sequence.
-  vim.api.nvim_command('highlight default HopNextKey1 guifg=#00dfff gui=bold ctermfg=45 cterm=bold')
-
-  -- Highlight used for the second and remaining keys in a sequence.
-  vim.api.nvim_command('highlight default HopNextKey2 guifg=#2b8db3 ctermfg=33')
-
-  -- Highlight used for the unmatched part of the buffer.
-  vim.api.nvim_command('highlight default HopUnmatched guifg=#666666 ctermfg=242')
-EOF
+	highlight default HopNextKey  guifg=#ff007c gui=bold ctermfg=198 cterm=bold
+	highlight default HopNextKey1 guifg=#00dfff gui=bold ctermfg=45 cterm=bold
+	highlight default HopNextKey2 guifg=#2b8db3 ctermfg=33
+	highlight default HopUnmatched guifg=#666666 ctermfg=242
 "}}}
 " Jupyter_Notebook {{{
 	let g:nvim_ipy_perform_mappings = 0
@@ -633,10 +624,6 @@ EOF
 	augroup END
 
 " }}}
-" Quick_Fix Lists{{{
-	let g:qf_write_changes = 0
-
-" }}}
 " Snippets {{{
 	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = "~/.config/nvim/UltiSnips"
 	let g:UltiSnipsExpandTrigger="<c-j>"
@@ -695,13 +682,6 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 " }}}
 "  Tresitter {{{
 lua << EOF
-local psconfig = require('nvim-treesitter.parsers').get_parser_configs()
-psconfig.markdown = {
-	install_info = {
-		url = "~/git/tree-sitter-markdown",
-		files = {"src/parser.c"}
-	},
-}
 require'nvim-treesitter.configs'.setup{
 	ensure_installed = "maintained",
 	highlight = {
@@ -720,12 +700,13 @@ require'nvim-treesitter.configs'.setup{
 	},
 }
 EOF
-augroup tsfold
-	au!
-	au Filetype cpp set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr() | set foldlevel=1
-	au Filetype java set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr() | set foldlevel=1
-	au Filetype py set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr() | set foldlevel=1
-augroup END
+	augroup tsfold
+		au!
+		au Filetype cpp set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr() | set foldlevel=1
+		au Filetype java set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr() | set foldlevel=1
+		au Filetype py set foldmethod=expr | set foldexpr=nvim_treesitter#foldexpr() | set foldlevel=1
+	augroup END
+
 " }}}
 " Undo_Tree {{{
 	nnoremap <silent> <leader>u :UndotreeToggle<CR>
