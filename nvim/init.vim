@@ -328,6 +328,10 @@ EOF
 	let g:clang_format#auto_format = 1
 
 " }}}
+" Clever-f {{{
+	let g:clever_f_mark_direct=1
+
+" }}}
 " Debugging {{{
 	packadd termdebug
 	let g:termdebug_wide = 163
