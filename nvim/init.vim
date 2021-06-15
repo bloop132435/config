@@ -735,6 +735,3 @@ augroup END
 " Testing {{{
 
 "}}}
-" Last {{{
-
-"}}}
