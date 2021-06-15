@@ -401,12 +401,7 @@ defaults = {
 		previewer = false,
 		selection_strategy = "reset",
 		sorting_strategy = "ascending",
-		layout_strategy = "vertical",
-		layout_defaults = {
-			vertical = {
-				mirror = true,
-				},
-			},
+		layout_strategy = "horizontal",
 		file_sorter =  require'telescope.sorters'.get_fuzzy_file,
 		file_ignore_patterns = {".git","__pycache__"},
 		generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
@@ -432,22 +427,23 @@ defaults = {
 		}
 	}
 }
+require('telescope').load_extension('fzf')
 EOF
-	nnoremap <silent> <C-p> :Telescope find_files previewer=false hidden=true<CR>
-	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find previewer=false <CR>
-	nnoremap <silent> <C-b> :Telescope buffers previewer=false<CR>
+	nnoremap <silent> <C-p> :Telescope find_files  hidden=true<CR>
+	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find <CR>
+	nnoremap <silent> <C-b> :Telescope buffers  <CR>
 	nnoremap <silent> <C-r> :lua require'spectre'.open()
-	nnoremap <silent> <C-l> :Telescope loclist previewer=false<CR>
-	nnoremap <silent> <C-q> :Telescope quickfix previewer=false<CR>
-	nnoremap <silent> <C-h> :Telescope help_tags previewer=false<CR>
+	nnoremap <silent> <C-l> :Telescope loclist
+	nnoremap <silent> <C-q> :Telescope quickfix <CR>
+	nnoremap <silent> <C-h> :Telescope help_tags <CR>
 
-	nnoremap <silent> <leader>fp :Telescope find_files previewer=false hidden=true<CR>
-	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find previewer=false <CR>
-	nnoremap <silent> <leader>fb :Telescope buffers previewer=false<CR>
-	nnoremap <silent> <leader>fq :Telescope quickfix previewer=false<CR>
-	nnoremap <silent> <leader>fc :Telescope find_files previewer=false hidden=true cwd=~/programs/lib<CR>
-	nnoremap <silent> <leader>fd :Telescope find_files previewer=false hidden=true cwd=~/.config<CR>
-	nnoremap <silent> <leader>fh :Telescope help_tags previewer=false<CR>
+	nnoremap <silent> <leader>fp :Telescope find_files  hidden=true<CR>
+	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find  <CR>
+	nnoremap <silent> <leader>fb :Telescope buffers <CR>
+	nnoremap <silent> <leader>fq :Telescope quickfix <CR>
+	nnoremap <silent> <leader>fc :Telescope find_files  hidden=true cwd=~/programs/lib<CR>
+	nnoremap <silent> <leader>fd :Telescope find_files  hidden=true cwd=~/.config<CR>
+	nnoremap <silent> <leader>fh :Telescope help_tags <CR>
 	nnoremap <silent> <leader>fr :lua require'spectre'.open()
 
 " }}}
