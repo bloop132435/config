@@ -384,6 +384,75 @@ EOF
 		autocmd Filetype defx call DefxSettings()
 	augroup END
 
+lua <<EOF
+require('telescope').setup{
+defaults = {
+	vimgrep_arguments = {
+		'rg',
+		'--color=never',
+		'--no-heading',
+		'--with-filename',
+		'--line-number',
+		'--column',
+		'--smart-case'
+		},
+		prompt_position = "bottom",
+		prompt_prefix = "> ",
+		selection_caret = "> ",
+		entry_prefix = "  ",
+		initial_mode = "insert",
+		previewer = false,
+		selection_strategy = "reset",
+		sorting_strategy = "ascending",
+		layout_strategy = "vertical",
+		layout_defaults = {
+			vertical = {
+				mirror = true,
+				},
+			},
+		file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+		file_ignore_patterns = {".git","__pycache__"},
+		generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+		shorten_path = true,
+		winblend = 0,
+		width = 0.75,
+		preview_cutoff = 120,
+		results_height = 1,
+		results_width = 0.8,
+		border = {},
+		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+		color_devicons = false,
+		use_less = true,
+		set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+	},
+	extensions = {
+		fzf = {
+			fuzzy = true,                    -- false will only do exact matching
+			override_generic_sorter = true, -- override the generic sorter
+			override_file_sorter = true,     -- override the file sorter
+			case_mode = "ignore_case",        -- or "ignore_case" or "respect_case"
+			-- the default case_mode is "smart_case"
+		}
+	}
+}
+EOF
+	nnoremap <silent> <C-p> :Telescope find_files previewer=false hidden=true<CR>
+	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find previewer=false <CR>
+	nnoremap <silent> <C-b> :Telescope buffers previewer=false<CR>
+	nnoremap <silent> <C-r> :lua require'spectre'.open()
+	nnoremap <silent> <C-l> :Telescope loclist previewer=false<CR>
+	nnoremap <silent> <C-q> :Telescope quickfix previewer=false<CR>
+	nnoremap <silent> <C-h> :lua require('telescope.builtin').help_tags({previewer=false,mappings = {i={["<CR>"] = function(selection) vim.cmd("Help " .. selection) end,},},})<CR>
+
+	nnoremap <silent> <leader>fp :Telescope find_files previewer=false hidden=true<CR>
+	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find previewer=false <CR>
+	nnoremap <silent> <leader>fb :Telescope buffers previewer=false<CR>
+	nnoremap <silent> <leader>fq :Telescope quickfix previewer=false<CR>
+	nnoremap <silent> <leader>fc :Telescope find_files previewer=false hidden=true cwd=~/programs/lib<CR>
+	nnoremap <silent> <leader>fd :Telescope find_files previewer=false hidden=true cwd=~/.config<CR>
+	nnoremap <silent> <leader>fh :lua require('telescope.builtin').help_tags({previewer=false,mappings = {i={["<CR>"] = function(selection) vim.cmd("Help " .. selection) end,},},})<CR>
+	nnoremap <silent> <leader>fr :lua require'spectre'.open()
+
 " }}}
 " Git {{{
 	let $GIT_EDITOR = "nvr -cc split --remote-wait "
@@ -689,79 +758,7 @@ augroup END
 
 " }}}
 " Testing {{{
-lua <<EOF
-require('telescope').setup{
-defaults = {
-	vimgrep_arguments = {
-		'rg',
-		'--color=never',
-		'--no-heading',
-		'--with-filename',
-		'--line-number',
-		'--column',
-		'--smart-case'
-		},
-		prompt_position = "bottom",
-		prompt_prefix = "> ",
-		selection_caret = "> ",
-		entry_prefix = "  ",
-		initial_mode = "insert",
-		previewer = false,
-		selection_strategy = "reset",
-		sorting_strategy = "ascending",
-		layout_strategy = "vertical",
-		layout_defaults = {
-			vertical = {
-				mirror = true,
-				},
-			},
-		file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-		file_ignore_patterns = {".git","__pycache__"},
-		generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-		shorten_path = true,
-		winblend = 0,
-		width = 0.75,
-		preview_cutoff = 120,
-		results_height = 1,
-		results_width = 0.8,
-		border = {},
-		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-		color_devicons = false,
-		use_less = true,
-		set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-	},
-	extensions = {
-		fzf = {
-			fuzzy = true,                    -- false will only do exact matching
-			override_generic_sorter = true, -- override the generic sorter
-			override_file_sorter = true,     -- override the file sorter
-			case_mode = "ignore_case",        -- or "ignore_case" or "respect_case"
-			-- the default case_mode is "smart_case"
-		}
-	}
-}
-EOF
-nnoremap <silent> <C-p> :Telescope find_files previewer=false hidden=true<CR>
-nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find previewer=false <CR>
-nnoremap <silent> <C-b> :Telescope buffers previewer=false<CR>
-nnoremap <silent> <C-r> :lua require'spectre'.open()
-nnoremap <silent> <C-l> :Telescope loclist previewer=false<CR>
-nnoremap <silent> <C-q> :Telescope quickfix previewer=false<CR>
-nnoremap <silent> <C-h> :lua require('telescope.builtin').help_tags({previewer=false,mappings = {i={["<CR>"] = function(selection) vim.cmd("Help " .. selection) end,},},})<CR>
-	nnoremap <silent> <leader>fp :Clap! files ++finder=fd -E\ .git --hidden -I 
-	nnoremap <silent> <leader>fl :Clap! blines
-	nnoremap <silent> <leader>fb :Clap! buffers
 
-	nnoremap <silent> <leader>fC :Clap!
-	nnoremap <silent> <leader>ff :Clap! grep2
-	nnoremap <silent> <leader>fq :Clap! quickfix
-	nnoremap <silent> <leader>fc :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/programs/lib'
-	nnoremap <silent> <leader>fd :Clap! files  ++finder=fd -E\ .git --hidden -I . '/home/gqian/.config/nvim'
-	nnoremap <silent> <leader>fh :Clap! help_tags
-	nnoremap <silent> <leader>fg :Clap! grep
-	nnoremap <silent> <leader>fy :Clap! yanks
-	nnoremap <silent> <leader>fr :lua require'spectre'.open()
-    nnoremap <silent> <leader>fq :Clap! quickfix
 "}}}
 " Last {{{
 
