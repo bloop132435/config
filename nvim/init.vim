@@ -49,13 +49,11 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tversteeg/registers.nvim'
 		Plug 'windwp/nvim-autopairs'
 		Plug 'godlygeek/tabular'
-		Plug 'ThePrimeagen/harpoon'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
 
 "}}}
 " p-Testing {{{
-Plug 'sakhnik/nvim-gdb' , {'do':':!./install.sh'}
 
 " }}}
 call plug#end()
@@ -199,7 +197,6 @@ call plug#end()
 	nnoremap Y y$
 	nnoremap <leader>bd :bd! %<CR>
 	nnoremap <leader><leader>a GVgg
-	nnoremap <leader>t :ToggleTerminal<CR>
 	nnoremap j jzz
 	nnoremap k kzz
 	nnoremap ;+       <C-w>+
@@ -713,11 +710,6 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
-" }}}
-" Terminal (Harpoon) {{{
-	nnoremap <leader>t :lua require("harpoon.term").gotoTerminal(1)<CR>
-	nnoremap <leader>s :lua require("harpoon.term").sendCommand(1, vim.fn.input("Command≻").."\n")<CR>
-
 " }}}
 "  Tresitter {{{
 lua << EOF
