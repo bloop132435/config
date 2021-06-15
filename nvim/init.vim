@@ -16,7 +16,7 @@ call plug#begin('~/.vim/plugged')
 
 " }}}
 " p-Looks {{{
-		Plug 'lifepillar/vim-gruvbox8'
+		Plug 'rafikdraoui/gruvbox-custom'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rhysd/vim-clang-format'
@@ -310,8 +310,7 @@ EOF
 
 " }}}
 " Color Schemes {{{
-	let g:gruvbox_plugin_hi_groups = 1
-	colo gruvbox8_hard
+	colo gruvbox-custom
 	set background=dark
 	highlight ActiveNormal guibg=#1d2021
 	highlight InactiveNormal guibg=#282828
