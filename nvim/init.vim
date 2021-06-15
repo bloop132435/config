@@ -41,7 +41,7 @@ call plug#begin('~/.vim/plugged')
 " p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
 		Plug 'b3nj5m1n/kommentary'  "comments
-		Plug 'simnalamburt/vim-mundo'
+		Plug 'mbbill/undotree'
 		Plug 'szw/vim-maximizer'  "mazimize a window
 		Plug 'wellle/targets.vim'  "nicer i and a motions
 		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
@@ -742,7 +742,7 @@ augroup tsfold
 augroup END
 " }}}
 " Undo_Tree {{{
-	nnoremap <silent> <leader>u :MundoToggle<CR>
+	nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
 " }}}
 " Testing {{{
