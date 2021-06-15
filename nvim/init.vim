@@ -442,7 +442,7 @@ EOF
 	nnoremap <silent> <C-r> :lua require'spectre'.open()
 	nnoremap <silent> <C-l> :Telescope loclist previewer=false<CR>
 	nnoremap <silent> <C-q> :Telescope quickfix previewer=false<CR>
-	nnoremap <silent> <C-h> :lua require('telescope.builtin').help_tags({previewer=false,mappings = {i={["<CR>"] = function(selection) vim.cmd("Help " .. selection) end,},},})<CR>
+	nnoremap <silent> <C-h> :Telescope help_tags previewer=false<CR>
 
 	nnoremap <silent> <leader>fp :Telescope find_files previewer=false hidden=true<CR>
 	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find previewer=false <CR>
@@ -450,7 +450,7 @@ EOF
 	nnoremap <silent> <leader>fq :Telescope quickfix previewer=false<CR>
 	nnoremap <silent> <leader>fc :Telescope find_files previewer=false hidden=true cwd=~/programs/lib<CR>
 	nnoremap <silent> <leader>fd :Telescope find_files previewer=false hidden=true cwd=~/.config<CR>
-	nnoremap <silent> <leader>fh :lua require('telescope.builtin').help_tags({previewer=false,mappings = {i={["<CR>"] = function(selection) vim.cmd("Help " .. selection) end,},},})<CR>
+	nnoremap <silent> <leader>fh :Telescope help_tags previewer=false<CR>
 	nnoremap <silent> <leader>fr :lua require'spectre'.open()
 
 " }}}
