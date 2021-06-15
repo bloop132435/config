@@ -48,7 +48,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'dstein64/vim-startuptime' "Startuptime logging
 		Plug 'tversteeg/registers.nvim'
 		Plug 'windwp/nvim-autopairs'
-		Plug 'godlygeek/tabular'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
 		Plug 'rhysd/clever-f.vim'
@@ -694,23 +693,6 @@ EOF
 hi TabLineSel guibg=#181d24 guifg=#abb2bf
 hi TabLineFill guibg=#282c34 guifg=#abb2bf
 
-" }}}
-" Tabular {{{
-	augroup Tabular
-		au!
-		au Filetype markdown inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-	augroup END
-
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
 " }}}
 "  Tresitter {{{
 lua << EOF
