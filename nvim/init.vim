@@ -395,9 +395,27 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 
 	endfun
 	let g:loaded_netrwPlugin = 1
+
+	function! Open_defx_if_directory()
+		" This throws an error if the buffer name contains unusual characters like
+		" [[buffergator]]. Desired behavior in those scenarios is to consider the
+		" buffer not to be a directory.
+		try
+			let l:full_path = expand(expand('%:p'))
+		catch
+			return
+		endtry
+
+		" If the path is a directory, delete the (useless) buffer and open defx for
+		" that directory instead.
+		if isdirectory(l:full_path)
+			execute "Defx `expand('%:p')` | bd " . expand('%:r')
+		endif
+	endfunction
 	augroup Defx
 		au!
 		autocmd Filetype defx call DefxSettings()
+		autocmd BufEnter * call Open_defx_if_directory()
 	augroup END
 
 lua <<EOF
