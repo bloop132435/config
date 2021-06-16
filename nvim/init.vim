@@ -22,6 +22,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'rhysd/vim-clang-format'
 		Plug 'rktjmp/git-info.vim'
 
+
 "}}}
 " p-Finders {{{
 		Plug 'phaazon/hop.nvim'  "easy motion but for nvim
@@ -332,7 +333,7 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 		au WinEnter * setlocal winhighlight=Normal:ActiveNormal
 		au WinLeave * setlocal winhighlight=Normal:InactiveNormal
 	augroup END
-	hi OverRuler guifg=#ebbed2 guibg=#cc241d
+	hi OverRuler  guibg=#cc241d
 	call matchadd('OverRuler', '\v^.{120}\zs.*$', 100)
 
 " }}}
