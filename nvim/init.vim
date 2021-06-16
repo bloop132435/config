@@ -304,6 +304,20 @@ end
 remap('i','<CR>', 'v:lua.MUtils.completion_confirm()',{expr = true, noremap = true})
 EOF
 " }}}
+" BufTabLine {{{
+lua <<EOF
+require"buftabline".setup({
+	modifier = ":t",
+	index_format = "%d: ",
+	buffer_id_index = false,
+	icons = false,
+	icon_colors = false,
+})
+EOF
+hi TabLineSel guibg=#181d24 guifg=#abb2bf
+hi TabLineFill guibg=#282c34 guifg=#abb2bf
+
+" }}}
 " Cheat.sh {{{
 	let g:CheatSheetDoNotMap = 1
 
@@ -665,20 +679,6 @@ EOF
 		" show current line number out of total lines
 		set statusline+=[%p%%]
 		set statusline+=:[%l/%L]
-" }}}
-" Tabline {{{
-lua <<EOF
-require"buftabline".setup({
-	modifier = ":t",
-	index_format = "%d: ",
-	buffer_id_index = false,
-	icons = false,
-	icon_colors = false,
-})
-EOF
-hi TabLineSel guibg=#181d24 guifg=#abb2bf
-hi TabLineFill guibg=#282c34 guifg=#abb2bf
-
 " }}}
 "  Tresitter {{{
 lua << EOF
