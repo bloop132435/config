@@ -514,9 +514,6 @@ EOF
 		echo s:pythonfile
 		silent exe "!ntop " . expand("%") . " " . s:pythonfile
 		silent exe "e " . s:pythonfile
-		cnoremap <buffer> w w <bar> !pton % %:r.ipynb
-		cnoremap <buffer> wq wq <bar> !pton % %:r.ipynb
-		cnoremap <buffer> wqa wqa
 		set ft=python
 	endfunction
 	augroup ipynb
