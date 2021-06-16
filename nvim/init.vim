@@ -487,9 +487,9 @@ EOF
 " Git {{{
 	let $GIT_EDITOR = "nvr -cc split --remote-wait "
 	nmap <silent> <leader>gg :LazyGit<CR>
-	nnoremap <leader>gd :Gdiffsplit!<CR>
-	nnoremap <leader>gf :diffget //2<CR>
-	nnoremap <leader>gj :diffget //3<CR>
+	nnoremap <silent> <leader>gd :Gdiffsplit!<CR>
+	nnoremap <silent> <leader>gf :diffget //2<CR>
+	nnoremap <silent> <leader>gj :diffget //3<CR>
 
 
 " }}}
