@@ -476,6 +476,7 @@ EOF
 
 	nnoremap <silent> <leader>fp :Telescope find_files  hidden=true<CR>
 	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find  <CR>
+	nnoremap <silent> <leader>ff :Telescope live_grep  <CR>
 	nnoremap <silent> <leader>fb :Telescope buffers <CR>
 	nnoremap <silent> <leader>fq :Telescope quickfix <CR>
 	nnoremap <silent> <leader>fc :Telescope find_files  hidden=true cwd=~/programs/lib<CR>
