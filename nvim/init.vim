@@ -136,7 +136,7 @@ call plug#end()
 	augroup folding
 		au!
 		au BufEnter kitty.conf setlocal foldmethod=marker
-		au BufEnter .tmux.conf setlocal foldmethod=marker
+		au Filetype tmux setlocal foldmethod=marker
 	augroup END
 	set guifont=JetBrainsMono\ NF:h11
 	set fillchars=eob:\ ,
