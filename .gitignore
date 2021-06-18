@@ -5,8 +5,8 @@ baloofilerc
 bashtop/**
 binwalk/**
 BraveSoftware/**
-Code\ Industry/**
 chromium/**
+Code\ Industry/**
 dconf/**
 discord/**
 efm-langserver/**
@@ -76,6 +76,7 @@ ranger/**
 session/**
 solaar/**
 styluslabs/**
+sublime-text/**
 systemsettingsrc
 TabNine/**
 terminator/**
