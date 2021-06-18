@@ -335,7 +335,7 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 		au WinLeave * setlocal winhighlight=Normal:InactiveNormal
 	augroup END
 	hi OverRuler  guibg=#cc241d
-	call matchadd('OverRuler', '\v^.{120}\zs.*$', 100)
+	call matchadd('OverRuler', '\v^.{200}\zs.*$', 100)
 
 " }}}
 " Clang_Format {{{
