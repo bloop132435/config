@@ -410,7 +410,7 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 		" If the path is a directory, delete the (useless) buffer and open defx for
 		" that directory instead.
 		if isdirectory(l:full_path)
-			execute "Defx `expand('%:p')` | bd " . expand('%:r')
+			execute "Defx `expand('%:p')` -show-ignored-files | bd " . expand('%:r')
 		endif
 	endfunction
 	augroup Defx
@@ -471,7 +471,7 @@ EOF
 	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find <CR>
 	nnoremap <silent> <C-b> :Telescope buffers  <CR>
 	nnoremap <silent> <C-r> :lua require'spectre'.open()
-	nnoremap <silent> <C-l> :Telescope loclist
+	nnoremap <silent> <C-l> :Telescope loclist<CR>
 	nnoremap <silent> <C-q> :Telescope quickfix <CR>
 	nnoremap <silent> <C-h> :Telescope help_tags <CR>
 
