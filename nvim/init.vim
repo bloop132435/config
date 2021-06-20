@@ -18,7 +18,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'rafikdraoui/gruvbox-custom'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'jose-elias-alvarez/buftabline.nvim'
-		Plug 'rhysd/vim-clang-format'
 		Plug 'rktjmp/git-info.vim'
 
 
@@ -337,11 +336,6 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 	call matchadd('OverRuler', '\v^.{200}\zs.*$', 100)
 
 " }}}
-" Clang_Format {{{
-	let g:clang_format#detect_style_file = 1
-	let g:clang_format#auto_format = 1
-
-" }}}
 " Clever-f {{{
 	let g:clever_f_mark_direct=1
 
@@ -483,6 +477,14 @@ EOF
 	nnoremap <silent> <leader>fd :Telescope find_files  hidden=true cwd=~/.config<CR>
 	nnoremap <silent> <leader>fh :Telescope help_tags <CR>
 	nnoremap <silent> <leader>fr :lua require'spectre'.open()
+
+" }}}
+" Formatting {{{
+	augroup Formatting
+		au!
+		au BufWritePre *.cpp %!clang-format %
+		au BufWritePre *.py %!yapf %
+	augroup END
 
 " }}}
 " Git {{{
