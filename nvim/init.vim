@@ -1,4 +1,3 @@
-luafile ~/.config/nvim/config.lua
 " Plugins{{{
 "be sure to install Vim Plug
 call plug#begin('~/.vim/plugged')
