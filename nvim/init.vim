@@ -53,6 +53,7 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Testing {{{
+Plug 'xuhdev/vim-latex-live-preview'
 
 " }}}
 call plug#end()
@@ -589,7 +590,31 @@ require'lspconfig'.bashls.setup{on_attach=custom_attach}
 require'lspconfig'.pyright.setup{on_attach=custom_attach}
 require'lspconfig'.rust_analyzer.setup{on_attach=custom_attach,root_dir = function() return '.' end,}
 
-
+require'lspconfig'.texlab.setup{
+		on_attach = custom_attach,
+	 cmd = { "texlab" },
+    filetypes = { "tex", "bib" },
+    settings = {
+      texlab = {
+        auxDirectory = ".",
+        bibtexFormatter = "texlab",
+        build = {
+          args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+          executable = "latexmk",
+          isContinuous = false
+        },
+        chktex = {
+          onEdit = false,
+          onOpenAndSave = false
+        },
+        diagnosticsDelay = 300,
+        formatterLineLength = 80,
+        forwardSearch = {
+          args = {}
+        }
+      }
+    }
+}
 
 -- Get the counts from your curreent workspace:
 
