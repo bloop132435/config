@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+tmux new-session -s main -d
+tmux attach -t main
+tmux neww -c ~/.config -n config -b -t bash
+tmux neww -c ~/programs -n code -b -t bash
+tmux neww -c ~ -n test -b -t bash
+tmux neww -c ~ -n long-running -b -t bash

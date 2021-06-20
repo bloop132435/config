@@ -1,4 +1,5 @@
 export PATH=$PATH:~/programs/scripts/
+export PATH=$PATH:~/.config/tmux
 export PATH=$PATH:~/downloads/squashfs-root/usr/bin
 export PATH=$PATH:/home/gqian/cling/bin
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
