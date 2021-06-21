@@ -52,8 +52,11 @@ call plug#begin('~/.vim/plugged')
 		Plug 'rhysd/clever-f.vim'
 
 "}}}
+" p-Latex {{{
+		Plug 'xuhdev/vim-latex-live-preview'
+
+" }}}
 " p-Testing {{{
-Plug 'xuhdev/vim-latex-live-preview'
 
 " }}}
 call plug#end()
@@ -481,10 +484,15 @@ EOF
 
 " }}}
 " Formatting {{{
+	function! Format(formatter) abort
+		let s:l = line('.')
+		exe "%!" . a:formatter . " %"
+		exe s:l
+	endfunction
 	augroup Formatting
 		au!
-		au BufWritePre *.cpp %!clang-format %
-		au BufWritePre *.py %!yapf %
+		au BufWritePost *.cpp call Format("clang-format")
+		au BufWritePost *.py  call Format("yapf")
 	augroup END
 
 " }}}
