@@ -53,7 +53,7 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Latex {{{
-		Plug 'xuhdev/vim-latex-live-preview'
+		Plug 'xuhdev/vim-latex-live-preview', {'for':'latex'}
 
 " }}}
 " p-Testing {{{
