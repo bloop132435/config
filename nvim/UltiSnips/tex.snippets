@@ -7,18 +7,44 @@ snippet start "basic template for latex files"
 \usepackage{tikz}
 \usepackage{geometry}
 \usepackage{marginnote}
+\usepackage{amsmath}
+\usepackage{bm}
 
 \begin{document}
 ${0}
 \end{document}
 endsnippet
+global !p
+def complete(start, choices):
+	nc = []
+	for c in choices:
+		if c.startswith(start):
+			nc.append(c[len(start):len(c)])
+	if len(nc)==1:
+		return nc[0]
+	return '(' + ', '.join(nc) + ')'
+endglobal
+
+snippet sym "symbols"
+\\${1}`!p snip.rv = complete(t[1],["alpha","beta","Delta","gamma","epsilon","theta","lambda","mu","pi","rho","sigma","Sigma","tau","phi","omega","Omega","infty","leq","geq","approx"])` $0
+endsnippet
+
+snippet "\((.*)\)/\((.*)\)" "fraction based on regex" r
+`!p snip.rv = f"\\frac{{{match.group(1)}}}{{{match.group(2)}}}"`
+endsnippet
+
+snippet fr "fraction"
+\frac{$1}{$2} $0
+endsnippet
+
+
 snippet mn "marginnotes"
 \marginnote{${1:note}} $0
 endsnippet
 
 snippet beg "begin{} / end{}" b
 \begin{$1}
-	$0
+	${VISUAL}$0
 \end{$1}
 endsnippet
 
@@ -45,9 +71,6 @@ snippet sup "superscript" i
 ^{$1} $0
 endsnippet
 
-snippet fr "fraction"
-\frac{$1}{$2} $0
-endsnippet
 
 snippet int "integral"
 \int_{${1:lowerbound}}^{${2:upperbound}} ${3:expression}
