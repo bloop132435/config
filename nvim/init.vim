@@ -57,6 +57,7 @@ call plug#begin('~/.vim/plugged')
 
 " }}}
 " p-Testing {{{
+Plug 'jbyuki/venn.nvim'
 
 " }}}
 call plug#end()
@@ -105,6 +106,7 @@ call plug#end()
 	set showtabline=0
 	set wildchar=<tab> wildmenu wildmode=longest,list,full " auto complete menus
 	set wildcharm=<c-z> " like wildchar, but for use in macros
+	set ve=block,insert
 	set mps+=<:>
 	set backspace=indent,eol,start " fix backspace
 	set belloff=all
