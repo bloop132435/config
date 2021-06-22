@@ -493,6 +493,7 @@ EOF
 	endfunction
 	augroup Formatting
 		au!
+		au BufWinEnter *.clang-format set ft=yaml
 		au BufWritePost *.cpp call Format("clang-format")
 		au BufWritePost *.py  call Format("yapf")
 	augroup END
