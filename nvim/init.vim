@@ -550,6 +550,12 @@ EOF
 " }}}
 " Markdown {{{
 	let g:markdown_fenced_languages =	['html', 'python', 'ruby', 'vim', 'cpp', 'java']
+	function! Dedent() abort
+		let l = line('.')
+		let tail = matchstr(getline(l),"^.\\zs.*$")
+		call setline(l,tail)
+	endfunction
+	inoremap  :call Dedent()<CR>
 
 " }}}
 " Nvim-lsp {{{
