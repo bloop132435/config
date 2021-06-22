@@ -160,11 +160,6 @@ call plug#end()
 		au!
 		autocmd FileType python iabbrev <buffer> cell ##o##O
 	augroup END
-	augroup markdown
-		au!
-        autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ]
-        autocmd Filetype markdown setlocal formatoptions=ctnqro
-	augroup END
 	set mouse=a
 	set ruler
 	fun! TrimWhitespace()
@@ -556,6 +551,11 @@ EOF
 		call setline(l,tail)
 	endfunction
 	inoremap  :call Dedent()<CR>
+	augroup markdown
+		au!
+        autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ]
+        autocmd Filetype markdown setlocal formatoptions=ctnqro
+	augroup END
 
 " }}}
 " Nvim-lsp {{{
