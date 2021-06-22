@@ -331,8 +331,8 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 " Color Schemes {{{
 	colo dracula
 	set background=dark
-	highlight ActiveNormal guibg=#1d2021
-	highlight InactiveNormal guibg=#282828
+	highlight ActiveNormal guibg=#181a26
+	highlight InactiveNormal guibg=#282a36
 	augroup focus
 		au!
 		au WinEnter * setlocal winhighlight=Normal:ActiveNormal
