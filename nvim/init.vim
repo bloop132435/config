@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
 
 " }}}
 " p-Looks {{{
-		Plug 'rafikdraoui/gruvbox-custom'
+		Plug 'bloop132435/dracula.vim'
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rktjmp/git-info.vim'
@@ -329,7 +329,7 @@ hi TabLineFill guibg=#282c34 guifg=#abb2bf
 
 " }}}
 " Color Schemes {{{
-	colo gruvbox-custom
+	colo dracula
 	set background=dark
 	highlight ActiveNormal guibg=#1d2021
 	highlight InactiveNormal guibg=#282828
