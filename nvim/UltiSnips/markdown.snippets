@@ -1,5 +1,5 @@
-snippet "(\S+)" "html tag" r
-<`!p snip.rv = ' '.join(match.group(1).split(','))`>$0</`!p snip.rv = match.group(1).split(',')[0]`>
+snippet "<(\S+)>" "html tag" r
+<`!p snip.rv = ' '.join(match.group(1).split(' '))`>$1</`!p snip.rv = match.group(1).split(',')[0]`>$0
 endsnippet
 
 priority 1
