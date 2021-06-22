@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
 
 " }}}
 " p-Looks {{{
-		Plug 'bloop132435/dracula.vim'
+		Plug 'bloop132435/dracula.nvim', {'branch':'main'}
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rktjmp/git-info.vim'
