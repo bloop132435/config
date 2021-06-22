@@ -2,8 +2,8 @@
 akregatorrc
 autostart/**
 baloofilerc
-BetterDiscord/**
 bashtop/**
+BetterDiscord/**
 binwalk/**
 BraveSoftware/**
 chromium/**
@@ -56,6 +56,7 @@ libaccounts-glib/
 libreoffice/**
 manjaro/**
 manjaro-hello.json**
+matplotlib/**
 menus/**
 microsoft-edge/**
 microsoft-edge-dev/**
