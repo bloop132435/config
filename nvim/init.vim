@@ -574,7 +574,10 @@ require('lspsaga').init_lsp_saga({
 })
 local custom_attach = function(client)
 	print('LSP Started')
-	require'lsp_signature'.on_attach()
+	require'lsp_signature'.on_attach({
+		fix_pos = true,
+		extra_trigger_chars = {'('},
+	})
 	require'compe'.setup{
 		enabled = true;
 		autocomplete = true;
