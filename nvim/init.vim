@@ -574,7 +574,7 @@ local custom_attach = function(client)
 	print('LSP Started')
 	require'lsp_signature'.on_attach({
 		fix_pos = true,
-		extra_trigger_chars = {'('},
+		extra_trigger_chars = {'(',',',' '},
 	})
 	require'compe'.setup{
 		enabled = true;
