@@ -171,8 +171,6 @@ call plug#end()
 		autocmd!
 		autocmd BufWritePre * :call TrimWhitespace()
 		autocmd filetype vim setlocal foldmethod=marker
-        autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ]
-        autocmd Filetype markdown setlocal formatoptions=ctnqro
 		autocmd BufWinEnter COMMIT_EDITMSG set nobuflisted
 	augroup END
 
@@ -553,7 +551,7 @@ EOF
 	inoremap  :call Dedent()<CR>
 	augroup markdown
 		au!
-        autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ]
+        autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ],n:-
         autocmd Filetype markdown setlocal formatoptions=ctnqro
 	augroup END
 
@@ -604,7 +602,7 @@ local custom_attach = function(client)
 	}
 end
 
-require'lspconfig'.clangd.setup{on_attach=custom_attach}
+require'lspconfig'.clangd.setup{on_attach=custom_attach, cmd = {"clangd","--background-index","-header-insertion=never"},}
 require'lspconfig'.vimls.setup{on_attach=custom_attach}
 require'lspconfig'.bashls.setup{on_attach=custom_attach}
 require'lspconfig'.pyright.setup{on_attach=custom_attach}
