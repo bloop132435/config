@@ -764,12 +764,6 @@ require'nvim-treesitter.configs'.setup{
 	},
 }
 EOF
-	augroup tsfold
-		au!
-		au Filetype cpp setlocal foldmethod=expr | setlocal foldexpr=nvim_treesitter#foldexpr() | setlocal foldlevel=1
-		au Filetype java setlocal foldmethod=expr | setlocal foldexpr=nvim_treesitter#foldexpr() | setlocal foldlevel=1
-		au Filetype py setlocal foldmethod=expr | setlocal foldexpr=nvim_treesitter#foldexpr() | setlocal foldlevel=1
-	augroup END
 
 " }}}
 " Undo_Tree {{{
