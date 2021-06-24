@@ -58,7 +58,6 @@ call plug#begin('~/.vim/plugged')
 " }}}
 " p-Testing {{{
 Plug 'jbyuki/venn.nvim'
-Plug 'nikvdp/neomux'
 
 " }}}
 call plug#end()
@@ -772,8 +771,7 @@ EOF
 
 " }}}
 " Testing {{{
-nnoremap <silent> <C-t> :Neomux<CR>
-nnoremap <silent> <leader>t :Neomux<CR>
-tnoremap nvim ivw<space>"=WindowNumber()<CR>pA<space>
+nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
+nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
 
 "}}}
