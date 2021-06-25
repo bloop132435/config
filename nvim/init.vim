@@ -140,6 +140,7 @@ call plug#end()
 	augroup folding
 		au!
 		au BufEnter kitty.conf setlocal foldmethod=marker
+		autocmd filetype vim setlocal foldmethod=marker
 		au Filetype tmux setlocal foldmethod=marker
 	augroup END
 	set guifont=JetBrainsMono\ NF:h11
@@ -162,16 +163,10 @@ call plug#end()
 	augroup END
 	set mouse=a
 	set ruler
-	fun! TrimWhitespace()
-		let l:save = winsaveview()
-		keeppatterns %s/\s\+$//e
-		call winrestview(l:save)
-	endfun
 	augroup custom
 		autocmd!
-		autocmd BufWritePre * :call TrimWhitespace()
-		autocmd filetype vim setlocal foldmethod=marker
 		autocmd BufWinEnter COMMIT_EDITMSG set nobuflisted
+		autocmd CursorHold * norm! zz
 	augroup END
 
 	function! OpenHelpInCurrentWindow(topic)
@@ -195,8 +190,6 @@ call plug#end()
 	nnoremap Y y$
 	nnoremap <leader>bd :bd! %<CR>
 	nnoremap <leader><leader>a GVgg
-	nnoremap j jzz
-	nnoremap k kzz
 	nnoremap ;+       <C-w>+
 	nnoremap ;-       <C-w>-
 	nnoremap ;<       <C-w><
