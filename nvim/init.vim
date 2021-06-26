@@ -157,16 +157,13 @@ call plug#end()
 		autocmd!
 		au BufWritePre * call TrimWhitespace()
 	augroup END
-	augroup pythonCell
-		au!
-		autocmd FileType python iabbrev <buffer> cell ##o##O
-	augroup END
 	set mouse=a
 	set ruler
 	augroup custom
 		autocmd!
 		autocmd BufWinEnter COMMIT_EDITMSG set nobuflisted
 		autocmd CursorHold * norm! zz
+		autocmd BufWinEnter ~/.config/polybar/config set ft=dosini
 	augroup END
 
 	function! OpenHelpInCurrentWindow(topic)
@@ -306,8 +303,8 @@ require"buftabline".setup({
 	icon_colors = false,
 })
 EOF
-hi TabLineSel guibg=#181d24 guifg=#abb2bf
-hi TabLineFill guibg=#282c34 guifg=#abb2bf
+hi TabLineSel guibg=#181a26 guifg=#abb2bf
+hi TabLineFill guibg=#000000 guifg=#abb2bf
 
 " }}}
 " Cheat.sh {{{
