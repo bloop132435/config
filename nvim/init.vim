@@ -58,6 +58,7 @@ call plug#begin('~/.vim/plugged')
 " }}}
 " p-Testing {{{
 Plug 'jbyuki/venn.nvim'
+Plug 'mfussenegger/nvim-ts-hint-textobject'
 
 " }}}
 call plug#end()
@@ -187,6 +188,7 @@ call plug#end()
 	nnoremap Y y$
 	nnoremap <leader>bd :bd! %<CR>
 	nnoremap <leader><leader>a GVgg
+	" Window Navigation {{{
 	nnoremap ;+       <C-w>+
 	nnoremap ;-       <C-w>-
 	nnoremap ;<       <C-w><
@@ -235,6 +237,9 @@ call plug#end()
 	nnoremap ;z       <C-w>z
 	nnoremap ;bar     <C-w>bar
 	nnoremap ;}       <C-w>}
+	"}}}
+	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
+	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
 
 	inoremap  <C-W>
 
@@ -332,7 +337,7 @@ hi TabLineFill guibg=#000000 guifg=#abb2bf
 " Debugging {{{
 	packadd termdebug
 	let g:termdebug_wide = 163
-	nnoremap [e :Evaluate
+	nnoremap [e :Evaluate<space>
 	nnoremap [r :Run <CR>
 	nnoremap [a :Arguments <CR>
 	nnoremap [b :Break<CR>
@@ -413,7 +418,6 @@ defaults = {
 		'--column',
 		'--smart-case'
 		},
-		prompt_position = "bottom",
 		prompt_prefix = "> ",
 		selection_caret = "> ",
 		entry_prefix = "  ",
@@ -427,10 +431,6 @@ defaults = {
 		generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
 		shorten_path = true,
 		winblend = 0,
-		width = 0.75,
-		preview_cutoff = 120,
-		results_height = 1,
-		results_width = 0.8,
 		border = {},
 		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
 		color_devicons = false,
@@ -449,23 +449,23 @@ defaults = {
 }
 require('telescope').load_extension('fzf')
 EOF
-	nnoremap <silent> <C-p> :Telescope find_files  hidden=true<CR>
+	nnoremap <silent> <C-p> :Telescope find_files theme=get_ivy hidden=true<CR>
 	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find <CR>
 	nnoremap <silent> <C-b> :Telescope buffers  <CR>
-	nnoremap <silent> <C-r> :lua require'spectre'.open()
+	nnoremap <silent> <C-r> :lua require'spectre'.open()<CR>
 	nnoremap <silent> <C-l> :Telescope loclist<CR>
 	nnoremap <silent> <C-q> :Telescope quickfix <CR>
 	nnoremap <silent> <C-h> :Telescope help_tags <CR>
 
-	nnoremap <silent> <leader>fp :Telescope find_files  hidden=true<CR>
+	nnoremap <silent> <leader>fp :Telescope find_files theme=get_ivy hidden=true<CR>
 	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find  <CR>
 	nnoremap <silent> <leader>ff :Telescope live_grep  <CR>
 	nnoremap <silent> <leader>fb :Telescope buffers <CR>
 	nnoremap <silent> <leader>fq :Telescope quickfix <CR>
-	nnoremap <silent> <leader>fc :Telescope find_files  hidden=true cwd=~/programs/lib<CR>
-	nnoremap <silent> <leader>fd :Telescope find_files  hidden=true cwd=~/.config<CR>
+	nnoremap <silent> <leader>fc :Telescope find_files theme=get_ivy hidden=true cwd=~/programs/lib<CR>
+	nnoremap <silent> <leader>fd :Telescope find_files theme=get_ivy hidden=true cwd=~/.config<CR>
 	nnoremap <silent> <leader>fh :Telescope help_tags <CR>
-	nnoremap <silent> <leader>fr :lua require'spectre'.open()
+	nnoremap <silent> <leader>fr :lua require'spectre'.open()<CR>
 
 " }}}
 " Formatting {{{
@@ -761,7 +761,7 @@ EOF
 
 " }}}
 " Testing {{{
-nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
-nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
+omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+vnoremap <silent> m :lua require('tsht').nodes()<CR>
 
 "}}}
