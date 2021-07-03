@@ -19,6 +19,12 @@ ${VISUAL}$1
 #endif
 endsnippet
 
+snippet nloc "only execute on nonlocal machine" t
+#ifndef LOCAL
+${VISUAL}$1
+#endif
+endsnippet
+
 snippet foe "for each loop" t
 for(${1:auto} ${2:i} : ${3:container}) {
 	$4
@@ -305,3 +311,18 @@ endsnippet
 snippet .pb "push back" i
 .push_back($1);$0
 endsnippet
+
+snippet .f "front" i
+.front();$0
+endsnippet
+
+snippet .i "insert"
+.insert($1);$0
+endsnippet
+
+# Jetbrains Copycat
+
+snippet "(\w+)\.be" "begin and end" ri
+`!p snip.rv = "begin(" + match.group(1) + "), end(" + match.group(1) + ")"`
+endsnippet
+
