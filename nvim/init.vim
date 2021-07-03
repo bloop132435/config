@@ -58,7 +58,6 @@ call plug#begin('~/.vim/plugged')
 " }}}
 " p-Testing {{{
 Plug 'jbyuki/venn.nvim'
-Plug 'mfussenegger/nvim-ts-hint-textobject'
 
 " }}}
 call plug#end()
@@ -90,7 +89,7 @@ call plug#end()
 	set relativenumber number
 
 	set nowrap
-	set noshowmode
+	set showmode
 	set autowriteall
 	set inccommand=split
 	set exrc
@@ -450,21 +449,21 @@ defaults = {
 require('telescope').load_extension('fzf')
 EOF
 	nnoremap <silent> <C-p> :Telescope find_files theme=get_ivy hidden=true<CR>
-	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find <CR>
-	nnoremap <silent> <C-b> :Telescope buffers  <CR>
+	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find theme=get_ivy<CR>
+	nnoremap <silent> <C-b> :Telescope buffers theme=get_ivy <CR>
 	nnoremap <silent> <C-r> :lua require'spectre'.open()<CR>
 	nnoremap <silent> <C-l> :Telescope loclist<CR>
-	nnoremap <silent> <C-q> :Telescope quickfix <CR>
-	nnoremap <silent> <C-h> :Telescope help_tags <CR>
+	nnoremap <silent> <C-q> :Telescope quickfix theme=get_ivy<CR>
+	nnoremap <silent> <C-h> :Telescope help_tags theme=get_ivy<CR>
 
 	nnoremap <silent> <leader>fp :Telescope find_files theme=get_ivy hidden=true<CR>
-	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find  <CR>
-	nnoremap <silent> <leader>ff :Telescope live_grep  <CR>
-	nnoremap <silent> <leader>fb :Telescope buffers <CR>
-	nnoremap <silent> <leader>fq :Telescope quickfix <CR>
+	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find theme=get_ivy <CR>
+	nnoremap <silent> <leader>ff :Telescope live_grep theme=get_ivy <CR>
+	nnoremap <silent> <leader>fb :Telescope buffers theme=get_ivy<CR>
+	nnoremap <silent> <leader>fq :Telescope quickfix theme=get_ivy<CR>
 	nnoremap <silent> <leader>fc :Telescope find_files theme=get_ivy hidden=true cwd=~/programs/lib<CR>
 	nnoremap <silent> <leader>fd :Telescope find_files theme=get_ivy hidden=true cwd=~/.config<CR>
-	nnoremap <silent> <leader>fh :Telescope help_tags <CR>
+	nnoremap <silent> <leader>fh :Telescope help_tags theme=get_ivy<CR>
 	nnoremap <silent> <leader>fr :lua require'spectre'.open()<CR>
 
 " }}}
@@ -700,39 +699,40 @@ EOF
 
 "}}}
 "  Statusline {{{
-	set statusline=
-	" LEFT
-		" Mode
-		let g:modeToText = {
-					\ "n" : "NORMAL",
-					\ "i" : "INSERT",
-					\ "v" : "VISUAL",
-					\ "V" : "V-LINE",
-					\ "\<C-v>" : "VBLOCK",
-					\ "R" : "RPLACE" ,
-					\ "c" : "COMMND",
-					\ "t" : "TERMNL",
-					\ "s" : "SELECT",
-					\}
-		set statusline+=[%{g:modeToText[mode()]}]
-		" show full file path
-		set statusline+=[%F]
-		set statusline+=
-		" Git Branch
-		set statusline+=[%{git_info#branch_name()}]
-		" Modified and Read-only
-		set statusline+=%m
-	"RIGHT
-		set statusline+=%=
-		" Read-only
-		set statusline+=%r
-		" Git status
-		set statusline+=[%{git_info#changes()['as_string']}]
-		" Filetype
-		set statusline+=%y
-		" show current line number out of total lines
-		set statusline+=[%p%%]
-		set statusline+=:[%l/%L]
+" 	set statusline=
+" 	" LEFT
+" 		" Mode
+" 		let g:modeToText = {
+" 					\ "n" : "NORMAL",
+" 					\ "i" : "INSERT",
+" 					\ "v" : "VISUAL",
+" 					\ "V" : "V-LINE",
+" 					\ "\<C-v>" : "VBLOCK",
+" 					\ "R" : "RPLACE" ,
+" 					\ "c" : "COMMND",
+" 					\ "t" : "TERMNL",
+" 					\ "s" : "SELECT",
+" 					\}
+" 		set statusline+=[%{g:modeToText[mode()]}]
+" 		" show full file path
+" 		set statusline+=[%F]
+" 		set statusline+=
+" 		" Git Branch
+" 		set statusline+=[%{git_info#branch_name()}]
+" 		" Modified and Read-only
+" 		set statusline+=%m
+" 	"RIGHT
+" 		set statusline+=%=
+" 		" Read-only
+" 		set statusline+=%r
+" 		" Git status
+" 		set statusline+=[%{git_info#changes()['as_string']}]
+" 		" Filetype
+" 		set statusline+=%y
+" 		" show current line number out of total lines
+" 		set statusline+=[%p%%]
+" 		set statusline+=:[%l/%L]
+		set laststatus=0
 " }}}
 "  Tresitter {{{
 lua << EOF
@@ -761,7 +761,5 @@ EOF
 
 " }}}
 " Testing {{{
-omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
-vnoremap <silent> m :lua require('tsht').nodes()<CR>
 
 "}}}
