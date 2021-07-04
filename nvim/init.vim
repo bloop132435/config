@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
 " p-Looks {{{
 		Plug 'bloop132435/dracula.nvim', {'branch':'main'}
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
-		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rktjmp/git-info.vim'
 
 
@@ -296,20 +295,6 @@ MUtils.completion_confirm = function()
 end
 remap('i','<CR>', 'v:lua.MUtils.completion_confirm()',{expr = true, noremap = true})
 EOF
-" }}}
-" BufTabLine {{{
-lua <<EOF
-require"buftabline".setup({
-	modifier = ":t",
-	index_format = "%d: ",
-	buffer_id_index = false,
-	icons = false,
-	icon_colors = false,
-})
-EOF
-hi TabLineSel guibg=#181a26 guifg=#abb2bf
-hi TabLineFill guibg=#000000 guifg=#abb2bf
-
 " }}}
 " Cheat.sh {{{
 	let g:CheatSheetDoNotMap = 1
