@@ -173,6 +173,13 @@ call plug#end()
 		exe 'keepjumps help ' . a:topic
 	endfunction
 	command! -nargs=? -complete=help Help call OpenHelpInCurrentWindow(<q-args>)
+	function! MyFoldText()
+		let line = getline(v:foldstart)
+		let foldedlinecount = v:foldend - v:foldstart + 1
+		return ' 祈 '. foldedlinecount . line
+	endfunction
+	set foldtext=MyFoldText()
+	set fillchars=fold:\-
 
 " }}}
 " Vanilla_Vim_Mappings {{{
