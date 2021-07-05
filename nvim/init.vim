@@ -444,13 +444,13 @@ EOF
 	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find theme=get_ivy<CR>
 	nnoremap <silent> <C-b> :Telescope buffers theme=get_ivy <CR>
 	nnoremap <silent> <C-r> :lua require'spectre'.open()<CR>
-	nnoremap <silent> <C-l> :Telescope loclist<CR>
+	nnoremap <silent> <C-l> :Telescope loclist theme=get_ivy<CR>
+	nnoremap <silent> <C-q> :Telescope quickfix theme=get_ivy<CR>
 	nnoremap <silent> <C-q> :Telescope quickfix theme=get_ivy<CR>
 	nnoremap <silent> <C-h> :Telescope help_tags theme=get_ivy<CR>
 
 	nnoremap <silent> <leader>fp :Telescope find_files theme=get_ivy hidden=true<CR>
 	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find theme=get_ivy <CR>
-	nnoremap <silent> <leader>ff :Telescope live_grep theme=get_ivy <CR>
 	nnoremap <silent> <leader>fb :Telescope buffers theme=get_ivy<CR>
 	nnoremap <silent> <leader>fq :Telescope quickfix theme=get_ivy<CR>
 	nnoremap <silent> <leader>fc :Telescope find_files theme=get_ivy hidden=true cwd=~/programs/lib<CR>
