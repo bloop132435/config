@@ -16,7 +16,7 @@ call plug#begin('~/.vim/plugged')
 " p-Looks {{{
 		Plug 'bloop132435/dracula.nvim', {'branch':'main'}
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
-		Plug 'jose-elias-alvarez/buftabline.nvim'
+		Plug 'akinsho/nvim-bufferline.lua'
 		Plug 'rktjmp/git-info.vim'
 
 
@@ -308,17 +308,6 @@ EOF
 	let g:CheatSheetDoNotMap = 1
 
 " }}}
-" BufTabLine {{{
-lua <<EOF
-require"buftabline".setup({
-   modifier = ":t",
-   index_format = "%d: ",
-   buffer_id_index = false,
-   icons = false,
-   icon_colors = false,
-})
-EOF
-"}}}
 " Color Schemes {{{
 	colo dracula
 	set background=dark
@@ -756,6 +745,38 @@ require'nvim-treesitter.configs'.setup{
 }
 EOF
 
+" }}}
+" Tabline {{{
+	lua <<EOF
+	require('bufferline').setup {
+	  options = {
+		numbers = "ordinal",
+		mappings = true,
+		number_style = {"none","none"}, -- buffer_id at index 1, ordinal at index 2
+		indicator_icon = '▎',
+		buffer_close_icon = '',
+		modified_icon = '●',
+		name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
+			return vim.fn.fnamemodify(buf.name, ':t')
+		end,
+		max_name_length = 18,
+		max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+		diagnostics = "nvim_lsp",
+		diagnostics_indicator = function(count, level, diagnostics_dict, context)
+		  return "("..count..")"
+		end,
+		show_buffer_icons = false,
+		show_buffer_close_icons =false,
+		show_close_icon = false,
+		show_tab_indicators = false,
+		persist_buffer_sort = false, -- whether or not custom sorted buffers should persist
+		separator_style = "thin",
+		enforce_regular_tabs = false,
+		always_show_bufferline = true,
+		sort_by = 'id',  }
+	}
+
+EOF
 " }}}
 " Undo_Tree {{{
 	nnoremap <silent> <leader>u :UndotreeToggle<CR>
