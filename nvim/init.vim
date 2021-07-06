@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
 " p-Looks {{{
 		Plug 'bloop132435/dracula.nvim', {'branch':'main'}
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
+		Plug 'jose-elias-alvarez/buftabline.nvim'
 		Plug 'rktjmp/git-info.vim'
 
 
@@ -307,6 +308,17 @@ EOF
 	let g:CheatSheetDoNotMap = 1
 
 " }}}
+" BufTabLine {{{
+lua <<EOF
+require"buftabline".setup({
+   modifier = ":t",
+   index_format = "%d: ",
+   buffer_id_index = false,
+   icons = false,
+   icon_colors = false,
+})
+EOF
+"}}}
 " Color Schemes {{{
 	colo dracula
 	set background=dark
