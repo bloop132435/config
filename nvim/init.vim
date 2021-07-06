@@ -688,40 +688,9 @@ EOF
 
 "}}}
 "  Statusline {{{
-" 	set statusline=
-" 	" LEFT
-" 		" Mode
-" 		let g:modeToText = {
-" 					\ "n" : "NORMAL",
-" 					\ "i" : "INSERT",
-" 					\ "v" : "VISUAL",
-" 					\ "V" : "V-LINE",
-" 					\ "\<C-v>" : "VBLOCK",
-" 					\ "R" : "RPLACE" ,
-" 					\ "c" : "COMMND",
-" 					\ "t" : "TERMNL",
-" 					\ "s" : "SELECT",
-" 					\}
-" 		set statusline+=[%{g:modeToText[mode()]}]
-" 		" show full file path
-" 		set statusline+=[%F]
-" 		set statusline+=
-" 		" Git Branch
-" 		set statusline+=[%{git_info#branch_name()}]
-" 		" Modified and Read-only
-" 		set statusline+=%m
-" 	"RIGHT
-" 		set statusline+=%=
-" 		" Read-only
-" 		set statusline+=%r
-" 		" Git status
-" 		set statusline+=[%{git_info#changes()['as_string']}]
-" 		" Filetype
-" 		set statusline+=%y
-" 		" show current line number out of total lines
-" 		set statusline+=[%p%%]
-" 		set statusline+=:[%l/%L]
-		set laststatus=0
+	let &statusline='%#Normal# '
+	set laststatus=0
+
 " }}}
 "  Tresitter {{{
 lua << EOF
