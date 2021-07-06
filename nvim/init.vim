@@ -9,7 +9,6 @@ call plug#begin('~/.vim/plugged')
 " p-Language_Support {{{
 		Plug 'neovim/nvim-lspconfig'  "nvim builtin lsp
 		Plug 'glepnir/lspsaga.nvim'
-		Plug 'ray-x/lsp_signature.nvim'  "function signature help for lsp
 		Plug 'hrsh7th/nvim-compe'
 		Plug 'bloop132435/ultisnips'
 
@@ -566,10 +565,6 @@ require('lspsaga').init_lsp_saga({
 })
 local custom_attach = function(client)
 	print('LSP Started')
-	require'lsp_signature'.on_attach({
-		fix_pos = true,
-		extra_trigger_chars = {'(',',',' '},
-	})
 	require'compe'.setup{
 		enabled = true;
 		autocomplete = true;
@@ -673,7 +668,7 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
 	signs = true,
 
 	-- delay update diagnostics
-	update_in_insert = false,
+	update_in_insert = true,
 	-- display_diagnostic_autocmds = { "InsertLeave" },
 
 	}
@@ -687,6 +682,7 @@ EOF
 	nnoremap <silent> ,r :Lspsaga rename<CR>
 	nnoremap <silent> ,d :Lspsaga preview_definition<CR>
 	nnoremap <silent> gh :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+	inoremap <silent> <C-s> :lua vim.lsp.buf.signature_help()<CR>
 	augroup NvimLsp
 		au!
 		autocmd Filetype lspsagafinder setlocal scrolloff=0
