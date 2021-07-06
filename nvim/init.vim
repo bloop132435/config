@@ -58,6 +58,7 @@ call plug#begin('~/.vim/plugged')
 " }}}
 " p-Testing {{{
 Plug 'jbyuki/venn.nvim'
+Plug 'xiyaowong/nvim-cursorword'
 
 " }}}
 call plug#end()
@@ -322,13 +323,13 @@ EOF
 " Color Schemes {{{
 	colo dracula
 	set background=dark
-	highlight ActiveNormal guibg=#181a26
-	highlight InactiveNormal guibg=#282a36
+	set cursorline cursorcolumn
 	augroup focus
 		au!
-		au WinEnter * setlocal winhighlight=Normal:ActiveNormal
-		au WinLeave * setlocal winhighlight=Normal:InactiveNormal
+		au WinEnter * setlocal cursorline cursorcolumn
+		au WinLeave * setlocal nocursorline nocursorcolumn
 	augroup END
+	hi CursorLine ctermbg=238 guibg=#282a36
 	hi OverRuler  guibg=#cc241d
 	call matchadd('OverRuler', '\v^.{200}\zs.*$', 100)
 
