@@ -8,6 +8,9 @@ export PAGER="nvim -c 'set ft=man'"
 alias v=nvim
 alias python=python3
 set -o vi
+vf(){
+	nvim $(fd -E .git -I -H | fzf)
+}
 
 
 # If not running interactively, don't do anything
