@@ -69,3 +69,15 @@ for ${1:i} in ${2:range}:
 	${3:action}
 $0
 endsnippet
+
+snippet struct "structure only for storing data" i
+class ${1:Name}:
+	def __init__(self, ${2:list}):
+	`!p string = ""
+items = t[2].split(',')
+items = [i.strip() for i in items]
+for i in items:
+	string = string + '\n        ' + 'self.' + i + ' = ' + i
+snip.rv = string
+	`
+endsnippet
