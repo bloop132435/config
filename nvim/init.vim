@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'bloop132435/dracula.nvim', {'branch':'main'}
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'akinsho/nvim-bufferline.lua'
-		Plug 'rktjmp/git-info.vim'
 
 
 "}}}
@@ -26,7 +25,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'wincent/loupe' "better incsearch for vim
 		Plug 'windwp/nvim-spectre'
 		Plug 'Shougo/defx.nvim'
-		Plug 'kristijanhusak/defx-git'
+		Plug 'kristijanhusak/defx-git' , {'on':'Defx'}
 		Plug 'nvim-telescope/telescope.nvim'
 		Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
@@ -47,14 +46,10 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tversteeg/registers.nvim'
 		Plug 'windwp/nvim-autopairs'
 		Plug 'simeji/winresizer'
-		Plug 'bfredl/nvim-ipy'
+		Plug 'bfredl/nvim-ipy', {'for':'ipynb'}
 		Plug 'rhysd/clever-f.vim'
 
 "}}}
-" p-Latex {{{
-		Plug 'xuhdev/vim-latex-live-preview', {'for':'latex'}
-
-" }}}
 " p-Testing {{{
 Plug 'xiyaowong/nvim-cursorword'
 
@@ -161,7 +156,6 @@ call plug#end()
 	augroup custom
 		autocmd!
 		autocmd BufWinEnter COMMIT_EDITMSG set nobuflisted
-		autocmd CursorHold * norm! zz
 		autocmd BufWinEnter ~/.config/polybar/config set ft=dosini
 	augroup END
 
@@ -470,6 +464,8 @@ EOF
 		au BufWinEnter *.clang-format set ft=yaml
 		au BufWritePost *.cpp call Format("clang-format")
 		au BufWritePost *.py  call Format("yapf")
+		au Filetype cpp setlocal equalprg=clang-format
+		au Filetype py setlocal equalprg=yapf
 	augroup END
 
 " }}}
