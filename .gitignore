@@ -1,3 +1,4 @@
+
 1Password/**
 akregatorrc
 autostart/**
@@ -80,6 +81,15 @@ qt5ct/**
 QtProject.conf**
 qutebrowser/**
 ranger/**
+rygel.conf
+Rygel/MediaExport-v1.xml
+Rygel/MediaExport-xbox.xml
+Rygel/MediaExport.xml
+Rygel/Playbin-v1.xml
+Rygel/Playbin.xml
+Rygel/Tracker3-v1.xml
+Rygel/Tracker3-xbox.xml
+Rygel/Tracker3.xml
 session/**
 solaar/**
 spotify/**
@@ -95,6 +105,8 @@ ungoogled-chromium/**
 Unknown\ Organization/**
 user-dirs.dirs**
 user-dirs.locale**
+user-share/log
+user-share/pid
 vivaldi/**
 vivaldi-snapshot/**
 vokoscreenNG/**
