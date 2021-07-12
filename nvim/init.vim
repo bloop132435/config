@@ -37,6 +37,7 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
+		Plug 'stsewd/spotify.nvim', { 'do': ':UpdateRemotePlugins' }
 		Plug 'xiyaowong/nvim-cursorword'
 		Plug 'b3nj5m1n/kommentary'  "comments
 		Plug 'mbbill/undotree'
@@ -238,8 +239,8 @@ call plug#end()
 	nnoremap ;bar     <C-w>bar
 	nnoremap ;}       <C-w>}
 	"}}}
-	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
-	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
+	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>:set ft=term<CR>
+	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>:set ft=term<CR>
 	nnoremap <C-g> g<C-g>
 
 	inoremap  <C-W>
@@ -685,6 +686,12 @@ EOF
 	let g:UltiSnipsJumpForwardTrigger='<c-j>'
 
 "}}}
+" Spotify {{{
+	nnoremap <silent> <leader>s<space> :Spotify play/pause<CR>
+	nnoremap <silent> <leader>sn :Spotify next<CR>
+	nnoremap <silent> <leader>sp :Spotify prev<CR>
+
+" }}}
 "  Statusline {{{
 	let &statusline='%#Normal# '
 	set laststatus=0
