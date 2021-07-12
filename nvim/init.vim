@@ -48,6 +48,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy', {'for':'ipynb'}
 		Plug 'rhysd/clever-f.vim'
+		Plug 'bloop132435/Center.vim', {'branch':'main'}
 
 "}}}
 " p-Testing {{{
@@ -239,6 +240,7 @@ call plug#end()
 	"}}}
 	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
 	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
+	nnoremap <C-g> g<C-g>
 
 	inoremap  <C-W>
 
