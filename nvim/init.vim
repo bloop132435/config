@@ -37,6 +37,7 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
+		Plug 'xiyaowong/nvim-cursorword'
 		Plug 'b3nj5m1n/kommentary'  "comments
 		Plug 'mbbill/undotree'
 		Plug 'szw/vim-maximizer'  "mazimize a window
@@ -52,7 +53,6 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Testing {{{
-Plug 'xiyaowong/nvim-cursorword'
 
 " }}}
 call plug#end()
