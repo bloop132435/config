@@ -11,7 +11,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'glepnir/lspsaga.nvim'
 		Plug 'hrsh7th/nvim-compe'
 		Plug 'bloop132435/ultisnips'
-		Plug 'code-biscuits/nvim-biscuits'
 
 " }}}
 " p-Looks {{{
