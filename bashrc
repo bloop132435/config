@@ -4,7 +4,7 @@ export PATH=$PATH:~/downloads/squashfs-root/usr/bin
 export PATH=$PATH:/home/gqian/cling/bin
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
 export EDITOR=nvim
-export PAGER="nvim -c 'set ft=man'"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 alias v=nvim
 alias python=python3
 set -o vi
