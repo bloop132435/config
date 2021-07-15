@@ -670,7 +670,8 @@ EOF
 	nnoremap <silent> ,r :Lspsaga rename<CR>
 	nnoremap <silent> ,d :Lspsaga preview_definition<CR>
 	nnoremap <silent> gh :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-	inoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
+	inoremap <silent> <C-s> <cmd>Lspsaga signature_help<CR>
+	nnoremap <silent> <C-s> <cmd>Lspsaga signature_help<CR>
 	augroup NvimLsp
 		au!
 		autocmd Filetype lspsagafinder setlocal scrolloff=0
