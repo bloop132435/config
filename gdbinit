@@ -104,3 +104,8 @@ source ~/.gdbinit.local
 if $COLOREDPROMPT == 1
 	set prompt \033[31mgdb$ \033[0m
 end
+
+define pgo
+printf $arg0, $arg1
+continue
+end
