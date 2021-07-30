@@ -468,6 +468,7 @@ EOF
 		au!
 		au BufWinEnter *.clang-format set ft=yaml
 		au BufWritePost *.cpp call Format("clang-format")
+		au BufWritePost *.c call Format("clang-format")
 		au BufWritePost *.py  call Format("yapf")
 		au Filetype cpp setlocal equalprg=clang-format
 		au Filetype py setlocal equalprg=yapf
@@ -524,13 +525,13 @@ EOF
 
 " }}}
 " Markdown {{{
-	let g:markdown_fenced_languages =	['html', 'python', 'ruby', 'vim', 'cpp', 'java']
+	let g:markdown_fenced_languages =	['html', 'python', 'ruby', 'vim', 'cpp', 'java', 'bash', 'sh', '']
 	function! Dedent() abort
 		let l = line('.')
 		let tail = matchstr(getline(l),"^.\\zs.*$")
 		call setline(l,tail)
 	endfunction
-	inoremap  :call Dedent()<CR>
+	inoremap <silent>  <cmd>call Dedent()<CR>
 	augroup markdown
 		au!
         autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ],n:-
