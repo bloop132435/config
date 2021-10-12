@@ -2,7 +2,10 @@ export PATH=$PATH:~/programs/scripts/
 export PATH=$PATH:~/.config/tmux
 export PATH=$PATH:~/downloads/squashfs-root/usr/bin
 export PATH=$PATH:/home/gqian/cling/bin
+export DOTNET_ROOT=$HOME/dotnet
+export PATH=$PATH:$HOME/dotnet
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
+export FZF_DEFAULT_COMMAND="fd -E .git -H -I"
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 alias v=nvim
@@ -10,6 +13,12 @@ alias python=python3
 set -o vi
 vf(){
 	nvim $(fd -E .git -I -H | fzf)
+}
+cf(){
+	export DIR=$(fd -E .git -I -H --type d| fzf)
+	[ -z $DIR ] && return 0
+	echo $DIR
+	cd $DIR
 }
 
 
