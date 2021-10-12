@@ -18,7 +18,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'akinsho/nvim-bufferline.lua'
 		Plug 'folke/zen-mode.nvim'
-		Plug 'folke/twilight.nvim'
 
 
 "}}}
@@ -50,7 +49,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'tversteeg/registers.nvim'
 		Plug 'windwp/nvim-autopairs'
 		Plug 'simeji/winresizer'
-		Plug 'bfredl/nvim-ipy', {'for':'ipynb'}
+		Plug 'bfredl/nvim-ipy'
 		Plug 'rhysd/clever-f.vim'
 
 "}}}
@@ -91,7 +90,7 @@ call plug#end()
 	set inccommand=split
 	set exrc
 	set noemoji
-	set scrolloff=10
+	set scrolloff=4
 	set gdefault
 	set completeopt=menuone,noselect
 	set path+=**
@@ -162,14 +161,12 @@ call plug#end()
 		autocmd BufWinEnter ~/.config/polybar/config set ft=dosini
 	augroup END
 
-	function! OpenHelpInCurrentWindow(topic)
-		view $VIMRUNTIME/doc/help.txt
-		setl filetype=help
-		setl buftype=help
-		setl nomodifiable
-		exe 'keepjumps help ' . a:topic
-	endfunction
-	command! -nargs=? -complete=help Help call OpenHelpInCurrentWindow(<q-args>)
+	augroup terminal
+		au!
+		au TermEnter * setlocal ft=term
+		au TermOpen * setlocal ft=term
+	augroup END
+
 	function! MyFoldText()
 		let line = getline(v:foldstart)
 		let foldedlinecount = v:foldend - v:foldstart + 1
@@ -240,8 +237,8 @@ call plug#end()
 	nnoremap ;bar     <C-w>bar
 	nnoremap ;}       <C-w>}
 	"}}}
-	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>:set ft=term<CR>
-	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>:set ft=term<CR>
+	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
+	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
 	nnoremap <C-g> g<C-g>
 
 	inoremap  <C-W>
@@ -301,20 +298,9 @@ end
 remap('i','<CR>', 'v:lua.MUtils.completion_confirm()',{expr = true, noremap = true})
 EOF
 " }}}
-" Cheat.sh {{{
-	let g:CheatSheetDoNotMap = 1
-
-" }}}
 " Color Schemes {{{
 	colo dracula
 	set background=dark
-	set cursorline cursorcolumn
-	augroup focus
-		au!
-		au WinEnter * setlocal cursorline cursorcolumn
-		au WinLeave * setlocal nocursorline nocursorcolumn
-	augroup END
-	hi CursorLine ctermbg=238 guibg=#282a36
 	hi OverRuler  guibg=#cc241d
 	call matchadd('OverRuler', '\v^.{200}\zs.*$', 100)
 
@@ -416,10 +402,7 @@ defaults = {
 		selection_strategy = "reset",
 		sorting_strategy = "ascending",
 		layout_strategy = "horizontal",
-		file_sorter =  require'telescope.sorters'.get_fuzzy_file,
 		file_ignore_patterns = {".git","__pycache__"},
-		generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-		shorten_path = true,
 		winblend = 0,
 		border = {},
 		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
@@ -470,8 +453,6 @@ EOF
 		au BufWritePost *.cpp call Format("clang-format")
 		au BufWritePost *.c call Format("clang-format")
 		au BufWritePost *.py  call Format("yapf")
-		au Filetype cpp setlocal equalprg=clang-format
-		au Filetype py setlocal equalprg=yapf
 	augroup END
 
 " }}}
@@ -672,14 +653,21 @@ EOF
 	nnoremap <silent> ,r :Lspsaga rename<CR>
 	nnoremap <silent> ,d :Lspsaga preview_definition<CR>
 	nnoremap <silent> gh :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-	inoremap <silent> <C-s> <cmd>Lspsaga signature_help<CR>
-	nnoremap <silent> <C-s> <cmd>Lspsaga signature_help<CR>
+	inoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
+	nnoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
 	augroup NvimLsp
 		au!
 		autocmd Filetype lspsagafinder setlocal scrolloff=0
-		autocmd CursorHold *.cpp,*.c,*.h,*.py lua vim.lsp.diagnostic.set_loclist({open_loclist = false,})
+		autocmd CursorHold *.cpp,*.c,*.h,*.py lua vim.lsp.diagnostic.set_loclist({open = false,})
 		autocmd BufEnter * lua require'compe'.setup{ enabled = true; autocomplete = true; debug = false; min_lenth = 1; preselect = 'enable'; throttle_time = 80; source_timeout = 2000; imcomplete_delay = 400; max_abbr_width = 100; max_kind_width = 100; max_menu_width = 100; documentation = true; source = { path = true; buffer = true; calc = true; nvim_lsp = true; nvim_lua = true; vsnip = false; ultisnips = true; tabnine = true;}; }
 
+	augroup END
+
+" }}}
+" Q-sharp {{{
+	augroup qsharp
+		au!
+		au BufEnter *.qs set ft=cs
 	augroup END
 
 " }}}
@@ -754,6 +742,16 @@ EOF
 	}
 
 EOF
+
+nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
+nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
+nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
+nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
+nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
+nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
+nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
+nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
+nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 " }}}
 " Undo_Tree {{{
 	nnoremap <silent> <leader>u :UndotreeToggle<CR>
@@ -776,8 +774,8 @@ require'zen-mode'.setup({
        signcolumn = "yes", -- disable signcolumn
        number = true, -- disable number column
        relativenumber = true, -- disable relative numbers
-       cursorline = true, -- disable cursorline
-       cursorcolumn = true, -- disable cursor column
+       cursorline = false, -- disable cursorline
+       cursorcolumn = false, -- disable cursor column
        foldcolumn = "0", -- disable fold column
        list = true, -- disable whitespace characters
     },
@@ -790,7 +788,7 @@ require'zen-mode'.setup({
       ruler = true, -- disables the ruler text in the cmd line area
       showcmd = true, -- disables the command in the last line of the screen
     },
-    twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+    twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
     gitsigns = { enabled = false }, -- disables git signs
     tmux = { enabled = false }, -- disables the tmux statusline
     -- this will change the font size on kitty when in zen mode
@@ -804,9 +802,6 @@ require'zen-mode'.setup({
   -- callback where you can add custom code when the Zen window closes
   on_close = function()
   end,
-})
-require'twilight'.setup({
-	context = 10,
 })
 EOF
 	nnoremap <silent> <leader>z :ZenMode<CR>
