@@ -1,4 +1,6 @@
-
+cfiles/**
+vifm/**
+xournalpp/**
 1Password/**
 akregatorrc
 autostart/**
