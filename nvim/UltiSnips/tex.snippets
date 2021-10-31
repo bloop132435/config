@@ -5,6 +5,7 @@ snippet start "basic template for latex files"
 \usepackage[english]{babel}
 
 \usepackage{tikz}
+\usetikzlibrary{quotes}
 \usepackage{geometry}
 \usepackage{marginnote}
 \usepackage{amsmath}
@@ -25,8 +26,8 @@ def complete(start, choices):
 	return '(' + ', '.join(nc) + ')'
 endglobal
 
-snippet sym "symbols"
-\\${1}`!p snip.rv = complete(t[1],["alpha","beta","Delta","gamma","epsilon","theta","lambda","mu","pi","rho","sigma","Sigma","tau","phi","omega","Omega","infty","leq","geq","approx"])` $0
+snippet sym "symbols" i
+\\${1}`!p snip.rv = complete(t[1],["alpha","beta","Delta","gamma","epsilon","theta","lambda","mu","pi","rho","sigma","Sigma","tau","phi","omega","Omega","infty","leq","geq","approx","equiv"])` $0
 endsnippet
 
 snippet "\((.*)\)/\((.*)\)" "fraction based on regex" r
@@ -35,6 +36,10 @@ endsnippet
 
 snippet fr "fraction"
 \frac{$1}{$2} $0
+endsnippet
+
+snippet "(\S+)/(\S+)" "speed fraction" ri
+\frac{`!p snip.rv = match.group(1)`}{`!p snip.rv = match.group(2)`}
 endsnippet
 
 
