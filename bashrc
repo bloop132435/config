@@ -4,6 +4,7 @@ export PATH=$PATH:~/downloads/squashfs-root/usr/bin
 export PATH=$PATH:/home/gqian/cling/bin
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:$HOME/dotnet
+export PATH=$PATH:$HOME/programs/utils/webscraping
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
 export FZF_DEFAULT_COMMAND="fd -E .git -H -I"
 export EDITOR=nvim

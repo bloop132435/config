@@ -444,7 +444,7 @@ EOF
 " Formatting {{{
 	function! Format(formatter) abort
 		let s:l = line('.')
-		exe "%!" . a:formatter . " %"
+		exe "undojoin \| %!" . a:formatter . " %"
 		exe s:l
 	endfunction
 	augroup Formatting
@@ -466,6 +466,7 @@ EOF
 
 " }}}
 " Hop {{{
+	lua require'hop'.setup()
 	nnoremap <leader>h  :HopWord<CR>
 	nnoremap <leader>H :HopPattern<CR>
 	nnoremap <silent> ,f :HopChar1<CR>
@@ -474,6 +475,7 @@ EOF
 	highlight default HopNextKey1 guifg=#00dfff gui=bold ctermfg=45 cterm=bold
 	highlight default HopNextKey2 guifg=#2b8db3 ctermfg=33
 	highlight default HopUnmatched guifg=#666666 ctermfg=242
+
 "}}}
 " Jupyter_Notebook {{{
 	let g:nvim_ipy_perform_mappings = 0
@@ -715,9 +717,11 @@ EOF
 	lua <<EOF
 	require('bufferline').setup {
 	  options = {
-		numbers = "ordinal",
+		numbers = function(opts)
+		return string.format('%s.', opts.ordinal )
+		end,
 		mappings = true,
-		number_style = {"none","none"}, -- buffer_id at index 1, ordinal at index 2
+
 		indicator_icon = '▎',
 		buffer_close_icon = '',
 		modified_icon = '●',

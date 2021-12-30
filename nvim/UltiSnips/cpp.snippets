@@ -129,7 +129,7 @@ def coutExpand(snip):
 	indent = re.match(r"^\s*",line).group()
 	n = int(line.strip())
 	snip.buffer[snip.line] = ''
-	snp = indent + 'cout<<' + '<<'.join("$" + str(i+1)  for i in range(n)) + "$" + "{" + str(n+1) + ":<<endl};"
+	snp = indent + 'cout<<' + '<<'.join("$" + str(i+1)  for i in range(n)) + ";"
 	snip.expand_anon(snp)
 endglobal
 
@@ -450,4 +450,16 @@ endsnippet
 
 snippet pii "pair int int" i
 pair<int,int>
+endsnippet
+
+snippet vi "vector int" i
+vector<int>
+endsnippet
+
+snippet mxu "max update" i
+$1 = max($1,$2);$0
+endsnippet
+
+snippet mnu "min update" i
+$1 = min($1,$2);$0
 endsnippet
