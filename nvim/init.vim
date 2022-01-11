@@ -2,22 +2,22 @@
 "be sure to install Vim Plug
 call plug#begin('~/.vim/plugged')
 " p-lua {{{
-		Plug 'nvim-lua/popup.nvim'  "pop up api for nvim
-		Plug 'nvim-lua/plenary.nvim'  "assorted functions for lua neovim
+		Plug 'nvim-lua/popup.nvim', {'commit':'f91d80973f80025d4ed00380f2e06c669dfda49d'}  "pop up api for nvim
+		Plug 'nvim-lua/plenary.nvim', {'commit': 'b42e0cfe22ad3a0cac35cf14315e9dc22cea2ec9'}  "assorted functions for lua neovim
 
 "}}}
 " p-Language_Support {{{
-		Plug 'neovim/nvim-lspconfig'  "nvim builtin lsp
-		Plug 'glepnir/lspsaga.nvim'
-		Plug 'hrsh7th/nvim-compe'
+		Plug 'neovim/nvim-lspconfig', {'commit':'9de4ceb9314aa59a726d3f0b31678e9d955a353e'}  "nvim builtin lsp
+		" Plug 'glepnir/lspsaga.nvim', {'commit':'cb0e35d2e594ff7a9c408d2e382945d56336c040'}
+		Plug 'hrsh7th/nvim-compe', {'commit':'d186d739c54823e0b010feb205c6f97792322c08'}
 		Plug 'bloop132435/ultisnips'
 
 " }}}
 " p-Looks {{{
 		Plug 'bloop132435/dracula.nvim', {'branch':'main'}
-		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
-		Plug 'akinsho/nvim-bufferline.lua'
-		Plug 'folke/zen-mode.nvim'
+		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate', 'commit':'0e25e0e98990803e95c7851236e43b3ee934d443'} "Tree sitter
+		Plug 'akinsho/nvim-bufferline.lua', {'commit': '782fab8a2352e872dc991c42f806dae18e848b2d'}
+		Plug 'folke/zen-mode.nvim', {'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c'}
 
 
 "}}}
@@ -524,18 +524,6 @@ EOF
 " }}}
 " Nvim-lsp {{{
 	lua << EOF
-require('lspsaga').init_lsp_saga({
-	finder_action_keys = {
-		quit = {'<esc>','q',},
-	},
-	rename_action_keys = {
-		quit = {'<esc>'},
-	},
-	code_action_keys = {
-		quit = {'<esc>','q',},
-	},
-	max_preview_lines = 50,
-})
 local custom_attach = function(client)
 	print('LSP Started')
 	require'compe'.setup{
@@ -648,12 +636,9 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
 )
 EOF
 	"Mappings
-	nnoremap <silent> ,f :Lspsaga lsp_finder<CR>
-	nnoremap <silent> ,a :Lspsaga code_action<CR>
-	vnoremap <silent> ,a :Lspsaga range_code_action<CR>
-	nnoremap <silent> K :Lspsaga hover_doc<CR>
-	nnoremap <silent> ,r :Lspsaga rename<CR>
-	nnoremap <silent> ,d :Lspsaga preview_definition<CR>
+	nnoremap <silent> ,a :lua vim.lsp.buf.code_action()<CR>
+	nnoremap <silent> K :lua vim.lsp.buf.hover()<CR>
+	nnoremap <silent> ,r :lua vim.lsp.buf.rename()<CR>
 	nnoremap <silent> gh :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 	inoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
 	nnoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
