@@ -2,30 +2,29 @@
 "be sure to install Vim Plug
 call plug#begin('~/.vim/plugged')
 " p-lua {{{
-		Plug 'nvim-lua/popup.nvim', {'commit':'f91d80973f80025d4ed00380f2e06c669dfda49d'}  "pop up api for nvim
-		Plug 'nvim-lua/plenary.nvim', {'commit': 'b42e0cfe22ad3a0cac35cf14315e9dc22cea2ec9'}  "assorted functions for lua neovim
+		Plug 'nvim-lua/popup.nvim'
+		Plug 'nvim-lua/plenary.nvim'
 
 "}}}
 " p-Language_Support {{{
-		Plug 'neovim/nvim-lspconfig', {'commit':'9de4ceb9314aa59a726d3f0b31678e9d955a353e'}  "nvim builtin lsp
-		" Plug 'glepnir/lspsaga.nvim', {'commit':'cb0e35d2e594ff7a9c408d2e382945d56336c040'}
-		Plug 'hrsh7th/nvim-compe', {'commit':'d186d739c54823e0b010feb205c6f97792322c08'}
+		Plug 'neovim/nvim-lspconfig'
+		Plug 'hrsh7th/nvim-compe'
 		Plug 'bloop132435/ultisnips'
 
 " }}}
 " p-Looks {{{
 		Plug 'bloop132435/dracula.nvim', {'branch':'main'}
-		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate', 'commit':'0e25e0e98990803e95c7851236e43b3ee934d443'} "Tree sitter
-		Plug 'akinsho/nvim-bufferline.lua', {'commit': '782fab8a2352e872dc991c42f806dae18e848b2d'}
-		Plug 'folke/zen-mode.nvim', {'commit': 'f1cc53d32b49cf962fb89a2eb0a31b85bb270f7c'}
-
+		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
+		Plug 'akinsho/nvim-bufferline.lua'
+		Plug 'folke/zen-mode.nvim'
+		Plug 'sbdchd/neoformat'
 
 "}}}
 " p-Finders {{{
 		Plug 'phaazon/hop.nvim'  "easy motion but for nvim
 		Plug 'wincent/loupe' "better incsearch for vim
 		Plug 'windwp/nvim-spectre'
-		Plug 'Shougo/defx.nvim'
+		Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
 		Plug 'kristijanhusak/defx-git' , {'on':'Defx'}
 		Plug 'nvim-telescope/telescope.nvim'
 		Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -42,7 +41,6 @@ call plug#begin('~/.vim/plugged')
 		Plug 'xiyaowong/nvim-cursorword'
 		Plug 'b3nj5m1n/kommentary'  "comments
 		Plug 'mbbill/undotree'
-		Plug 'szw/vim-maximizer'  "mazimize a window
 		Plug 'wellle/targets.vim'  "nicer i and a motions
 		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
 		Plug 'dstein64/vim-startuptime' "Startuptime logging
@@ -442,17 +440,9 @@ EOF
 
 " }}}
 " Formatting {{{
-	function! Format(formatter) abort
-		let s:l = line('.')
-		exe "undojoin \| %!" . a:formatter . " %"
-		exe s:l
-	endfunction
-	augroup Formatting
-		au!
-		au BufWinEnter *.clang-format set ft=yaml
-		au BufWritePost *.cpp call Format("clang-format")
-		au BufWritePost *.c call Format("clang-format")
-		au BufWritePost *.py  call Format("yapf")
+	augroup fmt
+	  autocmd!
+	  autocmd BufWritePre * undojoin | Neoformat
 	augroup END
 
 " }}}
