@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'neovim/nvim-lspconfig'
 		Plug 'hrsh7th/nvim-compe'
 		Plug 'bloop132435/ultisnips'
+		Plug 'ray-x/lsp_signature.nvim'
 
 " }}}
 " p-Looks {{{
@@ -37,14 +38,12 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
-		Plug 'stsewd/spotify.nvim', { 'do': ':UpdateRemotePlugins' }
 		Plug 'xiyaowong/nvim-cursorword'
 		Plug 'b3nj5m1n/kommentary'  "comments
 		Plug 'mbbill/undotree'
 		Plug 'wellle/targets.vim'  "nicer i and a motions
 		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
 		Plug 'dstein64/vim-startuptime' "Startuptime logging
-		Plug 'tversteeg/registers.nvim'
 		Plug 'windwp/nvim-autopairs'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
@@ -516,6 +515,7 @@ EOF
 	lua << EOF
 local custom_attach = function(client)
 	print('LSP Started')
+	require "lsp_signature".on_attach()
 	require'compe'.setup{
 		enabled = true;
 		autocomplete = true;
