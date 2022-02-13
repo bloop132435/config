@@ -122,6 +122,11 @@ snippet lmb "lambda" i
 }
 endsnippet
 
+snippet cmp "comparison lambda" i
+[](${1:type} a,$1 b)->bool {
+	return ${2:a<b};
+}$0
+endsnippet
 
 global !p
 def coutExpand(snip):
