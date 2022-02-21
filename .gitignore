@@ -133,3 +133,15 @@ gtk-2.0
 bonsai-browser
 openAV/luppp
 krusaderrc
+clipit/**
+dmenu-recent/**
+dunst/**
+epdfview/**
+gconf/**
+libfm/**
+morc_menu/**
+nitrogen/**
+pcmanfm/**
+picom.conf
+volumeicon/**
+xfce4/**
