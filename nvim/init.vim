@@ -24,11 +24,11 @@ call plug#begin('~/.vim/plugged')
 " p-Finders {{{
 		Plug 'phaazon/hop.nvim'  "easy motion but for nvim
 		Plug 'wincent/loupe' "better incsearch for vim
-		Plug 'windwp/nvim-spectre'
-		Plug 'Shougo/defx.nvim', {'do': ':UpdateRemotePlugins'}
+		Plug 'Shougo/defx.nvim', {'do': ':UpdateRemoteBlgins'}
 		Plug 'kristijanhusak/defx-git' , {'on':'Defx'}
 		Plug 'nvim-telescope/telescope.nvim'
 		Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+		Plug 'brooth/far.vim'
 
 		"}}}
 " p-Git {{{
@@ -422,7 +422,6 @@ EOF
 	nnoremap <silent> <C-p> :Telescope find_files theme=get_ivy hidden=true<CR>
 	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find theme=get_ivy<CR>
 	nnoremap <silent> <C-b> :Telescope buffers theme=get_ivy <CR>
-	nnoremap <silent> <C-r> :lua require'spectre'.open()<CR>
 	nnoremap <silent> <C-l> :Telescope loclist theme=get_ivy<CR>
 	nnoremap <silent> <C-q> :Telescope quickfix theme=get_ivy<CR>
 	nnoremap <silent> <C-q> :Telescope quickfix theme=get_ivy<CR>
