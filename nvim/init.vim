@@ -8,9 +8,16 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Language_Support {{{
 		Plug 'neovim/nvim-lspconfig'
-		Plug 'hrsh7th/nvim-compe'
+		" Plug 'hrsh7th/nvim-compe'
+		Plug 'hrsh7th/nvim-cmp'
+		Plug 'hrsh7th/cmp-nvim-lsp'
+		Plug 'hrsh7th/cmp-buffer'
+		Plug 'hrsh7th/cmp-path'
+		Plug 'hrsh7th/cmp-cmdline'
+		Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 		Plug 'bloop132435/ultisnips'
 		Plug 'ray-x/lsp_signature.nvim'
+		Plug 'p00f/clangd_extensions.nvim'
 
 " }}}
 " p-Looks {{{
@@ -44,7 +51,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'wellle/targets.vim'  "nicer i and a motions
 		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
 		Plug 'dstein64/vim-startuptime' "Startuptime logging
-		Plug 'windwp/nvim-autopairs'
+		Plug 'steelsojka/pears.nvim'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
 		Plug 'rhysd/clever-f.vim'
@@ -274,25 +281,7 @@ call plug#end()
 "}}}
 " Bracket Pairs {{{
 lua <<EOF
-require('nvim-autopairs').setup({
-	check_ts = true,
-})
-local remap  = vim.api.nvim_set_keymap
-local npairs = require'nvim-autopairs'
-_G.MUtils = {}
-vim.g.completion_confirm_key = ""
-MUtils.completion_confirm = function()
-	if vim.fn.pumvisible() ~=0 then
-		if vim.fn.complete_info()["selected"] ~= -1 then
-			return vim.fn["compe#confirm"](npairs.esc("<CR>"))
-		else
-			return npairs.esc("<CR>")
-		end
-	else
-		return npairs.autopairs_cr()
-	end
-end
-remap('i','<CR>', 'v:lua.MUtils.completion_confirm()',{expr = true, noremap = true})
+require"pears".setup()
 EOF
 " }}}
 " Color Schemes {{{
@@ -515,100 +504,64 @@ EOF
 local custom_attach = function(client)
 	print('LSP Started')
 	require "lsp_signature".on_attach()
-	require'compe'.setup{
-		enabled = true;
-		autocomplete = true;
-		debug = false;
-		min_lenth = 1;
-		preselect = 'enable';
-		throttle_time = 80;
-		source_timeout = 2000;
-		imcomplete_delay = 400;
-		max_abbr_width = 100;
-		max_kind_width = 100;
-		max_menu_width = 100;
-		documentation = true;
-		source = {
-			path = true;
-			buffer = true;
-			calc = true;
-			spell = true;
-			nvim_lsp = true;
-			nvim_lua = true;
-			omni = false;
-			ultisnips = true;
-		};
-	}
+	--require'compe'.setup{
+	--	enabled = true;
+	--	autocomplete = true;
+	--	debug = false;
+	--	min_lenth = 1;
+	--	preselect = 'enable';
+	--	throttle_time = 80;
+	--	source_timeout = 2000;
+	--	imcomplete_delay = 400;
+	--	max_abbr_width = 100;
+	--	max_kind_width = 100;
+	--	max_menu_width = 100;
+	--	documentation = true;
+	--	source = {
+	--		path = true;
+	--		buffer = true;
+	--		calc = true;
+	--		spell = true;
+	--		nvim_lsp = true;
+	--		nvim_lua = true;
+	--		omni = false;
+	--		ultisnips = true;
+	--	};
+	--}
 end
 
-require'lspconfig'.clangd.setup{on_attach=custom_attach}
-require'lspconfig'.vimls.setup{on_attach=custom_attach}
-require'lspconfig'.bashls.setup{on_attach=custom_attach}
-require'lspconfig'.pyright.setup{on_attach=custom_attach}
+local cmp = require('cmp')
+cmp.setup({
+	snippet = {
+		expand = function(args)
+			vim.fn["UltiSnips#Anon"](args.body)
+		end,
+	},
+	sources = cmp.config.sources({
+		{name='nvim_lsp'},
+		{name = 'ultisnips'},
+		{name = 'buffer'},
+		{name='path'},
+		{name='cmdline'},
+	}),
+	sorting = {
+		comparators = {
+			cmp.config.compare.offset,
+			cmp.config.compare.exact,
+			cmp.config.compare.recently_used,
+			require("clangd_extensions.cmp_scores"),
+			cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		},
+	},
+})
+local cap = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('clangd_extensions').setup{server={on_attach=custom_attach,capabilities=cap},}
+require'lspconfig'.pyright.setup{on_attach=custom_attach,capabilities=cap}
 require'lspconfig'.rust_analyzer.setup{on_attach=custom_attach,root_dir = function() return '.' end,}
 
-require'lspconfig'.texlab.setup{
-		on_attach = custom_attach,
-	 cmd = { "texlab" },
-    filetypes = { "tex", "bib" },
-    settings = {
-      texlab = {
-        auxDirectory = ".",
-        bibtexFormatter = "texlab",
-        build = {
-          args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-          executable = "latexmk",
-          isContinuous = false
-        },
-        chktex = {
-          onEdit = false,
-          onOpenAndSave = false
-        },
-        diagnosticsDelay = 300,
-        formatterLineLength = 80,
-        forwardSearch = {
-          args = {}
-        }
-      }
-    }
-}
-
--- Get the counts from your curreent workspace:
-
-
--- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = "/home/gqian/git/lua-language-server"
-local sumneko_binary = "/home/gqian/git/lua-language-server/bin/Linux/lua-language-server"
-
-require'lspconfig'.sumneko_lua.setup {
-  on_attach=custom_attach,
-  cmd = {sumneko_binary, "-E", sumneko_root_path ..  "/main.lua"},
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = vim.split(package.path, ';'),
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-        },
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.lsp.diagnostic.on_publish_diagnostics, {
 	-- disable virtual text
@@ -635,7 +588,7 @@ EOF
 		au!
 		autocmd Filetype lspsagafinder setlocal scrolloff=0
 		autocmd CursorHold *.cpp,*.c,*.h,*.py lua vim.lsp.diagnostic.set_loclist({open = false,})
-		autocmd BufEnter * lua require'compe'.setup{ enabled = true; autocomplete = true; debug = false; min_lenth = 1; preselect = 'enable'; throttle_time = 80; source_timeout = 2000; imcomplete_delay = 400; max_abbr_width = 100; max_kind_width = 100; max_menu_width = 100; documentation = true; source = { path = true; buffer = true; calc = true; nvim_lsp = true; nvim_lua = true; vsnip = false; ultisnips = true; tabnine = true;}; }
+		" autocmd BufEnter * lua require'compe'.setup{ enabled = true; autocomplete = true; debug = false; min_lenth = 1; preselect = 'enable'; throttle_time = 80; source_timeout = 2000; imcomplete_delay = 400; max_abbr_width = 100; max_kind_width = 100; max_menu_width = 100; documentation = true; source = { path = true; buffer = true; calc = true; nvim_lsp = true; nvim_lua = true; vsnip = false; ultisnips = true; tabnine = true;}; }
 
 	augroup END
 
