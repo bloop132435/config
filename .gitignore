@@ -145,3 +145,6 @@ pcmanfm/**
 picom.conf
 volumeicon/**
 xfce4/**
+
+viewnior
+i3-scrot.conf
