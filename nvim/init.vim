@@ -7,17 +7,8 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Language_Support {{{
-		Plug 'neovim/nvim-lspconfig'
-		" Plug 'hrsh7th/nvim-compe'
-		Plug 'hrsh7th/nvim-cmp'
-		Plug 'hrsh7th/cmp-nvim-lsp'
-		Plug 'hrsh7th/cmp-buffer'
-		Plug 'hrsh7th/cmp-path'
-		Plug 'hrsh7th/cmp-cmdline'
-		Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 		Plug 'bloop132435/ultisnips'
-		Plug 'ray-x/lsp_signature.nvim'
-		Plug 'p00f/clangd_extensions.nvim'
+		Plug 'neoclide/coc.nvim'
 
 " }}}
 " p-Looks {{{
@@ -284,15 +275,18 @@ lua <<EOF
 require"pears".setup()
 EOF
 " }}}
+" Clever-f {{{
+	let g:clever_f_mark_direct=1
+
+" }}}
+" COC {{{
+
+" }}}
 " Color Schemes {{{
 	colo dracula
 	set background=dark
 	hi OverRuler  guibg=#cc241d
 	call matchadd('OverRuler', '\v^.{200}\zs.*$', 100)
-
-" }}}
-" Clever-f {{{
-	let g:clever_f_mark_direct=1
 
 " }}}
 " Debugging {{{
@@ -496,91 +490,6 @@ EOF
 		au!
         autocmd Filetype markdown setlocal comments=n:*,n:-\ [\ ],n:-
         autocmd Filetype markdown setlocal formatoptions=ctnqro
-	augroup END
-
-" }}}
-" Nvim-lsp {{{
-lua << EOF
-local custom_attach = function(client)
-	print('LSP Started')
-	require "lsp_signature".on_attach()
-end
-
-local cmp = require('cmp')
-local cmp_ultisnips_mappings = require('cmp_nvim_ultisnips.mappings')
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			vim.fn["UltiSnips#Anon"](args.body)
-		end,
-	},
-	sources = cmp.config.sources({
-		{name='nvim_lsp'},
-		{name = 'ultisnips'},
-		{name = 'buffer'},
-		{name='path'},
-		{name='cmdline'},
-	}),
-	sorting = {
-		comparators = {
-			cmp.config.compare.offset,
-			cmp.config.compare.exact,
-			cmp.config.compare.recently_used,
-			require("clangd_extensions.cmp_scores"),
-			cmp.config.compare.kind,
-			cmp.config.compare.sort_text,
-			cmp.config.compare.length,
-			cmp.config.compare.order,
-		},
-	},
-	mapping = {
-		["<C-j>"] = cmp.mapping(
-			function(fallback)
-				cmp_ultisnips_mappings.compose{"expand","jump_forwards"}(fallback)
-			end,
-			{ "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
-		),
-		["<C-k>"] = cmp.mapping(
-			function(fallback)
-				cmp_ultisnips_mappings.compose{"jump_backwards"}(fallback)
-			end,
-			{ "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
-		),
-	},
-})
-local cap = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('clangd_extensions').setup{server={on_attach=custom_attach,capabilities=cap},}
-require'lspconfig'.pyright.setup{on_attach=custom_attach,capabilities=cap}
-require'lspconfig'.rust_analyzer.setup{on_attach=custom_attach,root_dir = function() return '.' end,}
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-vim.lsp.diagnostic.on_publish_diagnostics, {
-	-- disable virtual text
-	virtual_text = true,
-
-	-- show signs
-	signs = true,
-
-	-- delay update diagnostics
-	update_in_insert = true,
-	-- display_diagnostic_autocmds = { "InsertLeave" },
-
-	}
-)
-EOF
-	"Mappings
-	nnoremap <silent> ,a :lua vim.lsp.buf.code_action()<CR>
-	nnoremap <silent> K :lua vim.lsp.buf.hover()<CR>
-	nnoremap <silent> ,r :lua vim.lsp.buf.rename()<CR>
-	nnoremap <silent> gh :lua vim.diagnostic.get()<CR>
-	inoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
-	nnoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
-	augroup NvimLsp
-		au!
-		autocmd Filetype lspsagafinder setlocal scrolloff=0
-		" autocmd CursorHold *.cpp,*.c,*.h,*.py lua vim.lsp.diagnostic.set_loclist({open = false,})
-		" autocmd BufEnter * lua require'compe'.setup{ enabled = true; autocomplete = true; debug = false; min_lenth = 1; preselect = 'enable'; throttle_time = 80; source_timeout = 2000; imcomplete_delay = 400; max_abbr_width = 100; max_kind_width = 100; max_menu_width = 100; documentation = true; source = { path = true; buffer = true; calc = true; nvim_lsp = true; nvim_lua = true; vsnip = false; ultisnips = true; tabnine = true;}; }
-
 	augroup END
 
 " }}}
