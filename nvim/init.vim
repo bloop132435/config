@@ -500,37 +500,14 @@ EOF
 
 " }}}
 " Nvim-lsp {{{
-	lua << EOF
+lua << EOF
 local custom_attach = function(client)
 	print('LSP Started')
 	require "lsp_signature".on_attach()
-	--require'compe'.setup{
-	--	enabled = true;
-	--	autocomplete = true;
-	--	debug = false;
-	--	min_lenth = 1;
-	--	preselect = 'enable';
-	--	throttle_time = 80;
-	--	source_timeout = 2000;
-	--	imcomplete_delay = 400;
-	--	max_abbr_width = 100;
-	--	max_kind_width = 100;
-	--	max_menu_width = 100;
-	--	documentation = true;
-	--	source = {
-	--		path = true;
-	--		buffer = true;
-	--		calc = true;
-	--		spell = true;
-	--		nvim_lsp = true;
-	--		nvim_lua = true;
-	--		omni = false;
-	--		ultisnips = true;
-	--	};
-	--}
 end
 
 local cmp = require('cmp')
+local cmp_ultisnips_mappings = require('cmp_nvim_ultisnips.mappings')
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -555,6 +532,20 @@ cmp.setup({
 			cmp.config.compare.length,
 			cmp.config.compare.order,
 		},
+	},
+	mapping = {
+		["<C-j>"] = cmp.mapping(
+			function(fallback)
+				cmp_ultisnips_mappings.compose{"expand","jump_forwards"}(fallback)
+			end,
+			{ "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+		),
+		["<C-k>"] = cmp.mapping(
+			function(fallback)
+				cmp_ultisnips_mappings.compose{"jump_backwards"}(fallback)
+			end,
+			{ "i", "s", --[[ "c" (to enable the mapping in command mode) ]] }
+		),
 	},
 })
 local cap = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -581,13 +572,13 @@ EOF
 	nnoremap <silent> ,a :lua vim.lsp.buf.code_action()<CR>
 	nnoremap <silent> K :lua vim.lsp.buf.hover()<CR>
 	nnoremap <silent> ,r :lua vim.lsp.buf.rename()<CR>
-	nnoremap <silent> gh :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+	nnoremap <silent> gh :lua vim.diagnostic.get()<CR>
 	inoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
 	nnoremap <silent> <C-s> <cmd>lua vim.lsp.buf.signature_help()<CR>
 	augroup NvimLsp
 		au!
 		autocmd Filetype lspsagafinder setlocal scrolloff=0
-		autocmd CursorHold *.cpp,*.c,*.h,*.py lua vim.lsp.diagnostic.set_loclist({open = false,})
+		" autocmd CursorHold *.cpp,*.c,*.h,*.py lua vim.lsp.diagnostic.set_loclist({open = false,})
 		" autocmd BufEnter * lua require'compe'.setup{ enabled = true; autocomplete = true; debug = false; min_lenth = 1; preselect = 'enable'; throttle_time = 80; source_timeout = 2000; imcomplete_delay = 400; max_abbr_width = 100; max_kind_width = 100; max_menu_width = 100; documentation = true; source = { path = true; buffer = true; calc = true; nvim_lsp = true; nvim_lua = true; vsnip = false; ultisnips = true; tabnine = true;}; }
 
 	augroup END
@@ -602,9 +593,9 @@ EOF
 " }}}
 " Snippets {{{
 	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = "~/.config/nvim/UltiSnips"
-	let g:UltiSnipsExpandTrigger="<c-j>"
-	let g:UltiSnipsJumpBackwardTrigger='<c-k>'
-	let g:UltiSnipsJumpForwardTrigger='<c-j>'
+	" let g:UltiSnipsExpandTrigger="<c-j>"
+	" let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+	" let g:UltiSnipsJumpForwardTrigger='<c-j>'
 
 "}}}
 " Spotify {{{
