@@ -9,11 +9,18 @@ export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
 export FZF_DEFAULT_COMMAND="fd -E .git -H -I"
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export TERMINAL=st
 alias v=nvim
+alias l=exa\ -a
+alias ll=exa\ -al
+alias ls=exa
+alias q=exit
 alias python=python3
-set -o vi
 vf(){
 	nvim $(fd -E .git -I -H | fzf)
+}
+calc(){
+	printf "%s\n" "$@" | bc -l;
 }
 function cf() {
     if [[ "$#" != 0 ]]; then
@@ -21,7 +28,7 @@ function cf() {
         return
     fi
     while true; do
-        local lsd=$(echo ".." && ls -p | grep '/$' | sed 's;/$;;')
+        local lsd=$(echo ".." && \ls -p | grep '/$' | sed 's;/$;;')
         local dir="$(printf '%s\n' "${lsd[@]}" |
             fzf --reverse --preview '
                 __cd_nxt="$(echo {})";
