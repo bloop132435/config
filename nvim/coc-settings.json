@@ -39,5 +39,5 @@
 	"list.nextKeymap":"<C-n>",
 	"list.previousKeymap":"<C-p>",
 	"coc.preferences.rootPatterns":["compile_flags.txt"],
-	"semanticTokens.filetypes":["*"]
+	"coc.preferences.formatOnSaveFiletypes": ["*"]
 }

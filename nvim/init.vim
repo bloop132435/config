@@ -16,7 +16,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'akinsho/nvim-bufferline.lua'
 		Plug 'folke/zen-mode.nvim'
-		Plug 'sbdchd/neoformat'
+		" Plug 'sbdchd/neoformat'
 
 "}}}
 " p-Finders {{{
@@ -280,6 +280,8 @@ EOF
 
 " }}}
 " COC {{{
+	nmap ,r <Plug>(coc-rename)
+	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-tabnine','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd']
 
 " }}}
 " Color Schemes {{{
@@ -421,10 +423,12 @@ EOF
 
 " }}}
 " Formatting {{{
-	augroup fmt
-	  autocmd!
-	  autocmd BufWritePre * undojoin | Neoformat
-	augroup END
+	" augroup fmt
+	"   autocmd!
+	"   autocmd BufWritePre * undojoin | Neoformat
+	" augroup END
+
+
 
 " }}}
 " Git {{{
