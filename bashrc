@@ -18,7 +18,7 @@ alias ls=exa
 alias q=exit
 alias python=python3
 vf(){
-	nvim $(fd -E .git -I -H | fzf)
+	nvim $(fzf)
 }
 calc(){
 	printf "%s\n" "$@" | bc -l;
