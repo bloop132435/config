@@ -11,6 +11,7 @@ export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERMINAL=st
 export FZF_DEFAULT_OPTS='--tabstop=4 --preview="bat {} " --layout=reverse --border  --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+export FZF_COMPLETION_TRIGGER='##'
 alias v=nvim
 alias l=exa\ -a
 alias ll=exa\ -al
