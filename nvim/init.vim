@@ -315,6 +315,7 @@ EOF
 
 
 lua <<EOF
+require('dirbuf').setup({sort_order= "directories_first"})
 require('telescope').setup{
 defaults = {
 	vimgrep_arguments = {
