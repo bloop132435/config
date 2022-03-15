@@ -16,14 +16,12 @@ call plug#begin('~/.vim/plugged')
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'akinsho/nvim-bufferline.lua'
 		Plug 'folke/zen-mode.nvim'
-		" Plug 'sbdchd/neoformat'
 
 "}}}
 " p-Finders {{{
 		Plug 'phaazon/hop.nvim'  "easy motion but for nvim
 		Plug 'wincent/loupe' "better incsearch for vim
-		Plug 'Shougo/defx.nvim', {'do': ':UpdateRemoteBlgins'}
-		Plug 'kristijanhusak/defx-git' , {'on':'Defx'}
+		Plug 'elihunter173/dirbuf.nvim'
 		Plug 'nvim-telescope/telescope.nvim'
 		Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 		Plug 'brooth/far.vim'
@@ -237,6 +235,7 @@ call plug#end()
 	nnoremap <C-g> g<C-g>
 
 	inoremap  <C-W>
+	tnoremap  <C-\><C-n>
 
 	vnoremap , <gv
 	vnoremap . >gv
@@ -311,59 +310,9 @@ EOF
 
 " }}}
 " Finders {{{
-	nnoremap <silent>  :Defx .  -show-ignored-files<CR>
-	nnoremap <silent>  :exe 'Defx ' . expand("%:h") . '  -show-ignored-files'<CR>
-
-	call defx#custom#column('git','raw_mode',1)
-	call defx#custom#option('_', {
-		  \ 'columns': 'mark:git:filename:type:space:size:space:space:space:time',
-		  \ })
-	let g:__t_func_list = 4
-	function DefxSettings()
-		set number relativenumber
-		nnoremap <silent><buffer> <CR> :call defx#call_async_action("open")<CR>
-		nnoremap <silent><buffer> l :call defx#call_async_action("open")<CR>
-		nnoremap <silent><buffer> <BS> :call defx#call_async_action("cd","..")<CR>
-		nnoremap <silent><buffer> h :call defx#call_async_action("cd","..")<CR>
-
-		nnoremap <silent><buffer> mk :call defx#call_async_action("new_file")<CR>
-		nnoremap <silent><buffer> rm :call defx#call_async_action("remove_trash")<CR>
-		nnoremap <silent><buffer> p :call defx#call_async_action("paste")<CR>
-		nnoremap <silent><buffer> cp :call defx#call_async_action("copy")<CR>
-		nnoremap <silent><buffer> mv :call defx#call_async_action("rename")<CR>
-
-		nnoremap <silent><buffer> <tab> :call defx#call_async_action("toggle_select")<CR>
-		vnoremap <silent><buffer>       <tab> :call defx#call_async_action("toggle_select_visual")<CR>
-
-		nnoremap <silent><buffer> t :call defx#call_async_action('execute_command',[input("command> "),"async"])<CR>
-
-		nnoremap <silent><buffer>  :call defx#call_async_action("quit")<CR>
-
-
-	endfun
 	let g:loaded_netrwPlugin = 1
+	nnoremap <silent> <C-n> :Dirbuf<CR>
 
-	function! Open_defx_if_directory()
-		" This throws an error if the buffer name contains unusual characters like
-		" [[buffergator]]. Desired behavior in those scenarios is to consider the
-		" buffer not to be a directory.
-		try
-			let l:full_path = expand(expand('%:p'))
-		catch
-			return
-		endtry
-
-		" If the path is a directory, delete the (useless) buffer and open defx for
-		" that directory instead.
-		if isdirectory(l:full_path)
-			execute "Defx `expand('%:p')` -show-ignored-files | bd " . expand('%:r')
-		endif
-	endfunction
-	augroup Defx
-		au!
-		autocmd Filetype defx call DefxSettings()
-		autocmd BufEnter * call Open_defx_if_directory()
-	augroup END
 
 lua <<EOF
 require('telescope').setup{
