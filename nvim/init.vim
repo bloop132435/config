@@ -596,17 +596,10 @@ EOF
 " }}}
 " Testing {{{
 
-autocmd! FileType fzf set laststatus=2 showmode ruler
-  \| autocmd BufLeave <buffer> set laststatus=0 noshowmode noruler
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+nnoremap <leader>p :Files<CR>
+let g:fzf_layout = {'window':{'width':0.9, 'height':0.9}}
+if exists('$TMUX')
+	let g:fzf_layout = {'tmux': '-p90%,90%'}
+endif
 
 "}}}
