@@ -2,8 +2,8 @@ export PATH=$PATH:~/programs/scripts/
 export PATH=$PATH:~/.config/tmux
 export PATH=$PATH:~/downloads/squashfs-root/usr/bin
 export PATH=$PATH:/home/gqian/cling/bin
-export DOTNET_ROOT=$HOME/dotnet
-export PATH=$PATH:$HOME/dotnet
+# export DOTNET_ROOT=$HOME/dotnet
+# export PATH=$PATH:$HOME/dotnet
 export PATH=$PATH:$HOME/programs/utils/webscraping
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
 export FZF_DEFAULT_COMMAND="fd -E .git -H -I"
@@ -30,7 +30,7 @@ function cf() {
         return
     fi
     while true; do
-        local lsd=$(echo ".." && \ls -p | grep '/$' | sed 's;/$;;')
+        local lsd=$(echo ".." && \ls -ap | grep '/$' | sed 's;/$;;')
         local dir="$(printf '%s\n' "${lsd[@]}" |
             fzf --reverse --preview '
                 __cd_nxt="$(echo {})";
