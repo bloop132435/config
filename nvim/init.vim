@@ -281,6 +281,8 @@ EOF
 " }}}
 " COC {{{
 	nmap ,r <Plug>(coc-rename)
+	nmap ,a <Plug>(coc-codeaction)
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-tabnine','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd']
 	let g:python3_host_prog = '/usr/bin/python3'
 
