@@ -8,7 +8,8 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Language_Support {{{
 		Plug 'bloop132435/ultisnips'
-		Plug 'neoclide/coc.nvim'
+		Plug 'neoclide/coc.nvim' , {'do' : 'make'}
+		Plug 'antoinemadec/coc-fzf'
 
 " }}}
 " p-Looks {{{
@@ -23,8 +24,9 @@ call plug#begin('~/.vim/plugged')
 		Plug 'wincent/loupe' "better incsearch for vim
 		Plug 'elihunter173/dirbuf.nvim'
 		Plug 'nvim-telescope/telescope.nvim'
-		Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 		Plug 'brooth/far.vim'
+		Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+		Plug 'junegunn/fzf.vim'
 
 		"}}}
 " p-Git {{{
@@ -35,7 +37,8 @@ call plug#begin('~/.vim/plugged')
 " p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
 		Plug 'xiyaowong/nvim-cursorword'
-		Plug 'b3nj5m1n/kommentary'  "comments
+		" Plug 'b3nj5m1n/kommentary'  "comments
+		Plug 'terrortylor/nvim-comment'
 		Plug 'mbbill/undotree'
 		Plug 'wellle/targets.vim'  "nicer i and a motions
 		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
@@ -47,8 +50,8 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Testing {{{
-	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-	Plug 'junegunn/fzf.vim'
+	Plug 'b0o/incline.nvim'
+	Plug 'nikvdp/neomux'
 " }}}
 call plug#end()
 
@@ -89,10 +92,9 @@ call plug#end()
 	set completeopt=menuone,noselect
 	set path+=**
 	set hidden
-	set clipboard=unnamedplus
+	set clipboard+=unnamedplus
 	set mouse=a " enable mouse
 	set encoding=utf8
-	set laststatus=2 " always show status line
 	set showtabline=0
 	set wildchar=<tab> wildmenu wildmode=longest,list,full " auto complete menus
 	set wildcharm=<c-z> " like wildchar, but for use in macros
@@ -231,12 +233,15 @@ call plug#end()
 	nnoremap ;bar     <C-w>bar
 	nnoremap ;}       <C-w>}
 	"}}}
-	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
+	" nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
+	nnoremap <silent>  <C-t> :Neomux<CR>
 	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
 	nnoremap <C-g> g<C-g>
 
 	inoremap  <C-W>
-	tnoremap  <C-\><C-n>
+	tnoremap  <C-\><C-n>
+	" TODO, make this work for other end deliminters ],},",'
+	inoremap  <C-[>f)a
 
 	vnoremap , <gv
 	vnoremap . >gv
@@ -262,7 +267,7 @@ call plug#end()
 		autocmd filetype cpp nnoremap <F8> :w<CR> :AsyncRun-mode=term -cols=80 -pos=right -save=1 -focus=1 -silent time compile %:t:r<CR><CR>
 		autocmd filetype cpp nnoremap <F9> :w<CR> :AsyncRun -mode=term -cols=80 -pos=right -save=1 -focus=1 -silent time build %:t:r<CR><CR>
 		autocmd filetype python nnoremap <F5> :w<CR> :AsyncRun  -mode=term -cols=80 -pos=right -save=1 -focus=1 -silent  time python %<CR><CR>
-		autocmd filetype java nnoremap <F4> :w<CR> :AsyncRun     -mode=term -cols=80 -pos=right -save=1 -focus=1 -silent time javac %:t:r.java<CR>
+		autocmd filetype java nnoremap <F4> :w<CR> :AsyncRun     -mode=term -cols=80 -pos=right -save=1 -focus=1 -silent time javac *.java<CR>
 		autocmd filetype java nnoremap <F5> :w<CR> :AsyncRun -mode=term -cols=80 -pos=right -save=1 -focus=1 -silent time java %:t:r<CR><CR>
 		autocmd filetype cpp nnoremap <F5> :w<CR> :AsyncRun -mode=term -cols=80 -pos=right -save=1 -focus=1 -silent time ./x%:t:r.out <CR><CR>
 		autocmd filetype cpp nnoremap <F4> :w<CR> :AsyncRun  -mode=term -cols=80 -pos=right -save=1 -focus=1 -silent time  ./x%:t:r.out < in<CR><CR>
@@ -281,9 +286,30 @@ EOF
 " }}}
 " COC {{{
 	nmap ,r <Plug>(coc-rename)
-	nmap ,a <Plug>(coc-codeaction)
+	nnoremap <silent> ,o :CocFzfList outline <CR>
+	nmap <silent> gd <Plug>(coc-definition)
+	nmap <silent> gr <Plug>(coc-references)
+	nmap <silent> ,f <Plug>(coc-references)
+	nnoremap <silent> ,a :CocFzfList actions<CR>
+	nnoremap <silent> ,y :CocFzfList yank<CR>
+	nnoremap <silent> ,d  :CocFzfList diagnostics --current-buf<CR>
+	nnoremap <silent> ,k  :CocFzfList diagnostics <CR>
+	inoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
+	nnoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
+	inoremap <silent><expr> <c-space> coc#refresh()
+	nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+	inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+	function! s:show_documentation()
+	  if CocAction('hasProvider', 'hover')
+		call CocActionAsync('doHover')
+	  else
+		call feedkeys('K', 'in')
+	  endif
+	endfunction
 	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-tabnine','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd']
+	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd','coc-yank','coc-java','coc-fzf-preview']
 	let g:python3_host_prog = '/usr/bin/python3'
 
 " }}}
@@ -292,6 +318,8 @@ EOF
 	set background=dark
 	hi OverRuler  guibg=#cc241d
 	call matchadd('OverRuler', '\v^.{200}\zs.*$', 100)
+	hi Normal guibg=NONE ctermbg=NONE
+	hi Folded guibg=NONE guifg=#80a0ff
 
 " }}}
 " Debugging {{{
@@ -315,74 +343,48 @@ EOF
 " Finders {{{
 	let g:loaded_netrwPlugin = 1
 	nnoremap <silent> <C-n> :Dirbuf<CR>
+	nnoremap <silent> <C-_> :Dirbuf %<CR>
 
 
 lua <<EOF
 require('dirbuf').setup({sort_order= "directories_first"})
-require('telescope').setup{
-defaults = {
-	vimgrep_arguments = {
-		'rg',
-		'--color=never',
-		'--no-heading',
-		'--with-filename',
-		'--line-number',
-		'--column',
-		'--smart-case'
-		},
-		prompt_prefix = "> ",
-		selection_caret = "> ",
-		entry_prefix = "  ",
-		initial_mode = "insert",
-		previewer = false,
-		selection_strategy = "reset",
-		sorting_strategy = "ascending",
-		layout_strategy = "horizontal",
-		file_ignore_patterns = {".git","__pycache__"},
-		winblend = 0,
-		border = {},
-		borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-		color_devicons = false,
-		use_less = true,
-		set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-	},
-	extensions = {
-		fzf = {
-			fuzzy = true,                    -- false will only do exact matching
-			override_generic_sorter = true, -- override the generic sorter
-			override_file_sorter = true,     -- override the file sorter
-			case_mode = "ignore_case",        -- or "ignore_case" or "respect_case"
-			-- the default case_mode is "smart_case"
-		}
-	}
-}
-require('telescope').load_extension('fzf')
 EOF
-	nnoremap <silent> <C-p> :Telescope find_files theme=get_ivy hidden=true<CR>
-	nnoremap <silent> <C-f> :Telescope current_buffer_fuzzy_find theme=get_ivy<CR>
-	nnoremap <silent> <C-b> :Telescope buffers theme=get_ivy <CR>
-	nnoremap <silent> <C-l> :Telescope loclist theme=get_ivy<CR>
-	nnoremap <silent> <C-q> :Telescope quickfix theme=get_ivy<CR>
-	nnoremap <silent> <C-q> :Telescope quickfix theme=get_ivy<CR>
-	nnoremap <silent> <C-h> :Telescope help_tags theme=get_ivy<CR>
-
-	nnoremap <silent> <leader>fp :Telescope find_files theme=get_ivy hidden=true<CR>
-	nnoremap <silent> <leader>fl :Telescope current_buffer_fuzzy_find theme=get_ivy <CR>
-	nnoremap <silent> <leader>fb :Telescope buffers theme=get_ivy<CR>
-	nnoremap <silent> <leader>fq :Telescope quickfix theme=get_ivy<CR>
-	nnoremap <silent> <leader>fc :Telescope find_files theme=get_ivy hidden=true cwd=~/programs/lib<CR>
-	nnoremap <silent> <leader>fd :Telescope find_files theme=get_ivy hidden=true cwd=~/.config<CR>
-	nnoremap <silent> <leader>fh :Telescope help_tags theme=get_ivy<CR>
-	nnoremap <silent> <leader>fr :lua require'spectre'.open()<CR>
-
-" }}}
-" Formatting {{{
-	" augroup fmt
-	"   autocmd!
-	"   autocmd BufWritePre * undojoin | Neoformat
-	" augroup END
+	command! -nargs=1 -complete=help Help :enew | :set buftype=help | :h <args>
+	nnoremap <silent> <C-p> :Files<CR>
+	nnoremap <silent> <C-f> :call fzf#vim#buffer_lines({'options':'--no-preview'})<CR>
+	nnoremap <silent> <C-b> :Buffers<CR>
+	nnoremap <silent> <C-h> :Helptags<CR>
 
 
+	nnoremap <silent> <leader>fp :Files<CR>
+	nnoremap <silent> <leader>fl :call fzf#vim#buffer_lines({'options':'--no-preview'})<CR>
+	nnoremap <silent> <leader>fb :Buffers<CR>
+	nnoremap <silent> <leader>fc :Files ~/OneDrive/Programs/lib <CR>
+	nnoremap <silent> <leader>fd :Files ~/.config <CR>
+	nnoremap <silent> <leader>fh :Helptags<CR>
+
+
+    let g:fzf_action = {
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+	  \ 'ctrl-v': 'vsplit'}
+
+
+	let g:fzf_layout = {'window':{'width':1, 'height':0.4,'xoffset':0,'yoffset':0}}
+    " let g:fzf_colors =
+    " \ { 'fg':      ['fg', 'Normal'],
+    "   \ 'bg':      ['bg', 'Normal'],
+    "   \ 'hl':      ['fg', 'Comment'],
+    "   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    "   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    "   \ 'hl+':     ['fg', 'Statement'],
+    "   \ 'info':    ['fg', 'PreProc'],
+    "   \ 'border':  ['fg', 'Ignore'],
+    "   \ 'prompt':  ['fg', 'Conditional'],
+    "   \ 'pointer': ['fg', 'Exception'],
+    "   \ 'marker':  ['fg', 'Keyword'],
+    "   \ 'spinner': ['fg', 'Label'],
+    "   \ 'header':  ['fg', 'Comment'] }
 
 " }}}
 " Git {{{
@@ -398,8 +400,6 @@ EOF
 	lua require'hop'.setup()
 	nnoremap <leader>h  :HopWord<CR>
 	nnoremap <leader>H :HopPattern<CR>
-	nnoremap <silent> ,f :HopChar1<CR>
-	nnoremap <silent> ,F :HopChar2<CR>
 	highlight default HopNextKey  guifg=#ff007c gui=bold ctermfg=198 cterm=bold
 	highlight default HopNextKey1 guifg=#00dfff gui=bold ctermfg=45 cterm=bold
 	highlight default HopNextKey2 guifg=#2b8db3 ctermfg=33
@@ -472,8 +472,9 @@ EOF
 
 " }}}
 "  Statusline {{{
-	let &statusline='%#Normal# '
-	set laststatus=0
+	set laststatus=2
+	hi Statusline guibg=None ctermbg=None
+	hi StatuslineNC guibg=None ctermbg=None
 
 " }}}
 "  Tresitter {{{
@@ -505,7 +506,7 @@ EOF
 		numbers = function(opts)
 		return string.format('%s.', opts.ordinal )
 		end,
-		mappings = true,
+		--mappings = true,
 
 		indicator_icon = '▎',
 		buffer_close_icon = '',
@@ -598,10 +599,25 @@ EOF
 " }}}
 " Testing {{{
 
-nnoremap <leader>p :Files<CR>
-let g:fzf_layout = {'window':{'width':0.9, 'height':0.9}}
-if exists('$TMUX')
-	let g:fzf_layout = {'tmux': '-p90%,90%'}
-endif
+lua <<EOF
+require('incline').setup({
+	render = function(props)
+		local bufname = vim.api.nvim_buf_get_name(props.buf)
+		local res = bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]'
+		--local curbuf = vim.g.actual_curbuf
+		--vim.g.actual_curbuf = props.buf
+		--local curwin = vim.g.actual_curwin
+		--vim.g.actual_curwin = props.win
+		--res = res .. " |" .. vim.api.nvim_eval("WindowNumber()") .. "|"
+		--vim.g.actual_curbuf = curbuf
+		--vim.g.actual_curwin = curwin
+		if vim.api.nvim_buf_get_option(props.buf, 'modified') then
+			res = res .. ' [+]'
+		end
+		return res
+	end
+})
+EOF
+lua require('nvim_comment').setup()
 
 "}}}

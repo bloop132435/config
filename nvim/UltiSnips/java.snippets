@@ -2,10 +2,18 @@ extends c
 snippet sysout "print statement"
 System.out.${1|println,print|}($0);
 endsnippet
+
+snippet pr "println"
+System.out.println($1);$0
+endsnippet
 snippet main "initialize program"
 public class `!p snip.rv = snip.basename`{
 	public static void main(String[] args){
 		$0
 	}
 }
+endsnippet
+
+snippet lmb "lambda function"
+(${1:params}) -> {${2:code}}
 endsnippet
