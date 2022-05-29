@@ -9,11 +9,11 @@ export PATH=/Users/gqian/Library/Python/3.8/bin:$PATH
 # export PATH=$PATH:$HOME/dotnet
 export PATH=$PATH:$HOME/programs/utils/webscraping
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
-export FZF_DEFAULT_COMMAND="fd -E .git -H -I"
+export FZF_DEFAULT_COMMAND="fd -E .git/ -H -L  --strip-cwd-prefix"
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERMINAL=st
-export FZF_DEFAULT_OPTS='--tabstop=4 --preview="bat {} " --layout=reverse --border  --color=fg:#f8f8f2,bg:-1,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:-1,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+export FZF_DEFAULT_OPTS='--tabstop=4 --preview="~/.config/nvim/preview.sh {} " --layout=reverse --border  --color=fg:#f8f8f2,bg:-1,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:-1,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 export FZF_COMPLETION_TRIGGER='##'
 alias v=nvim
 alias l=exa\ -a
