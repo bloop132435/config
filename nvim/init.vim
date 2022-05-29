@@ -320,6 +320,7 @@ EOF
 	call matchadd('OverRuler', '\v^.{200}\zs.*$', 100)
 	hi Normal guibg=NONE ctermbg=NONE
 	hi Folded guibg=NONE guifg=#80a0ff
+	hi WinSeparator guibg=NONE ctermbg=NONE
 
 " }}}
 " Debugging {{{
@@ -350,17 +351,18 @@ lua <<EOF
 require('dirbuf').setup({sort_order= "directories_first"})
 EOF
 	command! -nargs=1 -complete=help Help :enew | :set buftype=help | :h <args>
-	nnoremap <silent> <C-p> :Files<CR>
+	let $FZF_DEFAULT_COMMAND="fd"
+	nnoremap <silent> <C-p> :call fzf#vim#files('.',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
 	nnoremap <silent> <C-f> :call fzf#vim#buffer_lines({'options':'--no-preview'})<CR>
 	nnoremap <silent> <C-b> :Buffers<CR>
 	nnoremap <silent> <C-h> :Helptags<CR>
 
 
-	nnoremap <silent> <leader>fp :Files<CR>
+	nnoremap <silent> <leader>fp :call fzf#vim#files('.',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
 	nnoremap <silent> <leader>fl :call fzf#vim#buffer_lines({'options':'--no-preview'})<CR>
 	nnoremap <silent> <leader>fb :Buffers<CR>
-	nnoremap <silent> <leader>fc :Files ~/OneDrive/Programs/lib <CR>
-	nnoremap <silent> <leader>fd :Files ~/.config <CR>
+	nnoremap <silent> <leader>fc :call fzf#vim#files('~/OneDrive/Programs',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
+	nnoremap <silent> <leader>fd :call fzf#vim#files('~/.config',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
 	nnoremap <silent> <leader>fh :Helptags<CR>
 
 
@@ -451,13 +453,6 @@ EOF
 	augroup END
 
 " }}}
-" Q-sharp {{{
-	augroup qsharp
-		au!
-		au BufEnter *.qs set ft=cs
-	augroup END
-
-" }}}
 " Snippets {{{
 	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = "~/.config/nvim/UltiSnips"
 	let g:UltiSnipsExpandTrigger="<c-j>"
@@ -472,7 +467,7 @@ EOF
 
 " }}}
 "  Statusline {{{
-	set laststatus=2
+	set laststatus=3
 	hi Statusline guibg=None ctermbg=None
 	hi StatuslineNC guibg=None ctermbg=None
 
@@ -611,11 +606,25 @@ require('incline').setup({
 		--res = res .. " |" .. vim.api.nvim_eval("WindowNumber()") .. "|"
 		--vim.g.actual_curbuf = curbuf
 		--vim.g.actual_curwin = curwin
+		local winr = 0
+		for i=1,vim.fn.tabpagewinnr(1,'$') do
+			if vim.fn.win_getid(i)==props.win then
+				winr = i
+			end
+		end
+		res = res .. ' {' .. winr .. '}'
 		if vim.api.nvim_buf_get_option(props.buf, 'modified') then
 			res = res .. ' [+]'
 		end
 		return res
-	end
+	end,
+--  ignore = {
+--    buftypes = {},
+--    filetypes = {},
+--    floating_wins = false,
+--    unlisted_buffers = false,
+--    wintypes = {},
+--  },
 })
 EOF
 lua require('nvim_comment').setup()
