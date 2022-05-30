@@ -52,7 +52,6 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Testing {{{
 	Plug 'lukas-reineke/indent-blankline.nvim'
-	Plug 'TimUntersberger/neogit'
 
 " }}}
 call plug#end()
@@ -617,8 +616,5 @@ EOF
 highlight IndentBlanklineContextChar guifg=#bd93f9
 
 
-lua <<EOF
-require('neogit').setup()
-EOF
 
 "}}}
