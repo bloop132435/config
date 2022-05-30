@@ -45,6 +45,7 @@
 		"*"
 	],
 	"coc.preferences.formatOnType": true,
-	"tabnine.priority": 50,
 	"suggest.languageSourcePriority": 100,
+	"java.format.enabled": true,
+	"java.format.comments.enabled": true
 }

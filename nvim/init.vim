@@ -8,8 +8,8 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Language_Support {{{
 		Plug 'bloop132435/ultisnips'
-		Plug 'neoclide/coc.nvim' , {'do' : 'make'}
 		Plug 'antoinemadec/coc-fzf'
+		Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
 
 " }}}
 " p-Looks {{{
@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'nvim-treesitter/nvim-treesitter',{'do':':TSUpdate'} "Tree sitter
 		Plug 'akinsho/nvim-bufferline.lua'
 		Plug 'folke/zen-mode.nvim'
+		Plug 'b0o/incline.nvim'
 
 "}}}
 " p-Finders {{{
@@ -36,8 +37,6 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
-		Plug 'xiyaowong/nvim-cursorword'
-		" Plug 'b3nj5m1n/kommentary'  "comments
 		Plug 'terrortylor/nvim-comment'
 		Plug 'mbbill/undotree'
 		Plug 'wellle/targets.vim'  "nicer i and a motions
@@ -46,12 +45,15 @@ call plug#begin('~/.vim/plugged')
 		Plug 'steelsojka/pears.nvim'
 		Plug 'simeji/winresizer'
 		Plug 'bfredl/nvim-ipy'
-		Plug 'rhysd/clever-f.vim'
+		" Plug 'rhysd/clever-f.vim'
+		Plug 'gukz/ftFt.nvim'
+		Plug 'nikvdp/neomux'
 
 "}}}
 " p-Testing {{{
-	Plug 'b0o/incline.nvim'
-	Plug 'nikvdp/neomux'
+	Plug 'lukas-reineke/indent-blankline.nvim'
+	Plug 'TimUntersberger/neogit'
+
 " }}}
 call plug#end()
 
@@ -183,6 +185,17 @@ call plug#end()
 	nnoremap Y y$
 	nnoremap <leader>bd :bd! %<CR>
 	nnoremap <leader><leader>a GVgg
+	let g:rnu = v:true
+	function! ToggleLine() abort
+		if g:rnu == v:true
+			let g:rnu = v:false
+			set norelativenumber
+		else
+			let g:rnu = v:true
+			set relativenumber
+		endif
+	endfunction
+	nnoremap <silent> <leader>l :call ToggleLine()<CR>
 	" Window Navigation {{{
 	nnoremap ;+       <C-w>+
 	nnoremap ;-       <C-w>-
@@ -239,7 +252,7 @@ call plug#end()
 	nnoremap <C-g> g<C-g>
 
 	inoremap  <C-W>
-	tnoremap  <C-\><C-n>
+	tnoremap <C-CR> <C-\><C-n>
 	" TODO, make this work for other end deliminters ],},",'
 	inoremap  <C-[>f)a
 
@@ -280,10 +293,6 @@ lua <<EOF
 require"pears".setup()
 EOF
 " }}}
-" Clever-f {{{
-	let g:clever_f_mark_direct=1
-
-" }}}
 " COC {{{
 	nmap ,r <Plug>(coc-rename)
 	nnoremap <silent> ,o :CocFzfList outline <CR>
@@ -323,23 +332,8 @@ EOF
 	hi WinSeparator guibg=NONE ctermbg=NONE
 
 " }}}
-" Debugging {{{
-	packadd termdebug
-	let g:termdebug_wide = 163
-	nnoremap [e :Evaluate<space>
-	nnoremap [r :Run <CR>
-	nnoremap [a :Arguments <CR>
-	nnoremap [b :Break<CR>
-	nnoremap [B :call GDBBreakpoint()<CR>
-	nnoremap [<space> :call TermDebugSendCommand(input("Command to send"))<CR>
-	nnoremap [s :Step<CR>
-	nnoremap [n :Over<CR>
-	nnoremap [f :Finish<CR>
-	nnoremap [c :Continue<CR>
-	nnoremap [q :Stop<CR>
-	hi debugPC term=reverse ctermbg=darkblue guibg=darkblue
-	hi debugBreakpoint term=reverse ctermbg=red guibg=red
-
+" Comment {{{
+	lua require('nvim_comment').setup()
 " }}}
 " Finders {{{
 	let g:loaded_netrwPlugin = 1
@@ -351,7 +345,7 @@ lua <<EOF
 require('dirbuf').setup({sort_order= "directories_first"})
 EOF
 	command! -nargs=1 -complete=help Help :enew | :set buftype=help | :h <args>
-	let $FZF_DEFAULT_COMMAND="fd"
+	let $FZF_DEFAULT_COMMAND="fd -E .git/ -H -L  --strip-cwd-prefix""
 	nnoremap <silent> <C-p> :call fzf#vim#files('.',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
 	nnoremap <silent> <C-f> :call fzf#vim#buffer_lines({'options':'--no-preview'})<CR>
 	nnoremap <silent> <C-b> :Buffers<CR>
@@ -388,6 +382,9 @@ EOF
     "   \ 'spinner': ['fg', 'Label'],
     "   \ 'header':  ['fg', 'Comment'] }
 
+" }}}
+" ftFT {{{
+	lua require('ftFT').setup()
 " }}}
 " Git {{{
 	let $GIT_EDITOR = "nvr -cc split --remote-wait "
@@ -460,22 +457,37 @@ EOF
 	let g:UltiSnipsJumpForwardTrigger='<c-j>'
 
 "}}}
-" Spotify {{{
-	nnoremap <silent> <leader>s<space> :Spotify play/pause<CR>
-	nnoremap <silent> <leader>sn :Spotify next<CR>
-	nnoremap <silent> <leader>sp :Spotify prev<CR>
-
-" }}}
 "  Statusline {{{
 	set laststatus=3
 	hi Statusline guibg=None ctermbg=None
 	hi StatuslineNC guibg=None ctermbg=None
+	hi StatuslineTerm guibg=None ctermbg=None
+	hi StatuslineTermNC guibg=None ctermbg=None
 
+lua <<EOF
+require('incline').setup({
+	render = function(props)
+		local bufname = vim.api.nvim_buf_get_name(props.buf)
+		local res = bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]'
+		local winr = 0
+		for i=1,vim.fn.tabpagewinnr(1,'$') do
+			if vim.fn.win_getid(i)==props.win then
+				winr = i
+			end
+		end
+		res = res .. ' {' .. winr .. '}'
+		if vim.api.nvim_buf_get_option(props.buf, 'modified') then
+			res = res .. ' [+]'
+		end
+		return res
+	end,
+})
+EOF
 " }}}
 "  Tresitter {{{
 lua << EOF
 require'nvim-treesitter.configs'.setup{
-	ensure_installed = "maintained",
+	ensure_installed = {"c","cpp","python","java","bash"},
 	highlight = {
 		enable = true,
 	},
@@ -594,39 +606,19 @@ EOF
 " }}}
 " Testing {{{
 
-lua <<EOF
-require('incline').setup({
-	render = function(props)
-		local bufname = vim.api.nvim_buf_get_name(props.buf)
-		local res = bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]'
-		--local curbuf = vim.g.actual_curbuf
-		--vim.g.actual_curbuf = props.buf
-		--local curwin = vim.g.actual_curwin
-		--vim.g.actual_curwin = props.win
-		--res = res .. " |" .. vim.api.nvim_eval("WindowNumber()") .. "|"
-		--vim.g.actual_curbuf = curbuf
-		--vim.g.actual_curwin = curwin
-		local winr = 0
-		for i=1,vim.fn.tabpagewinnr(1,'$') do
-			if vim.fn.win_getid(i)==props.win then
-				winr = i
-			end
-		end
-		res = res .. ' {' .. winr .. '}'
-		if vim.api.nvim_buf_get_option(props.buf, 'modified') then
-			res = res .. ' [+]'
-		end
-		return res
-	end,
---  ignore = {
---    buftypes = {},
---    filetypes = {},
---    floating_wins = false,
---    unlisted_buffers = false,
---    wintypes = {},
---  },
-})
+" lua require('eline')
+lua << EOF
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+}
 EOF
-lua require('nvim_comment').setup()
+highlight IndentBlanklineContextChar guifg=#bd93f9
+
+
+lua <<EOF
+require('neogit').setup()
+EOF
 
 "}}}
