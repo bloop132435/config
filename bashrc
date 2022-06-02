@@ -92,3 +92,4 @@ source /opt/homebrew/Cellar/fzf/0.30.0/shell/key-bindings.bash
 
 eval "$(starship init bash)"
 
+. "$HOME/.cargo/env"
