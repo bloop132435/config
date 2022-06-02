@@ -8,8 +8,9 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Language_Support {{{
 		Plug 'bloop132435/ultisnips'
-		Plug 'antoinemadec/coc-fzf'
-		Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
+		Plug 'neovim/nvim-lspconfig'
+		" Plug 'antoinemadec/coc-fzf'
+		" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
 
 " }}}
 " p-Looks {{{
@@ -18,6 +19,7 @@ call plug#begin('~/.vim/plugged')
 		Plug 'akinsho/nvim-bufferline.lua'
 		Plug 'folke/zen-mode.nvim'
 		Plug 'b0o/incline.nvim'
+		Plug 'lukas-reineke/indent-blankline.nvim'
 
 "}}}
 " p-Finders {{{
@@ -51,7 +53,11 @@ call plug#begin('~/.vim/plugged')
 
 "}}}
 " p-Testing {{{
-	Plug 'lukas-reineke/indent-blankline.nvim'
+	Plug 'abecodes/tabout.nvim'
+	Plug 'norcalli/nvim-terminal.lua'
+	Plug 'famiu/bufdelete.nvim'
+	Plug 'github/copilot.vim'
+	Plug 'simrat39/rust-tools.nvim'
 
 " }}}
 call plug#end()
@@ -132,7 +138,6 @@ call plug#end()
 	augroup END
 	augroup folding
 		au!
-		au BufEnter kitty.conf setlocal foldmethod=marker
 		autocmd filetype vim setlocal foldmethod=marker
 		au Filetype tmux setlocal foldmethod=marker
 	augroup END
@@ -164,12 +169,6 @@ call plug#end()
 		au TermOpen * setlocal ft=term
 	augroup END
 
-	function! MyFoldText()
-		let line = getline(v:foldstart)
-		let foldedlinecount = v:foldend - v:foldstart + 1
-		return ' 祈 '. foldedlinecount . line
-	endfunction
-	set foldtext=MyFoldText()
 	set fillchars=fold:\-
 
 " }}}
@@ -182,19 +181,25 @@ call plug#end()
 	nmap <BS> za
 	nmap <leader><leader>s :so $MYVIMRC<CR>
 	nnoremap Y y$
-	nnoremap <leader>bd :bd! %<CR>
 	nnoremap <leader><leader>a GVgg
-	let g:rnu = v:true
+	let w:rnu = v:true
 	function! ToggleLine() abort
-		if g:rnu == v:true
-			let g:rnu = v:false
-			set norelativenumber
+		if !exists('w:rnu')
+			let w:rnu = v:true
+		endif
+		if w:rnu == v:true
+			let w:rnu = v:false
+			setlocal norelativenumber
 		else
-			let g:rnu = v:true
-			set relativenumber
+			let w:rnu = v:true
+			setlocal relativenumber
 		endif
 	endfunction
 	nnoremap <silent> <leader>l :call ToggleLine()<CR>
+	" augroup lineNumberVarSet
+	" 	au!
+	" 	augroup Winenter *  let w:rnu = v:true
+	" augroup END
 	" Window Navigation {{{
 	nnoremap ;+       <C-w>+
 	nnoremap ;-       <C-w>-
@@ -251,9 +256,9 @@ call plug#end()
 	nnoremap <C-g> g<C-g>
 
 	inoremap  <C-W>
-	tnoremap <C-CR> <C-\><C-n>
+	tnoremap <C-/> <C-\><C-n>
 	" TODO, make this work for other end deliminters ],},",'
-	inoremap  <C-[>f)a
+	" inoremap  <C-[>f)a
 
 	vnoremap , <gv
 	vnoremap . >gv
@@ -292,33 +297,8 @@ lua <<EOF
 require"pears".setup()
 EOF
 " }}}
-" COC {{{
-	nmap ,r <Plug>(coc-rename)
-	nnoremap <silent> ,o :CocFzfList outline <CR>
-	nmap <silent> gd <Plug>(coc-definition)
-	nmap <silent> gr <Plug>(coc-references)
-	nmap <silent> ,f <Plug>(coc-references)
-	nnoremap <silent> ,a :CocFzfList actions<CR>
-	nnoremap <silent> ,y :CocFzfList yank<CR>
-	nnoremap <silent> ,d  :CocFzfList diagnostics --current-buf<CR>
-	nnoremap <silent> ,k  :CocFzfList diagnostics <CR>
-	inoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
-	nnoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
-	inoremap <silent><expr> <c-space> coc#refresh()
-	nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-	inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-	function! s:show_documentation()
-	  if CocAction('hasProvider', 'hover')
-		call CocActionAsync('doHover')
-	  else
-		call feedkeys('K', 'in')
-	  endif
-	endfunction
-	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd','coc-yank','coc-java','coc-fzf-preview']
-	let g:python3_host_prog = '/usr/bin/python3'
+" BufDelete {{{
+	nnoremap <silent> <leader>bd :lua require'bufdelete'.bufdelete(0,true)<CR>
 
 " }}}
 " Color Schemes {{{
@@ -329,15 +309,21 @@ EOF
 	hi Normal guibg=NONE ctermbg=NONE
 	hi Folded guibg=NONE guifg=#80a0ff
 	hi WinSeparator guibg=NONE ctermbg=NONE
+	hi LineNr guifg=#F8F8F2
 
 " }}}
 " Comment {{{
 	lua require('nvim_comment').setup()
 " }}}
+" Copilot {{{
+	imap <silent><script><expr> <C-r> copilot#Accept("\<C-r>")
+	let g:copilot_no_tab_map = v:true
+
+" }}}
 " Finders {{{
 	let g:loaded_netrwPlugin = 1
 	nnoremap <silent> <C-n> :Dirbuf<CR>
-	nnoremap <silent> <C-_> :Dirbuf %<CR>
+	nnoremap <silent> <C-/> :Dirbuf %<CR>
 
 
 lua <<EOF
@@ -404,6 +390,17 @@ EOF
 	highlight default HopUnmatched guifg=#666666 ctermfg=242
 
 "}}}
+" Indent Guides {{{
+lua << EOF
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+}
+EOF
+highlight IndentBlanklineContextChar guifg=#bd93f9
+
+" }}}
 " Jupyter_Notebook {{{
 	let g:nvim_ipy_perform_mappings = 0
 	command! -nargs=0 RunQtConsole call jobstart("jupyter qtconsole --JupyterWidget.include_other_output=True")
@@ -449,6 +446,12 @@ EOF
 	augroup END
 
 " }}}
+" Neomux {{{
+	let g:neomux_start_term_map = ""
+	let g:neomux_start_term_split_map = ""
+	let g:neomux_start_term_vsplit_map = ""
+	let g:neomux_winjump_map_prefix = ""
+" }}}
 " Snippets {{{
 	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = "~/.config/nvim/UltiSnips"
 	let g:UltiSnipsExpandTrigger="<c-j>"
@@ -483,10 +486,14 @@ require('incline').setup({
 })
 EOF
 " }}}
+" Terminal {{{
+lua require'terminal'.setup()
+
+" }}}
 "  Tresitter {{{
 lua << EOF
 require'nvim-treesitter.configs'.setup{
-	ensure_installed = {"c","cpp","python","java","bash"},
+	ensure_installed = {"c","cpp","python","java","bash","rust"},
 	highlight = {
 		enable = true,
 	},
@@ -549,6 +556,32 @@ nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
 nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 " }}}
+" Tabout {{{
+lua <<EOF
+    require('tabout').setup {
+    tabkey = '<C-l>', -- key to trigger tabout, set to an empty string to disable
+    backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
+    act_as_tab = false, -- shift content if tab out is not possible
+    act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+    default_tab = '', -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+    default_shift_tab = '', -- reverse shift default action,
+    enable_backwards = true, -- well ...
+    completion = false, -- if the tabkey is used in a completion pum
+    tabouts = {
+      {open = "'", close = "'"},
+      {open = '"', close = '"'},
+      {open = '`', close = '`'},
+      {open = '(', close = ')'},
+      {open = '[', close = ']'},
+      {open = '{', close = '}'},
+      {open = '<', close = '>'}
+    },
+    ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+    exclude = {} -- tabout will ignore these filetypes
+}
+EOF
+
+" }}}
 " Undo_Tree {{{
 	nnoremap <silent> <leader>u :UndotreeToggle<CR>
 
@@ -606,15 +639,65 @@ EOF
 " Testing {{{
 
 " lua require('eline')
-lua << EOF
-require("indent_blankline").setup {
-    space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = true,
-}
-EOF
-highlight IndentBlanklineContextChar guifg=#bd93f9
 
+
+lua <<EOF
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+local servers = { 'pyright', 'clangd' }
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      -- This will be the default in neovim 0.7+
+      debounce_text_changes = 150,
+    }
+  }
+end
+--require('lspconfig').rust_analyzer.setup {
+--  on_attach = on_attach,
+--  cmd = {"rust-analyzer"},
+--  flags = {
+--	-- This will be the default in neovim 0.7+
+--	debounce_text_changes = 150,
+--  }
+--}
+require('rust-tools').setup({})
+EOF
 
 
 "}}}
