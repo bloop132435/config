@@ -8,9 +8,8 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Language_Support {{{
 		Plug 'bloop132435/ultisnips'
-		Plug 'neovim/nvim-lspconfig'
-		" Plug 'antoinemadec/coc-fzf'
-		" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
+		Plug 'antoinemadec/coc-fzf'
+		Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
 
 " }}}
 " p-Looks {{{
@@ -57,7 +56,8 @@ call plug#begin('~/.vim/plugged')
 	Plug 'norcalli/nvim-terminal.lua'
 	Plug 'famiu/bufdelete.nvim'
 	Plug 'github/copilot.vim'
-	Plug 'simrat39/rust-tools.nvim'
+	" Plug 'wellle/context.vim'
+
 
 " }}}
 call plug#end()
@@ -297,8 +297,39 @@ lua <<EOF
 require"pears".setup()
 EOF
 " }}}
-" BufDelete {{{
+" Bufdelete {{{
 	nnoremap <silent> <leader>bd :lua require'bufdelete'.bufdelete(0,true)<CR>
+
+" }}}
+" COC {{{
+	nmap ,r <Plug>(coc-rename)
+	nnoremap <silent> <leader>r :CocRestart<CR>
+	nnoremap <silent> ,o :CocFzfList outline <CR>
+	nmap <silent> gd <Plug>(coc-definition)
+	nmap <silent> gr <Plug>(coc-references)
+	nmap <silent> ,f <Plug>(coc-references)
+	nnoremap <silent> ,a :CocFzfList actions<CR>
+	nnoremap <silent> ,y :CocFzfList yank<CR>
+	nnoremap <silent> ,d  :CocFzfList diagnostics --current-buf<CR>
+	nnoremap <silent> ,k  :CocFzfList diagnostics <CR>
+	inoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
+	nnoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
+	inoremap <silent><expr> <c-space> coc#refresh()
+	nnoremap <silent> K :call <SID>show_documentation()<CR>
+	nmap <silent> ,c <plug>(coc-codeaction)
+
+	inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+	function! s:show_documentation()
+	  if CocAction('hasProvider', 'hover')
+		call CocActionAsync('doHover')
+	  else
+		call feedkeys('K', 'in')
+	  endif
+	endfunction
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd','coc-yank','coc-java','coc-fzf-preview','coc-rust-analyzer','coc-gitignore']
+	let g:python3_host_prog = '/opt/homebrew/Caskroom/miniforge/base/bin/python3.9'
 
 " }}}
 " Color Schemes {{{
@@ -312,18 +343,31 @@ EOF
 	hi LineNr guifg=#F8F8F2
 
 " }}}
-" Comment {{{
-	lua require('nvim_comment').setup()
-" }}}
 " Copilot {{{
 	imap <silent><script><expr> <C-r> copilot#Accept("\<C-r>")
 	let g:copilot_no_tab_map = v:true
+	let g:copilot_active = v:true
+	function! ToggleCopilot() abort
+		if g:copilot_active == v:true
+			let g:copilot_active = v:false
+			Copilot disable
+			echo 'copilot disable'
+		else
+			let g:copilot_active = v:true
+			Copilot enable
+			echo 'copilot enable'
+		endif
+	endfunction
+	nnoremap <silent> <leader>c :call ToggleCopilot()<CR>
 
+" }}}
+" Comment {{{
+	lua require('nvim_comment').setup()
 " }}}
 " Finders {{{
 	let g:loaded_netrwPlugin = 1
 	nnoremap <silent> <C-n> :Dirbuf<CR>
-	nnoremap <silent> <C-/> :Dirbuf %<CR>
+	nnoremap <silent> <C-o> :Dirbuf %<CR>
 
 
 lua <<EOF
@@ -352,6 +396,7 @@ EOF
 
 
 	let g:fzf_layout = {'window':{'width':1, 'height':0.4,'xoffset':0,'yoffset':0}}
+
     " let g:fzf_colors =
     " \ { 'fg':      ['fg', 'Normal'],
     "   \ 'bg':      ['bg', 'Normal'],
@@ -452,6 +497,22 @@ highlight IndentBlanklineContextChar guifg=#bd93f9
 	let g:neomux_start_term_vsplit_map = ""
 	let g:neomux_winjump_map_prefix = ""
 " }}}
+" Python autoimport {{{
+
+	function! s:PyPostSave()
+		execute "silent !tidy-imports --quiet --replace-star-imports --action REPLACE " . bufname("%")
+		execute "e"
+	endfunction
+
+	:command! PyPostSave :call s:PyPostSave()
+
+	augroup waylonwalker
+		autocmd!
+		autocmd bufwritepost *.py execute 'PyPostSave'
+		autocmd bufwritepost *.vim execute ':source %'
+	augroup end
+
+" }}}
 " Snippets {{{
 	let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = "~/.config/nvim/UltiSnips"
 	let g:UltiSnipsExpandTrigger="<c-j>"
@@ -487,13 +548,13 @@ require('incline').setup({
 EOF
 " }}}
 " Terminal {{{
-lua require'terminal'.setup()
+	lua require'terminal'.setup()
 
 " }}}
 "  Tresitter {{{
 lua << EOF
 require'nvim-treesitter.configs'.setup{
-	ensure_installed = {"c","cpp","python","java","bash","rust"},
+	ensure_installed = {"c","cpp","python","java","bash"},
 	highlight = {
 		enable = true,
 	},
@@ -638,66 +699,6 @@ EOF
 " }}}
 " Testing {{{
 
-" lua require('eline')
-
-
-lua <<EOF
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
-end
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-local servers = { 'pyright', 'clangd' }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      -- This will be the default in neovim 0.7+
-      debounce_text_changes = 150,
-    }
-  }
-end
---require('lspconfig').rust_analyzer.setup {
---  on_attach = on_attach,
---  cmd = {"rust-analyzer"},
---  flags = {
---	-- This will be the default in neovim 0.7+
---	debounce_text_changes = 150,
---  }
---}
-require('rust-tools').setup({})
-EOF
 
 
 "}}}

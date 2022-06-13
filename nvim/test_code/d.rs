@@ -3,7 +3,7 @@ fn main() {
     let mut n = 0;
     let mut fib = 0;
     let mut fib_prev = 0;
-    let mut fib_next = 1;
+let mut fib_next = 1;
     let mut fib_sum = 0;
     while n < 10 {
         fib = fib_next;

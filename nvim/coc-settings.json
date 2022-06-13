@@ -47,6 +47,12 @@
 	"coc.preferences.formatOnType": true,
 	"suggest.languageSourcePriority": 100,
 	"java.format.enabled": true,
-  "java.format.comments.enabled": true,
-  "Lua.telemetry.enable": true
+	"java.format.comments.enabled": true,
+	"Lua.telemetry.enable": true,
+	"rust-analyzer.cargo.features": "all",
+	"rust-analyzer.lens.enable": true,
+	"rust-analyzer.hover.links.enable": true,
+	"rust-analyzer.terminal.startinsert": false,
+	"rust-analyzer.joinLines.joinElseIf": true,
+	"sumneko-lua.enableNvimLuaDev": true
 }
