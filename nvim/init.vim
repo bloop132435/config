@@ -8,8 +8,8 @@ call plug#begin('~/.vim/plugged')
 "}}}
 " p-Language_Support {{{
 		Plug 'bloop132435/ultisnips'
-		Plug 'antoinemadec/coc-fzf'
-		Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
+		" Plug 'antoinemadec/coc-fzf'
+		" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install'}
 
 " }}}
 " p-Looks {{{
@@ -56,8 +56,13 @@ call plug#begin('~/.vim/plugged')
 	Plug 'norcalli/nvim-terminal.lua'
 	Plug 'famiu/bufdelete.nvim'
 	Plug 'github/copilot.vim'
-	" Plug 'wellle/context.vim'
-
+	Plug 'neovim/nvim-lspconfig'
+	Plug 'hrsh7th/cmp-nvim-lsp'
+	Plug 'hrsh7th/cmp-buffer'
+	Plug 'hrsh7th/cmp-path'
+	Plug 'hrsh7th/cmp-cmdline'
+	Plug 'hrsh7th/nvim-cmp'
+	Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " }}}
 call plug#end()
