@@ -1,0 +1,87 @@
+{
+	"title": "leader key for window managerment",
+	"rules": [
+		{
+			"description": "q",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "q"
+					},
+					"conditions": [
+						{
+							"type": "variable_if",
+							"name": "opt_space_leader",
+							"value": true
+						}
+					],
+					"to": [
+						{
+							"key_code": "q",
+							"modifiers": [
+								"right_control",
+								"right_option",
+								"right_command"
+							]
+						},
+						{
+							"set_notification_message": {
+								"id": "leader key",
+								"text": "leader key q"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "leader",
+			"manipulators": [
+				{
+					"type": "basic",
+					"from": {
+						"key_code": "spacebar",
+						"modifiers": {
+							"mandatory": [
+								"left_option"
+							]
+						}
+					},
+					"to": [
+						{
+							"set_variable": {
+								"name": "opt_space_leader",
+								"value": true
+							}
+						},
+						{
+							"set_notification_message": {
+								"id": "leader key",
+								"text": "leader key pressed"
+							}
+						}
+					],
+					"to_delayed_action": {
+						"to_if_invoked": [
+							{
+								"set_variable": {
+									"name": "opt_space_leader",
+									"value": false
+								}
+							}
+						],
+						"to_if_canceled": [
+							{
+								"set_variable": {
+									"name": "opt_space_leader",
+									"value": false
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	]
+}

@@ -19,44 +19,43 @@ call plug#begin('~/.vim/plugged')
 		Plug 'folke/zen-mode.nvim'
 		Plug 'b0o/incline.nvim'
 		Plug 'lukas-reineke/indent-blankline.nvim'
+		Plug 'abhishekmukherg/xonsh-vim'
 
 "}}}
 " p-Finders {{{
 		Plug 'phaazon/hop.nvim'  "easy motion but for nvim
 		Plug 'wincent/loupe' "better incsearch for vim
-		Plug 'elihunter173/dirbuf.nvim'
-		Plug 'nvim-telescope/telescope.nvim'
-		Plug 'brooth/far.vim'
 		Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 		Plug 'junegunn/fzf.vim'
 
 		"}}}
 " p-Git {{{
-		Plug 'kdheepak/lazygit.nvim' "lazy git integration for neovim
-		Plug 'tpope/vim-fugitive'
+		" Plug 'kdheepak/lazygit.nvim' "lazy git integration for neovim
+		" Plug 'tpope/vim-fugitive'
 
 "}}}
 " p-Misc {{{
 		Plug 'machakann/vim-sandwich'  "surround
-		Plug 'terrortylor/nvim-comment'
+		Plug 'winston0410/commented.nvim'
 		Plug 'mbbill/undotree'
 		Plug 'wellle/targets.vim'  "nicer i and a motions
-		Plug 'skywind3000/asyncrun.vim'  "configure things to asyncly run and spit out results
 		Plug 'dstein64/vim-startuptime' "Startuptime logging
 		Plug 'steelsojka/pears.nvim'
 		Plug 'simeji/winresizer'
-		Plug 'bfredl/nvim-ipy'
-		" Plug 'rhysd/clever-f.vim'
 		Plug 'gukz/ftFt.nvim'
 		Plug 'nikvdp/neomux'
 
 "}}}
 " p-Testing {{{
 	Plug 'abecodes/tabout.nvim'
-	Plug 'norcalli/nvim-terminal.lua'
 	Plug 'famiu/bufdelete.nvim'
 	Plug 'github/copilot.vim'
-	" Plug 'wellle/context.vim'
+	Plug 'kevinhwang91/nvim-bqf'
+	Plug 'dense-analysis/ale'
+	Plug 'mtth/scratch.vim'
+	Plug 'mcchrish/nnn.vim'
+	Plug 'djoshea/vim-autoread'
+	Plug 'folke/todo-comments.nvim'
 
 
 " }}}
@@ -122,6 +121,7 @@ call plug#end()
 	set nobackup
 	set undodir=~/.vim/undodir
 	set undofile
+	set scrollback=100000
 	set lazyredraw
 	au GUIEnter * simalt ~x
 	let python_highlight_all = 1
@@ -136,14 +136,19 @@ call plug#end()
 		au! BufWritePost init.vim source $MYVIMRC
 		au! BufWritePost *.vim source  $MYVIMRC
 	augroup END
+
+	set foldmethod=expr
+	set foldexpr=nvim_treesitter#foldexpr()
+	set foldminlines=10
+	set foldnestmax=3
 	augroup folding
 		au!
 		autocmd filetype vim setlocal foldmethod=marker
+		autocmd filetype vim setlocal foldminlines=1
 		au Filetype tmux setlocal foldmethod=marker
 	augroup END
 	set guifont=JetBrainsMono\ NF:h11
 	set fillchars=eob:\ ,
-	set foldmethod=manual
 	set mouse=a
 	set ruler
 	fun! TrimWhitespace()
@@ -176,12 +181,14 @@ call plug#end()
 	nnoremap B ^
 	nnoremap E $
 	nnoremap U <C-r>
-	nnoremap <esc> :noh<CR>
+	nnoremap  <esc> :noh<CR>
 	nnoremap <leader><leader>a GVgg
 	nmap <BS> za
 	nmap <leader><leader>s :so $MYVIMRC<CR>
 	nnoremap Y y$
 	nnoremap <leader><leader>a GVgg
+	let b:fold = v:true
+	nnoremap <leader>q :setlocal foldlevel=5<CR>
 	let w:rnu = v:true
 	function! ToggleLine() abort
 		if !exists('w:rnu')
@@ -244,7 +251,6 @@ call plug#end()
 	nnoremap ;s       <C-w>s
 	nnoremap ;t       <C-w>t
 	nnoremap ;v       <C-w>v
-	nnoremap ;w       <C-w>w
 	nnoremap ;x       <C-w>x
 	nnoremap ;z       <C-w>z
 	nnoremap ;bar     <C-w>bar
@@ -257,11 +263,13 @@ call plug#end()
 
 	inoremap  <C-W>
 	tnoremap <C-/> <C-\><C-n>
+	nnoremap <C-/> <nop>
+	tnoremap <C-_> <C-\><C-n>
 	" TODO, make this work for other end deliminters ],},",'
 	" inoremap  <C-[>f)a
 
-	vnoremap , <gv
-	vnoremap . >gv
+	vnoremap < <gv
+	vnoremap > >gv
 	vnoremap <BS> zf
 	vnoremap <leader><leader>d "_d
 	vnoremap J :m '>+1<CR>gv=gv
@@ -294,7 +302,7 @@ call plug#end()
 "}}}
 " Bracket Pairs {{{
 lua <<EOF
-require"pears".setup()
+--require"pears".setup()
 EOF
 " }}}
 " Bufdelete {{{
@@ -313,13 +321,21 @@ EOF
 	nnoremap <silent> ,d  :CocFzfList diagnostics --current-buf<CR>
 	nnoremap <silent> ,k  :CocFzfList diagnostics <CR>
 	inoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
-	nnoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
-	inoremap <silent><expr> <c-space> coc#refresh()
+	nnoremap <silent> <C-s> :call CocActionAsync('showSignatureHelp')<CR>
+	nnoremap <silent> <C-k> :call coc#float#scroll(1,10)<CR>
+	nnoremap <silent> <C-j> :call coc#float#scroll(2,10)<CR>
+	inoremap <silent><expr> <c-b> coc#refresh()
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
 	nmap <silent> ,c <plug>(coc-codeaction)
+	nnoremap <silent> ,s :CocDiagnostics<CR>
+	nnoremap <silent> [c :copen<CR>
+	nnoremap <silent> [q :cclose<CR>
+	nnoremap <silent> [n :cnext<CR>
+	nnoremap <silent> [p :cprevious<CR>
 
 	inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 	function! s:show_documentation()
 	  if CocAction('hasProvider', 'hover')
 		call CocActionAsync('doHover')
@@ -327,8 +343,7 @@ EOF
 		call feedkeys('K', 'in')
 	  endif
 	endfunction
-	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd','coc-yank','coc-java','coc-fzf-preview','coc-rust-analyzer','coc-gitignore']
+	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd','coc-yank','coc-java','coc-fzf-preview','coc-rust-analyzer','coc-gitignore','coc-pairs','coc-hls']
 	let g:python3_host_prog = '/opt/homebrew/Caskroom/miniforge/base/bin/python3.9'
 
 " }}}
@@ -362,22 +377,25 @@ EOF
 
 " }}}
 " Comment {{{
-	lua require('nvim_comment').setup()
+	lua require("commented").setup()
+	nnoremap <silent> gcc :Comment<CR>
+	vnoremap <silent> gc :Comment<CR>
+	"lua require('nvim_comment').setup()
 " }}}
 " Finders {{{
-	let g:loaded_netrwPlugin = 1
-	nnoremap <silent> <C-n> :Dirbuf<CR>
-	nnoremap <silent> <C-o> :Dirbuf %<CR>
+	let g:loaded_netrwPlugin = 0
+	let g:nnn#set_default_mappings = 0
+	nnoremap <C-n> :NnnPicker<CR>
+	nnoremap <leader>n :NnnPicker %:p:h <CR>
 
 
-lua <<EOF
-require('dirbuf').setup({sort_order= "directories_first"})
-EOF
 	command! -nargs=1 -complete=help Help :enew | :set buftype=help | :h <args>
 	let $FZF_DEFAULT_COMMAND="fd -E .git/ -H -L  --strip-cwd-prefix""
 	nnoremap <silent> <C-p> :call fzf#vim#files('.',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
 	nnoremap <silent> <C-f> :call fzf#vim#buffer_lines({'options':'--no-preview'})<CR>
+	nnoremap <silent> <C-r> :Rg<CR>
 	nnoremap <silent> <C-b> :Buffers<CR>
+	nnoremap <silent> <leader>. :Buffers<CR>
 	nnoremap <silent> <C-h> :Helptags<CR>
 
 
@@ -387,6 +405,11 @@ EOF
 	nnoremap <silent> <leader>fc :call fzf#vim#files('~/OneDrive/Programs',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
 	nnoremap <silent> <leader>fd :call fzf#vim#files('~/.config',{'options':'--preview "~/.config/nvim/preview.sh {}"'})<CR>
 	nnoremap <silent> <leader>fh :Helptags<CR>
+
+	nnoremap <C-'> :call CurrentFileFile()<CR>
+	function! CurrentFileFile() abort
+		execute 'call fzf#vim#files("' . expand('%:h') . '",{"options":"--preview `~/.config/nvim/preview.sh {}`"})'
+	endfunction
 
 
     let g:fzf_action = {
@@ -492,10 +515,11 @@ highlight IndentBlanklineContextChar guifg=#bd93f9
 
 " }}}
 " Neomux {{{
-	let g:neomux_start_term_map = ""
-	let g:neomux_start_term_split_map = ""
-	let g:neomux_start_term_vsplit_map = ""
-	let g:neomux_winjump_map_prefix = ""
+	let g:neomux_start_term_map = ''
+	let g:neomux_start_term_split_map = ''
+	let g:neomux_start_term_vsplit_map = ''
+	let g:neomux_winjump_map_prefix = ''
+	let g:neomux_default_shell = 'bash'
 " }}}
 " Python autoimport {{{
 
@@ -506,11 +530,6 @@ highlight IndentBlanklineContextChar guifg=#bd93f9
 
 	:command! PyPostSave :call s:PyPostSave()
 
-	augroup waylonwalker
-		autocmd!
-		autocmd bufwritepost *.py execute 'PyPostSave'
-		autocmd bufwritepost *.vim execute ':source %'
-	augroup end
 
 " }}}
 " Snippets {{{
@@ -546,10 +565,6 @@ require('incline').setup({
 	end,
 })
 EOF
-" }}}
-" Terminal {{{
-	lua require'terminal'.setup()
-
 " }}}
 "  Tresitter {{{
 lua << EOF
@@ -698,7 +713,23 @@ EOF
 
 " }}}
 " Testing {{{
+let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_cargo_check_examples = 1
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_linters = {'rust':['rustc','analyzer','rustfmt','cargo']}
+let g:ale_float_preview = 1
+nnoremap <silent> <leader>a :ALEToggle<CR>
 
+nnoremap <silent> <C-S> :Scratch<CR>
+let g:scratch_persistence_file = '~/.config/nvim/scratch.txt'
+let g:nnn#action = {
+      \ '<c-t>': 'tab split',
+      \ '<c-s>': 'split',
+      \ '<c-v>': 'vsplit' }
 
-
+" lua require('todo-comments').setup()
+if exists("g:neovide")
+		" Put anything you want to happen only in Neovide here
+let g:neovide_input_use_logo=v:true
+endif
 "}}}
