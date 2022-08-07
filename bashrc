@@ -1,24 +1,30 @@
-export PATH=$PATH:~/programs/scripts/
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/bashrc.pre.bash" ]] && . "$HOME/.fig/shell/bashrc.pre.bash"
+set -o emacs
+
+# export PATH=$PATH:~/programs/scripts/
 export PATH=$PATH:~/.local/bin
-export PATH=$PATH:~/.config/tmux
-export PATH=$PATH:~/downloads/squashfs-root/usr/bin
-export PATH=$PATH:/home/gqian/cling/bin
+export AVR_CPU_FREQUENCY_HZ=16000000
+# export PATH=$PATH:~/.config/tmux
+# export PATH=$PATH:~/downloads/squashfs-root/usr/bin
+# export PATH=$PATH:/home/gqian/cling/bin
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/Users/gqian/Library/Python/3.8/bin:$PATH
 # export DOTNET_ROOT=$HOME/dotnet
 # export PATH=$PATH:$HOME/dotnet
-export PATH=$PATH:$HOME/programs/utils/webscraping
+# export PATH=$PATH:$HOME/programs/utils/webscraping
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
-export FZF_DEFAULT_COMMAND="fd -E .git/ -E iterm2 -H -L  --strip-cwd-prefix"
+export FZF_DEFAULT_COMMAND="fd -E .git/  -H -L  --strip-cwd-prefix"
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERMINAL=st
-export FZF_DEFAULT_OPTS='--tabstop=4 --preview="~/.config/nvim/preview.sh {} " --layout=reverse --border  --color=fg:#f8f8f2,bg:-1,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:-1,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+export FZF_DEFAULT_OPTS='--tabstop=4 --preview="~/.config/nvim/preview.sh {} " --layout=reverse --border  --color=fg:#f8f8f2,bg:-1,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:-1,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --bind=ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up'
 export FZF_COMPLETION_TRIGGER='##'
 alias v=nvim
 alias l=exa\ -a
 alias ll=exa\ -al
 alias ls=exa
+alias tree=exa\ -aTl
 alias q=exit
 alias python=python3
 
@@ -37,11 +43,11 @@ calc(){
 }
 function cf() {
     if [[ "$#" != 0 ]]; then
-        builtin cd "$@";
+        builtin \cd "$@";
         return
     fi
     while true; do
-        local lsd=$(echo ".." && \ls -ap | grep '/$' | sed 's;/$;;')
+        local lsd=$(echo ".." && \ls -aF | grep '[/@]$' | sed 's;/$;;' | sed 's;@$;;')
         local dir="$(printf '%s\n' "${lsd[@]}" |
             fzf --reverse --preview '
                 __cd_nxt="$(echo {})";
@@ -53,6 +59,7 @@ function cf() {
         [[ ${#dir} != 0 ]] || return 0
         builtin cd "$dir" &> /dev/null
     done
+	ll
 }
 
 
@@ -85,11 +92,12 @@ if [ "$TERM" = "linux" ]; then
 	clear
 fi
 
-# source /usr/share/fzf/key-bindings.bash
-# source /usr/share/fzf/completion.bash
-source /opt/homebrew/Cellar/fzf/0.30.0/shell/completion.bash
-source /opt/homebrew/Cellar/fzf/0.30.0/shell/key-bindings.bash
 
 eval "$(starship init bash)"
 
 . "$HOME/.cargo/env"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/bashrc.post.bash" ]] && . "$HOME/.fig/shell/bashrc.post.bash"
