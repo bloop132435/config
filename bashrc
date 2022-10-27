@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/bashrc.pre.bash" ]] && . "$HOME/.fig/shell/bashrc.pre.bash"
 set -o emacs
 
 # export PATH=$PATH:~/programs/scripts/
@@ -14,6 +12,7 @@ export PATH=/Users/gqian/Library/Python/3.8/bin:$PATH
 # export PATH=$PATH:$HOME/dotnet
 # export PATH=$PATH:$HOME/programs/utils/webscraping
 export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
+export PYTHONPATH=$PYTHONPATH:~/python_utils
 export FZF_DEFAULT_COMMAND="fd -E .git/  -H -L  --strip-cwd-prefix"
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -36,7 +35,10 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
 fi
 
 vf(){
-	nvim $(fzf)
+	nvim "$(fzf)"
+}
+finder() {
+	open "$(fzf)"
 }
 calc(){
 	printf "%s\n" "$@" | bc -l;
@@ -98,6 +100,3 @@ eval "$(starship init bash)"
 . "$HOME/.cargo/env"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/bashrc.post.bash" ]] && . "$HOME/.fig/shell/bashrc.post.bash"
