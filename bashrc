@@ -1,5 +1,5 @@
 set -o emacs
-
+export COLUMNS=1000
 # export PATH=$PATH:~/programs/scripts/
 export PATH=$PATH:~/.local/bin
 export AVR_CPU_FREQUENCY_HZ=16000000
@@ -15,7 +15,7 @@ export PYTHONPATH=$PYTHONPATH:$HOME/.vim/plugged/ultisnips/pythonx
 export PYTHONPATH=$PYTHONPATH:~/python_utils
 export FZF_DEFAULT_COMMAND="fd -E .git/  -H -L  --strip-cwd-prefix"
 export EDITOR=nvim
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+#  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export TERMINAL=st
 export FZF_DEFAULT_OPTS='--tabstop=4 --preview="~/.config/nvim/preview.sh {} " --layout=reverse --border  --color=fg:#f8f8f2,bg:-1,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:-1,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --bind=ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up'
 export FZF_COMPLETION_TRIGGER='##'
@@ -100,3 +100,7 @@ eval "$(starship init bash)"
 . "$HOME/.cargo/env"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -1,31 +1,4 @@
 {
-	"suggest.enablePreview": true,
-	"suggest.echodocSupport": true,
-	//"suggest.completionItemKindLabels": {
-	//	"keyword": "k",
-	//	"variable": "v",
-	//	"value": "&",
-	//	"operator": ">",
-	//	"constructor": "_",
-	//	"function": "f",
-	//	"reference": "r",
-	//	"constant": "c",
-	//	"method": "f",
-	//	"struct": "S",
-	//	"class": "C",
-	//	"interface": "I",
-	//	"text": "\"",
-	//	"enum": "{}",
-	//	"enumMember": "{.}",
-	//	"field": ".",
-	//	"unit": "%",
-	//	"event": "\ufacd",
-	//	"file": "//",
-	//	"folder": "/ /",
-	//	"snippet": "S",
-	//	"typeParameter": "p",
-	//	"default": "\uf29c"
-	//},
 	"diagnostic.infoSign": "\u24d8",
 	"diagnostic.errorSign": "x",
 	"diagnostic.hintSign": "\u203d",
@@ -35,7 +8,7 @@
 	"codeLens.enable": true,
 	"list.nextKeymap": "<C-n>",
 	"list.previousKeymap": "<C-p>",
-	"coc.preferences.rootPatterns": [
+	"workspace.rootPatterns": [
 		"compile_flags.txt"
 	],
 	"coc.preferences.formatOnSaveFiletypes": [

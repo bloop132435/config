@@ -42,7 +42,8 @@ call plug#begin('~/.vim/plugged')
 		Plug 'steelsojka/pears.nvim'
 		Plug 'simeji/winresizer'
 		Plug 'gukz/ftFt.nvim'
-		Plug 'nikvdp/neomux'
+		" Plug 'nikvdp/nemux'
+		Plug 'farfanoide/vim-kivy'
 
 "}}}
 " p-Testing {{{
@@ -139,7 +140,7 @@ call plug#end()
 
 	set foldmethod=expr
 	set foldexpr=nvim_treesitter#foldexpr()
-	set foldminlines=10
+	set foldminlines=30
 	set foldnestmax=3
 	augroup folding
 		au!
@@ -170,6 +171,7 @@ call plug#end()
 
 	augroup terminal
 		au!
+		au TermEnter * setlocal nowrap
 		au TermEnter * setlocal ft=term
 		au TermOpen * setlocal ft=term
 	augroup END
@@ -256,9 +258,9 @@ call plug#end()
 	nnoremap ;bar     <C-w>bar
 	nnoremap ;}       <C-w>}
 	"}}}
-	" nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
-	nnoremap <silent>  <C-t> :Neomux<CR>
-	nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
+	nnoremap <silent> <C-t> :term bash --rcfile ~/.config/vim-term.sh<CR>
+	" nnoremap <silent>  <C-t> :Neomux<CR>
+	" nnoremap <silent> <leader>t :term bash --rcfile ~/.config/vim-term.sh<CR>
 	nnoremap <C-g> g<C-g>
 
 	inoremap <M-BS> 
@@ -269,8 +271,8 @@ call plug#end()
 	" TODO, make this work for other end deliminters ],},",'
 	" inoremap  <C-[>f)a
 
-	vnoremap << <gv
-	vnoremap >> >gv
+	vnoremap , <gv
+	vnoremap . >gv
 	vnoremap <BS> zf
 	vnoremap <leader><leader>d "_d
 	vnoremap J :m '>+1<CR>gv=gv
@@ -326,6 +328,7 @@ EOF
 	nnoremap <silent> <C-k> :call coc#float#scroll(1,10)<CR>
 	nnoremap <silent> <C-j> :call coc#float#scroll(2,10)<CR>
 	inoremap <silent><expr> <c-b> coc#refresh()
+inoremap <silent><expr> <c-space> coc#refresh()
 	nnoremap <silent> K :call <SID>show_documentation()<CR>
 	nmap <silent> ,c <plug>(coc-codeaction)
 	nnoremap <silent> ,s :CocDiagnostics<CR>
@@ -346,6 +349,7 @@ EOF
 	endfunction
 	let g:coc_global_extensions = ['coc-word','coc-ultisnips-select','coc-ultisnips','coc-marketplace','coc-vimlsp','coc-pyright','coc-json','coc-clangd','coc-yank','coc-java','coc-fzf-preview','coc-rust-analyzer','coc-gitignore','coc-pairs','coc-hls']
 	let g:python3_host_prog = '/opt/homebrew/Caskroom/miniforge/base/bin/python3.9'
+	let g:python_host_prog = '/opt/homebrew/Caskroom/miniforge/base/bin/python'
 
 " }}}
 " Color Schemes {{{
@@ -580,7 +584,10 @@ EOF
 		end,
 		--mappings = true,
 
-		indicator_icon = '▎',
+		indicator = {
+			icon = '▎',
+			style = 'icon',
+			},
 		buffer_close_icon = '',
 		modified_icon = '●',
 		name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
