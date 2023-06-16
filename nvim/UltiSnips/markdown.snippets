@@ -1,8 +1,0 @@
-snippet "<(\S+)>" "html tag" r
-<`!p snip.rv = ' '.join(match.group(1).split(','))`>$1</`!p snip.rv = match.group(1).split(',')[0]`>$0
-endsnippet
-
-priority 1
-snippet "(\S+?)\^(\S+)" "superscript" r
-`!p snip.rv = match.group(1) + '<sup>' + match.group(2) + '</sup>'`
-endsnippet
