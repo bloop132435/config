@@ -1,28 +1,14 @@
 return {
-	{
-		'shellRaining/hlchunk.nvim',
-		config = function()
-			require('hlchunk').setup({
-				chunk = {
-					enable = true,
-					use_treesitter = true,
-				},
-				indent = {
-					enable = true,
-					use_treesitter = true,
-				},
-				line_num = {
-					enable = true,
-					use_treesitter = true,
-					style = "#f8f8f2",
-				},
-				blank = {
-					enable = true,
-				},
-				context = {
-					enable = true,
-				}
-			})
+	{ 
+		"lukas-reineke/indent-blankline.nvim",
+		init = function()
+			require("indent_blankline").setup {
+				-- for example, context is off by default, use this to turn it on
+				show_current_context = true,
+				show_current_context_start = true,
+				use_treesitter = true,
+				use_treesitter_scope = true,
+			}
 		end
 	},
 	{
@@ -39,4 +25,12 @@ return {
 			})
 		end
 	},
+	{ 
+		'gen740/SmoothCursor.nvim',
+		init = function()
+			require('smoothcursor').setup({
+				cursor = '▶'
+			})
+		end
+	}
 }

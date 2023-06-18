@@ -22,6 +22,3 @@ require('maps')
 require("lazy").setup("plugins")
 
 require("my-lsp")
-
-
-require('telescope_after')

@@ -69,7 +69,7 @@ vim.opt.fillchars = {
 	vertright		= '╠' ,
 	verthoriz		= '╬' ,
 }
-vim.opt.ruler = true
+vim.opt.ruler = false
 vim.api.nvim_create_autocmd({"TermOpen","TermEnter"}, {command = "setlocal ft=term"})
 
 vim.opt.laststatus = 3
