@@ -6,9 +6,11 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		dependencies = {
-			"debugloop/telescope-undo.nvim",
-			"nvim-telescope/telescope-fzf-writer.nvim",
-			"gbrlsnchs/telescope-lsp-handlers.nvim",
+			'debugloop/telescope-undo.nvim',
+			'nvim-telescope/telescope-fzf-writer.nvim',
+			'gbrlsnchs/telescope-lsp-handlers.nvim',
+			'nvim-telescope/telescope-file-browser.nvim',
+			'AckslD/nvim-neoclip.lua',
 		},
 		init = function()
 			require('telescope').setup {
@@ -24,36 +26,46 @@ return {
 						},
 					},
 				},
+				pickers = {
+					git_files = {
+						use_git_root = true,
+						show_untracked = true,
+					},
+				},
 				extensions = {
 					fzf = {
 						fuzzy = true,                    
 						override_generic_sorter = true,  
 						override_file_sorter = true,     
-						case_mode = "smart_case",        
+						case_mode = 'smart_case',        
 					},
 					undo = {
 						use_delta = true,
 						side_by_side = true,
 						diff_context_lines = vim.o.scrolloff,
-						entry_format = "state #$ID, $STAT, $TIME",
-						time_format = "",
+						entry_format = 'state #$ID, $STAT, $TIME',
+						time_format = '',
 					}, 
 					fzf_writer = {
 						minimum_grep_characters = 2,
 						minimum_files_characters = 2,
-
-						-- Disabled by default.
-						-- Will probably slow down some aspects of the sorter, but can make color highlights.
-						-- I will work on this more later.
 						use_highlighter = true,
+					},
+					file_browser = {
+						hijack_netrw = true,
+						hidden = false,
+						use_fd = true,
+						display_stat = { date = true, size = true, mode = true },
 					},
 				}
 			}
 		end,
 		config = function()
 			require('telescope').load_extension('fzf')
-			require("telescope").load_extension("undo")
+			require('telescope').load_extension('undo')
 			require('telescope').load_extension('lsp_handlers')
+			require('telescope').load_extension('file_browser')
+			require('telescope').load_extension('neoclip')
 
 			vim.keymap.set('n','<C-P>', function()
 				if InGitRepo() then
@@ -66,6 +78,7 @@ return {
 			vim.keymap.set('n','<C-F>',require('telescope.builtin').current_buffer_fuzzy_find)
 			vim.keymap.set('n','<C-B>','<cmd>Telescope buffers<CR>')
 			vim.keymap.set('n','<C-R>','<cmd>Telescope live_grep<CR>')
+			vim.keymap.set('n','<C-N>','<cmd>Telescope file_browser<CR>')
 		end,
 	},
 	{

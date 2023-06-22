@@ -21,10 +21,10 @@ local function get_git_diff(props)
 	for name, icon in pairs(icons) do
 		if tonumber(signs[name]) and signs[name] > 0 then
 			table.insert(labels, { icon .. " " .. signs[name] .. " ",
-				group = "Diff" .. name
-			})
-		end
+			group = "Diff" .. name
+		})
 	end
+end
 if #labels > 0 then
 	table.insert(labels, { '| ' })
 end
@@ -77,4 +77,15 @@ return {
 			}
 		end
 	},
+	{
+		'Bekaboo/dropbar.nvim',
+		config = function()
+			require('dropbar').setup()
+			vim.keymap.set('n','<leader>b', require('dropbar.api').pick)
+		end
+	},
+	{
+		'nvim-lualine/lualine.nvim',
+		config = nil,
+	}
 }

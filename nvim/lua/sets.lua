@@ -49,7 +49,7 @@ vim.opt.backup = false
 vim.opt.undodir = '/Users/gqian/.vim/undodir/'
 vim.opt.undofile = true
 vim.opt.scrollback = 100000
-vim.opt.lazyredraw = true
+--vim.opt.lazyredraw = true
 vim.g.python_highlight_all = 1
 vim.opt.list = true
 vim.cmd[[hi Normal guibg=NONE ctermbg=NONE]]

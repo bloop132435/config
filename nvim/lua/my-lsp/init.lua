@@ -1,5 +1,4 @@
 local lsp = require "lspconfig"
-local coq = require "coq" 
 
 local on_attach_add = function(existing_opts)
 	if existing_opts == nil then
@@ -16,25 +15,9 @@ local on_attach_add = function(existing_opts)
 	end
 	return existing_opts
 end
-lsp.clangd.setup(coq.lsp_ensure_capabilities(on_attach_add())) 
-lsp.pyright.setup(coq.lsp_ensure_capabilities(on_attach_add())) 
-lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities(on_attach_add())) 
---lsp.lua_ls.setup(coq.lsp_ensure_capabilities({
---	settings = {
---		Lua = {
---			runtime = {
---				version = 'LuaJIT',
---			},
---			diagnostics = {
---				globals = {'vim'},
---			},
---			workspace = {
---				library = vim.api.nvim_get_runtime_file("", true),
---			},
---			telemetry = {
---				enable = false,
---			},
---		},
---	},
---}))
-require("my-lsp.coq_setup")
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+lsp.clangd.setup(on_attach_add({capabilities = capabilities})) 
+lsp.pyright.setup(on_attach_add({capabilities = capabilities})) 
+lsp.rust_analyzer.setup(on_attach_add({capabilities = capabilities})) 
+lsp.zls.setup(on_attach_add({capabilities = capabilities})) 
