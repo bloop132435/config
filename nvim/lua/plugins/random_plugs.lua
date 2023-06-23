@@ -32,4 +32,17 @@ return {
 			vim.keymap.set('n','T','<Plug>(leap-backward-till)')
 		end,
 	},
+	{
+		'numToStr/FTerm.nvim',
+		config = function()
+			require'FTerm'.setup({
+				border = 'rounded',
+				dimensions  = {
+					height = 0.9,
+					width = 0.9,
+				},
+			})
+			vim.keymap.set('n','<leader>t',require('FTerm').toggle)
+		end
+	},
 }

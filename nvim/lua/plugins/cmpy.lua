@@ -48,6 +48,7 @@ return {
 					{ name = "rg" },
 					{ name = 'nvim_lua' },
 					{ name = 'treesitter' },
+					{ name = 'path' },
 				})
 			})
 

@@ -1,7 +1,7 @@
 return {
 	{
 		'nvim-telescope/telescope-fzf-native.nvim',
-		build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' 
+		build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
 	},
 	{
 		'nvim-telescope/telescope.nvim',
@@ -34,10 +34,10 @@ return {
 				},
 				extensions = {
 					fzf = {
-						fuzzy = true,                    
-						override_generic_sorter = true,  
-						override_file_sorter = true,     
-						case_mode = 'smart_case',        
+						fuzzy = true,
+						override_generic_sorter = true,
+						override_file_sorter = true,
+						case_mode = 'smart_case',
 					},
 					undo = {
 						use_delta = true,
@@ -45,7 +45,7 @@ return {
 						diff_context_lines = vim.o.scrolloff,
 						entry_format = 'state #$ID, $STAT, $TIME',
 						time_format = '',
-					}, 
+					},
 					fzf_writer = {
 						minimum_grep_characters = 2,
 						minimum_files_characters = 2,
