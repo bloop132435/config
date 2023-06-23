@@ -73,3 +73,5 @@ vim.api.nvim_set_keymap('n','<leader>p','"+p',{noremap = true})
 vim.api.nvim_set_keymap('v','<leader>p','"+p',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>y','"+y',{noremap = true})
 vim.api.nvim_set_keymap('n','<leader>d','"_d',{noremap = true})
+
+vim.keymap.set('n','<leader><leader>s','<cmd>luafile ~/.config/nvim/init.lua<CR>')
