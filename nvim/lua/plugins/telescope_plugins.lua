@@ -79,6 +79,8 @@ return {
 			vim.keymap.set('n','<C-B>','<cmd>Telescope buffers<CR>')
 			vim.keymap.set('n','<C-R>','<cmd>Telescope live_grep<CR>')
 			vim.keymap.set('n','<C-N>','<cmd>Telescope file_browser<CR>')
+			vim.keymap.set('n','<leader>u','<cmd>Telescope undo<CR>')
+			vim.keymap.set('n','<leader>n',require('telescope').extensions.notify.notify)
 		end,
 	},
 	{

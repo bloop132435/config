@@ -61,6 +61,7 @@ vim.api.nvim_set_keymap('n','<C-t>',':term bash --rcfile ~/.config/vim-term.sh<C
 vim.api.nvim_set_keymap('n','<C-g>','g<C-g>',{noremap = true})
 vim.api.nvim_set_keymap('i','<M-BS>','<C-W>',{noremap = true})
 vim.api.nvim_set_keymap('t','<C-/>','<C-\\><C-n>',{noremap = true})
+vim.api.nvim_set_keymap('t','<C-_>','<C-\\><C-n>',{noremap = true})
 vim.api.nvim_set_keymap('n','<C-/>','<nop>',{})
 
 vim.api.nvim_set_keymap('v','<','<gv',{noremap = true})

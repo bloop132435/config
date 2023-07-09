@@ -23,7 +23,7 @@ return {
 		'abecodes/tabout.nvim',
 		config = function()
 			require('tabout').setup {
-				tabkey = '<C-;>', -- key to trigger tabout, set to an empty string to disable
+				tabkey = '<C-L>', -- key to trigger tabout, set to an empty string to disable
 				backwards_tabkey = '', -- key to trigger backwards tabout, set to an empty string to disable
 				act_as_tab = false, -- shift content if tab out is not possible
 				enable_backwards = false, -- well ...
@@ -51,7 +51,7 @@ return {
 		'AckslD/nvim-neoclip.lua',
 		dependencies = {
 			'kkharji/sqlite.lua',
-		}, 
+		},
 		config = function()
 			require('neoclip').setup({
 				enable_persistent_history = true,

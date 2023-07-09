@@ -19,8 +19,8 @@ return {
 			vim.cmd([[inoremap <silent> <C-K> <CMD>lua require'luasnip'.jump(-1)<CR>]])
 			vim.cmd([[snoremap <silent> <C-J> <CMD>lua require('luasnip').jump(1)<CR>]])
 			vim.cmd([[snoremap <silent> <C-K> <CMD>lua require('luasnip').jump(-1)<CR>]])
-			vim.cmd([[imap <silent><expr> <C-L> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])
-			vim.cmd([[smap <silent><expr> <C-L> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])
+			vim.cmd([[imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])
+			vim.cmd([[smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])
 			local cmp = require('cmp')
 			cmp.setup({
 				snippet = {

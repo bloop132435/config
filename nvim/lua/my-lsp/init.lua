@@ -12,12 +12,24 @@ local on_attach_add = function(existing_opts)
 		vim.keymap.set('n','gf',vim.lsp.buf.format,{noremap = true,buffer = true})
 		vim.keymap.set('n','ga',vim.lsp.buf.code_action,{noremap = true,buffer = true})
 		vim.keymap.set('n','K',vim.lsp.buf.hover,{noremap = true,buffer = true})
+		vim.keymap.set('n','<leader>d',vim.diagnostic.open_float)
 	end
 	return existing_opts
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-lsp.clangd.setup(on_attach_add({capabilities = capabilities})) 
-lsp.pyright.setup(on_attach_add({capabilities = capabilities})) 
-lsp.rust_analyzer.setup(on_attach_add({capabilities = capabilities})) 
-lsp.zls.setup(on_attach_add({capabilities = capabilities})) 
+lsp.clangd.setup(on_attach_add({capabilities = capabilities}))
+lsp.pyright.setup(on_attach_add({capabilities = capabilities}))
+lsp.rust_analyzer.setup(on_attach_add({capabilities = capabilities}))
+lsp.zls.setup(on_attach_add({capabilities = capabilities}))
+lsp.lua_ls.setup(on_attach_add({
+	capabilities = capabilities,
+	settings = {
+		Lua = {
+			workspace = {
+				library = "${3rd}/luv/library",
+				checkThirdParty = true,
+			},
+		},
+	},
+}))
