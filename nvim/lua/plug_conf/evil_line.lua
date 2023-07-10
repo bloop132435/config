@@ -147,6 +147,12 @@ ins_left {
   },
 }
 
+ins_left {
+	require("noice").api.statusline.mode.get,
+	cond = require("noice").api.statusline.mode.has,
+	color = { fg = "#ff9e64" },
+}
+
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
 ins_left {
