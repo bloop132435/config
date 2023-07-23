@@ -18,3 +18,4 @@ vim.opt.rtp:prepend(lazypath)
 
 require('sets')
 require('maps')
+require('auto')

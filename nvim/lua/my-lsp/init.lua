@@ -12,7 +12,8 @@ local on_attach_add = function(existing_opts)
 		vim.keymap.set('n','gf',vim.lsp.buf.format,{noremap = true,buffer = true})
 		vim.keymap.set('n','ga',vim.lsp.buf.code_action,{noremap = true,buffer = true})
 		vim.keymap.set('n','K',vim.lsp.buf.hover,{noremap = true,buffer = true})
-		vim.keymap.set('n','<leader>d',vim.diagnostic.open_float)
+		vim.keymap.set('n','<leader>d',vim.diagnostic.open_float,{noremap = true, buffer = true})
+		vim.keymap.set('n','<leader>r',':LspRestart<CR>',{noremap = true, buffer = true, silent = true})
 	end
 	return existing_opts
 end

@@ -73,4 +73,4 @@ vim.opt.ruler = false
 vim.api.nvim_create_autocmd({"TermOpen","TermEnter"}, {command = "setlocal ft=term"})
 
 vim.opt.laststatus = 3
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 100

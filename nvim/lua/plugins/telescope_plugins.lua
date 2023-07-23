@@ -6,7 +6,7 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		dependencies = {
-			'debugloop/telescope-undo.nvim',
+			-- 'debugloop/telescope-undo.nvim',
 			'nvim-telescope/telescope-fzf-writer.nvim',
 			'gbrlsnchs/telescope-lsp-handlers.nvim',
 			'nvim-telescope/telescope-file-browser.nvim',
@@ -25,6 +25,7 @@ return {
 							anchor = 'N',
 						},
 					},
+					prompt = '» ',
 				},
 				pickers = {
 					git_files = {
@@ -39,13 +40,13 @@ return {
 						override_file_sorter = true,
 						case_mode = 'smart_case',
 					},
-					undo = {
-						use_delta = true,
+					--[[ undo = {
+						use_delta = false,
 						side_by_side = true,
 						diff_context_lines = vim.o.scrolloff,
 						entry_format = 'state #$ID, $STAT, $TIME',
 						time_format = '',
-					},
+					}, ]]
 					fzf_writer = {
 						minimum_grep_characters = 2,
 						minimum_files_characters = 2,
@@ -62,7 +63,7 @@ return {
 		end,
 		config = function()
 			require('telescope').load_extension('fzf')
-			require('telescope').load_extension('undo')
+			-- require('telescope').load_extension('undo')
 			require('telescope').load_extension('lsp_handlers')
 			require('telescope').load_extension('file_browser')
 			require('telescope').load_extension('neoclip')
@@ -79,7 +80,7 @@ return {
 			vim.keymap.set('n','<C-B>','<cmd>Telescope buffers<CR>')
 			vim.keymap.set('n','<C-R>','<cmd>Telescope live_grep<CR>')
 			vim.keymap.set('n','<C-N>','<cmd>Telescope file_browser<CR>')
-			vim.keymap.set('n','<leader>u','<cmd>Telescope undo<CR>')
+			-- vim.keymap.set('n','<leader>u','<cmd>Telescope undo<CR>')
 			vim.keymap.set('n','<leader>n',require('telescope').extensions.notify.notify)
 		end,
 	},

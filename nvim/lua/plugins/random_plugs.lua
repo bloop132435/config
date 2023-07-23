@@ -18,7 +18,7 @@ return {
 			vim.keymap.set('n','<leader>q',function() require('harpoon.ui').nav_file(1) end)
 			vim.keymap.set('n','<leader>w',function() require('harpoon.ui').nav_file(2) end)
 			vim.keymap.set('n','<leader>e',function() require('harpoon.ui').nav_file(3) end)
-			vim.keymap.set('n','<leader>r',function() require('harpoon.ui').nav_file(4) end)
+			-- vim.keymap.set('n','<leader>r',function() require('harpoon.ui').nav_file(4) end)
 			vim.keymap.set('n','<leader>f', require('harpoon.ui').toggle_quick_menu)
 			vim.keymap.set('n','<leader>m', require('harpoon.mark').add_file)
 		end
@@ -51,7 +51,7 @@ return {
 		opts = {},
 		keys = {
 			{
-				"s",
+				"<leader>s",
 				mode = { "n", "x", "o" },
 				function()
 					-- default options: exact mode, multi window, all directions, with a backdrop
@@ -99,5 +99,11 @@ return {
 				debounce_time = 100,
 			})
 		end,
+	},
+	{
+		'mbbill/undotree',
+		config = function()
+			vim.keymap.set('n','<leader>u','<CMD>UndotreeToggle<CR>',{silent = true,noremap=true})
+		end
 	},
 }
