@@ -64,5 +64,8 @@ return {
 		config = function()
 			require('trim').setup()
 		end
+	},
+	{
+		'tpope/vim-endwise',
 	}
 }

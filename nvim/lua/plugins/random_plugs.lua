@@ -117,5 +117,14 @@ return {
 		-- Ensure that it runs first to minimize delay when opening file from terminal
 		lazy = false,
 		priority = 1001,
-	}
+	},
+	{
+		'famiu/bufdelete.nvim',
+		config = function()
+			vim.keymap.set('n', '<leader>bd', '<cmd>Bdelete<CR>', {silent = true, noremap = true})
+		end
+	},
+	{
+		'tpope/vim-abolish',
+	},
 }
