@@ -1,5 +1,5 @@
 source ~/.bashrc
-alias nvim=nvr
+# alias nvim=nvr
 #  conda activate base
 if [ -d /opt/homebrew/Caskroom/miniforge ]
 then
