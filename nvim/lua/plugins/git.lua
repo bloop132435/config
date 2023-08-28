@@ -47,6 +47,16 @@ return {
 		end
 	},
 	{
-		'tpope/vim-fugitive'
-	},
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"nvim-telescope/telescope.nvim", -- optional
+			"sindrets/diffview.nvim", -- optional
+		},
+		config = function()
+			local neogit = require('neogit')
+			neogit.setup {}
+			vim.keymap.set('n', '<leader>g', '<CMD>Neogit<CR>', { silent = true, noremap = true })
+		end
+	}
 }
