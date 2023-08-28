@@ -15,7 +15,8 @@ return {
 			'ray-x/cmp-treesitter',
 		},
 		config = function()
-			vim.cmd([[imap <silent><expr> <C-J> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-J>']])
+			vim.cmd(
+			[[imap <silent><expr> <C-J> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-J>']])
 			vim.cmd([[inoremap <silent> <C-K> <CMD>lua require'luasnip'.jump(-1)<CR>]])
 			vim.cmd([[snoremap <silent> <C-J> <CMD>lua require('luasnip').jump(1)<CR>]])
 			vim.cmd([[snoremap <silent> <C-K> <CMD>lua require('luasnip').jump(-1)<CR>]])
@@ -66,7 +67,6 @@ return {
 					{ name = 'cmdline' },
 				})
 			})
-
 		end,
 	},
 }

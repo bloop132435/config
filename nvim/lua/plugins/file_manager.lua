@@ -36,7 +36,7 @@ return {
 				},
 				use_default_keymaps = true,
 			})
-			vim.keymap.set('n','<C-L>',require('oil').open)
+			vim.keymap.set('n', '<C-L>', require('oil').open)
 		end
 	}
 }

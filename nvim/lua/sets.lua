@@ -27,13 +27,13 @@ vim.opt.exrc = true
 vim.opt.emoji = false
 vim.opt.scrolloff = 8
 vim.opt.gdefault = true
-vim.opt.completeopt = {'menuone','noselect'}
+vim.opt.completeopt = { 'menuone', 'noselect' }
 vim.opt.path:append('**')
 vim.opt.hidden = true
 vim.opt.mouse = 'a'
 vim.opt.encoding = 'utf8'
 vim.opt.showtabline = 0
-vim.opt.ve = {'block','insert'}
+vim.opt.ve = { 'block', 'insert' }
 vim.opt.mps:append('<:>')
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
@@ -41,7 +41,7 @@ vim.opt.cmdheight = 2
 vim.opt.ignorecase = true
 vim.opt.updatetime = 300
 vim.opt.splitright = true
-vim.opt.wildmode = {'longest:full','full'}
+vim.opt.wildmode = { 'longest:full', 'full' }
 vim.opt.wildignorecase = true
 vim.opt.swapfile = false
 vim.opt.smartcase = true
@@ -52,25 +52,25 @@ vim.opt.scrollback = 100000
 --vim.opt.lazyredraw = true
 vim.g.python_highlight_all = 1
 vim.opt.list = true
-vim.cmd[[hi Normal guibg=NONE ctermbg=NONE]]
+vim.cmd [[hi Normal guibg=NONE ctermbg=NONE]]
 
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldminlines = 25
 vim.opt.foldnestmax = 3
 vim.opt.fillchars = {
-	eob = ' ',
-	fold = '-',
-	horiz			= '═' ,
-	horizup			= '╩' ,
-	horizdown		= '╦' ,
-	vert			= '║' ,
-	vertleft		= '╣' ,
-	vertright		= '╠' ,
-	verthoriz		= '╬' ,
+	eob       = ' ',
+	fold      = '-',
+	horiz     = '═',
+	horizup   = '╩',
+	horizdown = '╦',
+	vert      = '║',
+	vertleft  = '╣',
+	vertright = '╠',
+	verthoriz = '╬',
 }
 vim.opt.ruler = false
-vim.api.nvim_create_autocmd({"TermOpen","TermEnter"}, {command = "setlocal ft=term"})
+vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, { command = "setlocal ft=term" })
 
 vim.opt.laststatus = 3
-vim.opt.timeoutlen = 100
+vim.opt.timeoutlen = 300

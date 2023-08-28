@@ -1,7 +1,8 @@
 return {
 	{
 		'nvim-telescope/telescope-fzf-native.nvim',
-		build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+		build =
+		'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
 	},
 	{
 		'nvim-telescope/telescope.nvim',
@@ -11,6 +12,7 @@ return {
 			'gbrlsnchs/telescope-lsp-handlers.nvim',
 			'nvim-telescope/telescope-file-browser.nvim',
 			'AckslD/nvim-neoclip.lua',
+			'stevearc/aerial.nvim',
 		},
 		init = function()
 			require('telescope').setup {
@@ -25,7 +27,7 @@ return {
 							anchor = 'N',
 						},
 					},
-					prompt = '» ',
+					-- prompt = '» ',
 				},
 				pickers = {
 					git_files = {
@@ -58,30 +60,41 @@ return {
 						use_fd = true,
 						display_stat = { date = true, size = true, mode = true },
 					},
+					aerial = {
+						-- Display symbols as <root>.<parent>.<symbol>
+						show_nesting = {
+							['_'] = true, -- This key will be the default
+						}
+					},
 				}
 			}
 		end,
 		config = function()
 			require('telescope').load_extension('fzf')
+			require('telescope').load_extension('fzf_writer')
 			-- require('telescope').load_extension('undo')
 			require('telescope').load_extension('lsp_handlers')
 			require('telescope').load_extension('file_browser')
 			require('telescope').load_extension('neoclip')
+			require('telescope').load_extension('aerial')
 
-			vim.keymap.set('n','<C-P>', function()
+			require('aerial').setup()
+
+			vim.keymap.set('n', '<C-P>', function()
 				if InGitRepo() then
 					vim.cmd([[Telescope git_files]])
 				else
-					require('telescope').extensions.fzf_writer.files()
+					-- require('telescope').extensions.fzf_writer.files()
+					vim.cmd([[Telescope find_files]])
 				end
 			end)
-			vim.keymap.set('n','<leader>h', '<cmd>Telescope help_tags<CR>')
-			vim.keymap.set('n','<C-F>',require('telescope.builtin').current_buffer_fuzzy_find)
-			vim.keymap.set('n','<C-B>','<cmd>Telescope buffers<CR>')
-			vim.keymap.set('n','<C-R>','<cmd>Telescope live_grep<CR>')
-			vim.keymap.set('n','<C-N>','<cmd>Telescope file_browser<CR>')
+			vim.keymap.set('n', '<leader>h', '<cmd>Telescope help_tags<CR>')
+			vim.keymap.set('n', '<C-F>', require('telescope.builtin').current_buffer_fuzzy_find)
+			vim.keymap.set('n', '<C-B>', '<cmd>Telescope buffers<CR>')
+			vim.keymap.set('n', '<C-R>', '<cmd>Telescope live_grep<CR>')
+			vim.keymap.set('n', '<C-N>', '<cmd>Telescope file_browser<CR>')
 			-- vim.keymap.set('n','<leader>u','<cmd>Telescope undo<CR>')
-			vim.keymap.set('n','<leader>n',require('telescope').extensions.notify.notify)
+			vim.keymap.set('n', '<leader>n', require('telescope').extensions.notify.notify)
 		end,
 	},
 	{

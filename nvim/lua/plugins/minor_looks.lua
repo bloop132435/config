@@ -36,8 +36,8 @@ return {
 	{
 		"folke/noice.nvim",
 		config = function()
-			require('notify').setup({background_colour = '#282a36',top_down = false})
-			require('noice').setup{
+			require('notify').setup({ background_colour = '#282a36', top_down = false })
+			require('noice').setup {
 				cmdline = {
 					enabled = true, -- enables the Noice cmdline UI
 					view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
@@ -97,7 +97,7 @@ return {
 								{ error = true },
 								{ warning = true },
 								{ event = "msg_show", kind = { "" } },
-								{ event = "lsp", kind = "message" },
+								{ event = "lsp",      kind = "message" },
 							},
 						},
 					},
@@ -111,7 +111,7 @@ return {
 								{ error = true },
 								{ warning = true },
 								{ event = "msg_show", kind = { "" } },
-								{ event = "lsp", kind = "message" },
+								{ event = "lsp",      kind = "message" },
 							},
 						},
 						filter_opts = { count = 1 },
@@ -194,7 +194,7 @@ return {
 				},
 				markdown = {
 					hover = {
-						["|(%S-)|"] = vim.cmd.help, -- vim help links
+						["|(%S-)|"] = vim.cmd.help,     -- vim help links
 						["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
 					},
 					highlights = {

@@ -5,8 +5,8 @@
 -- Define autocommands with Lua APIs
 -- See: h:api-autocmd, h:augroup
 
-local augroup = vim.api.nvim_create_augroup   -- Create/get autocommand group
-local autocmd = vim.api.nvim_create_autocmd   -- Create autocommand
+local augroup = vim.api.nvim_create_augroup -- Create/get autocommand group
+local autocmd = vim.api.nvim_create_autocmd -- Create autocommand
 
 -- General settings:
 --------------------
@@ -21,8 +21,8 @@ autocmd('TextYankPost', {
 })
 
 -- automatically detect file change
-augroup('FileUpdate',{clear = true})
-autocmd({'BufEnter','FocusGained','BufEnter','FocusLost','WinLeave','WinEnter'},{
+augroup('FileUpdate', { clear = true })
+autocmd({ 'BufEnter', 'FocusGained', 'BufEnter', 'FocusLost', 'WinLeave', 'WinEnter' }, {
 	group = 'FileUpdate',
 	command = "checktime"
 })

@@ -2,7 +2,7 @@ return {
 	{
 		'mtth/scratch.vim',
 		config = function()
-			vim.keymap.set('n','<C-S>','<cmd>Scratch<CR>')
+			vim.keymap.set('n', '<C-S>', '<cmd>Scratch<CR>')
 		end
 	},
 	{
@@ -15,12 +15,12 @@ return {
 		},
 		config = function()
 			require('harpoon').setup()
-			vim.keymap.set('n','<leader>q',function() require('harpoon.ui').nav_file(1) end)
-			vim.keymap.set('n','<leader>w',function() require('harpoon.ui').nav_file(2) end)
-			vim.keymap.set('n','<leader>e',function() require('harpoon.ui').nav_file(3) end)
+			vim.keymap.set('n', '<leader>q', function() require('harpoon.ui').nav_file(1) end)
+			vim.keymap.set('n', '<leader>w', function() require('harpoon.ui').nav_file(2) end)
+			vim.keymap.set('n', '<leader>e', function() require('harpoon.ui').nav_file(3) end)
 			-- vim.keymap.set('n','<leader>r',function() require('harpoon.ui').nav_file(4) end)
-			vim.keymap.set('n','<leader>f', require('harpoon.ui').toggle_quick_menu)
-			vim.keymap.set('n','<leader>m', require('harpoon.mark').add_file)
+			vim.keymap.set('n', '<leader>f', require('harpoon.ui').toggle_quick_menu)
+			vim.keymap.set('n', '<leader>m', require('harpoon.mark').add_file)
 		end
 	},
 	-- {
@@ -35,14 +35,14 @@ return {
 	{
 		'numToStr/FTerm.nvim',
 		config = function()
-			require'FTerm'.setup({
-				border = 'rounded',
-				dimensions  = {
+			require 'FTerm'.setup({
+				border     = 'rounded',
+				dimensions = {
 					height = 0.9,
 					width = 0.9,
 				},
 			})
-			vim.keymap.set('n','<leader>t',require('FTerm').toggle)
+			vim.keymap.set('n', '<leader>t', require('FTerm').toggle)
 		end
 	},
 	{
@@ -103,7 +103,10 @@ return {
 	{
 		'mbbill/undotree',
 		config = function()
-			vim.keymap.set('n','<leader>u','<CMD>UndotreeToggle<CR>',{silent = true,noremap=true})
+			vim.keymap.set('n', '<leader>u', '<CMD>UndotreeToggle<CR>', { silent = true, noremap = true })
 		end
+	},
+	{
+		'tpope/vim-afterimage',
 	},
 }
