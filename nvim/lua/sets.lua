@@ -61,13 +61,13 @@ vim.opt.foldnestmax = 3
 vim.opt.fillchars = {
 	eob       = ' ',
 	fold      = '-',
-	horiz     = '═',
-	horizup   = '╩',
-	horizdown = '╦',
-	vert      = '║',
-	vertleft  = '╣',
-	vertright = '╠',
-	verthoriz = '╬',
+	horiz     = '─',
+	horizup   = '┸',
+	horizdown = '┰',
+	vert      = '┃',
+	vertleft  = '┨',
+	vertright = '┠',
+	verthoriz = '╂',
 }
 vim.opt.ruler = false
 vim.api.nvim_create_autocmd({ "TermOpen", "TermEnter" }, { command = "setlocal ft=term" })

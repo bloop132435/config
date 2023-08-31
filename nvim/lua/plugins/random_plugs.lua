@@ -41,6 +41,7 @@ return {
 					height = 0.9,
 					width = 0.9,
 				},
+				cmd = {'tmux','new-session','-A','-s','fterm'},
 			})
 			vim.keymap.set('n', '<leader>t', require('FTerm').toggle)
 		end

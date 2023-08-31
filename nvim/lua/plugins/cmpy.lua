@@ -15,11 +15,18 @@ return {
 			'ray-x/cmp-treesitter',
 		},
 		config = function()
-			vim.cmd(
-			[[imap <silent><expr> <C-J> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-J>']])
-			vim.cmd([[inoremap <silent> <C-K> <CMD>lua require'luasnip'.jump(-1)<CR>]])
-			vim.cmd([[snoremap <silent> <C-J> <CMD>lua require('luasnip').jump(1)<CR>]])
-			vim.cmd([[snoremap <silent> <C-K> <CMD>lua require('luasnip').jump(-1)<CR>]])
+			local ls = require('luasnip')
+			vim.keymap.set({ 's', 'i' }, '<C-J>', function()
+				if ls.expand_or_jumpable() then
+					ls.expand_or_jump()
+				end
+			end, {silent = true})
+			vim.keymap.set({ 's', 'i' }, '<C-K>', function()
+				if ls.jumpable(-1) then
+					ls.jump(-1)
+				end
+			end, {silent = true})
+
 			vim.cmd([[imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])
 			vim.cmd([[smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])
 			local cmp = require('cmp')

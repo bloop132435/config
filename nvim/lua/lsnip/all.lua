@@ -26,14 +26,7 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
 
-ls.config.set_config({
-	history = true,
-	updateevents = 'TextChanged,TextChangedI',
-	ext_opts = {
-		[types.choiceNode] = {
-			active = {
-				vit_test = { { '<--', 'Error' } },
-			},
-		},
-	},
+ls.add_snippets('all',{
+	s('curtime',f(function() return os.date('%a, %Y/%m/%d %H:%M') end, {})),
+	s('curdate',f(function() return os.date('%a, %Y/%m/%d') end, {})),
 })
