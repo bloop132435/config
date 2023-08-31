@@ -114,4 +114,27 @@ ls.add_snippets('c', {
 	}),
 	s('and', { t '&& ' }),
 	s('or', { t '|| ' }),
+	s(
+		'hg',
+		fmt([[
+			#ifdef {}
+			#define {}
+
+			{}
+
+			#endif
+		]], {
+			f(function(_,parent)
+				local fn = parent.snippet.env.TM_FILENAME
+				fn = string.gsub(fn,"%.","_")
+				return string.upper(fn)
+			end),
+			f(function(_,parent)
+				local fn = parent.snippet.env.TM_FILENAME
+				fn = string.gsub(fn,"%.","_")
+				return string.upper(fn)
+			end),
+			i(0)
+		})
+	),
 })

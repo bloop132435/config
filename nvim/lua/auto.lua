@@ -26,3 +26,11 @@ autocmd({ 'BufEnter', 'FocusGained', 'BufEnter', 'FocusLost', 'WinLeave', 'WinEn
 	group = 'FileUpdate',
 	command = "checktime"
 })
+
+-- set .h files to c filetype
+augroup('HFileType', { clear = true})
+autocmd({'BufRead','BufNew'}, {
+	group = 'HFileType',
+	pattern = {"*.h"},
+	command = "set ft=c"
+})
