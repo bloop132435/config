@@ -20,12 +20,12 @@ return {
 				if ls.expand_or_jumpable() then
 					ls.expand_or_jump()
 				end
-			end, {silent = true})
+			end, { silent = true })
 			vim.keymap.set({ 's', 'i' }, '<C-K>', function()
 				if ls.jumpable(-1) then
 					ls.jump(-1)
 				end
-			end, {silent = true})
+			end, { silent = true })
 
 			vim.cmd([[imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])
 			vim.cmd([[smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-L>']])

@@ -26,7 +26,7 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
 
-ls.add_snippets('all',{
-	s('curtime',f(function() return os.date('%a, %Y/%m/%d %H:%M') end, {})),
-	s('curdate',f(function() return os.date('%a, %Y/%m/%d') end, {})),
+ls.add_snippets('all', {
+	s('curtime', f(function() return os.date('%a, %Y/%m/%d %H:%M') end, {})),
+	s('curdate', f(function() return os.date('%a, %Y/%m/%d') end, {})),
 })

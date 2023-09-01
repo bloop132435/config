@@ -28,9 +28,9 @@ autocmd({ 'BufEnter', 'FocusGained', 'BufEnter', 'FocusLost', 'WinLeave', 'WinEn
 })
 
 -- set .h files to c filetype
-augroup('HFileType', { clear = true})
-autocmd({'BufRead','BufNew'}, {
+augroup('HFileType', { clear = true })
+autocmd({ 'BufRead', 'BufNew' }, {
 	group = 'HFileType',
-	pattern = {"*.h"},
+	pattern = { "*.h" },
 	command = "set ft=c"
 })
