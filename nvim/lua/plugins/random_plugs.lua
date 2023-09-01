@@ -128,4 +128,7 @@ return {
 	{
 		'tpope/vim-abolish',
 	},
+	{
+		'farmergreg/vim-lastplace',
+	},
 }

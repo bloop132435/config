@@ -26,6 +26,30 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
 
+local elif_node_rec
+elif_node_rec = function()
+	return sn(nil, { c(1, {
+		i(1),
+		sn(nil, fmt([[
+			else if({}){{
+				{}
+			}} {}]],
+			{ i(1), i(2), d(3, elif_node_rec, {}) }
+		)),
+		sn(nil, fmt([[
+			else{{
+				{}
+			}} {}]],
+			{ i(1), i(0) }))
+	}) })
+end
+
+local get_header_name = function(_, parent)
+	local fn = parent.snippet.env.TM_FILENAME
+	fn = string.gsub(fn, "%.", "_")
+	return string.upper(fn)
+end
+
 ls.add_snippets('c', {
 	s(
 		'for',
@@ -124,17 +148,61 @@ ls.add_snippets('c', {
 
 			#endif
 		]], {
-			f(function(_,parent)
-				local fn = parent.snippet.env.TM_FILENAME
-				fn = string.gsub(fn,"%.","_")
-				return string.upper(fn)
-			end),
-			f(function(_,parent)
-				local fn = parent.snippet.env.TM_FILENAME
-				fn = string.gsub(fn,"%.","_")
-				return string.upper(fn)
-			end),
+			f(get_header_name),
+			f(get_header_name),
 			i(0)
 		})
+	),
+	s(
+		'if',
+		fmt([[
+			if({}){{
+				{}
+			}} {}
+		]], {
+			i(1),
+			i(2),
+			i(0),
+		}
+		)
+	),
+	s(
+		'elif',
+		fmt([[
+			else if({}){{
+				{}
+			}} {}
+		]], {
+			i(1),
+			i(2),
+			i(0),
+		}
+		)
+	),
+	s(
+		'else',
+		fmt([[
+			else{{
+				{}
+			}} {}
+		]], {
+			i(1),
+			i(0)
+		}
+		)
+	),
+	s(
+		'iff',
+		fmt([[
+			if({}){{
+				{}
+			}} {}
+		]],
+			{
+				i(1),
+				i(2),
+				d(3, elif_node_rec, {}),
+			}
+		)
 	),
 })
