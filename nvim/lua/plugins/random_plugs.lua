@@ -167,4 +167,7 @@ return {
 			})
 		end
 	},
+	{
+		'something/wrong',
+	}
 }
