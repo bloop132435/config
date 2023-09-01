@@ -73,7 +73,7 @@ ls.add_snippets('c', {
 								return name .. "++"
 							end
 						end
-						return "nothing"
+						return ""
 					end, { 1, 2 }),
 					i(1, "custom")
 				}),

@@ -41,7 +41,7 @@ return {
 					height = 0.9,
 					width = 0.9,
 				},
-				cmd = {'tmux','new-session','-A','-s','fterm'},
+				cmd        = { 'tmux', 'new-session', '-A', '-s', 'fterm' },
 			})
 			vim.keymap.set('n', '<leader>t', require('FTerm').toggle)
 		end
@@ -122,7 +122,7 @@ return {
 	{
 		'famiu/bufdelete.nvim',
 		config = function()
-			vim.keymap.set('n', '<leader>bd', '<cmd>Bdelete<CR>', {silent = true, noremap = true})
+			vim.keymap.set('n', '<leader>bd', '<cmd>Bdelete<CR>', { silent = true, noremap = true })
 		end
 	},
 	{
@@ -131,4 +131,22 @@ return {
 	{
 		'farmergreg/vim-lastplace',
 	},
+	{
+		"piersolenski/wtf.nvim",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+		event = "VeryLazy",
+		opts = {},
+		keys = {
+			{
+				mode = { "n" },
+				"gw",
+				function()
+					require("wtf").search()
+				end,
+				desc = "Search diagnostic with Google",
+			},
+		},
+	}
 }
