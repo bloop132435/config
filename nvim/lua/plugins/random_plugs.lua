@@ -168,6 +168,9 @@ return {
 		end
 	},
 	{
-		'tpope/vim-fugitive'
+		'something/wrong',
+		config = function()
+			print('config function')
+		end,
 	},
 }
