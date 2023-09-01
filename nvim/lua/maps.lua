@@ -8,7 +8,7 @@ vim.api.nvim_set_keymap('n', '<ESC>', ':noh<CR>', { noremap = true, silent = tru
 vim.api.nvim_set_keymap('n', '<leader><leader>a', 'GVgg', { noremap = true })
 vim.api.nvim_set_keymap('n', '<BS>', 'za', { noremap = true })
 vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>l', ':setlocal rnu!<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader><leader>l', ':setlocal rnu!<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', ';+', '<C-w>+', { noremap = true })
 vim.api.nvim_set_keymap('n', ';-', '<C-w>-', { noremap = true })

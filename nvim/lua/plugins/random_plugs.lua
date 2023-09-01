@@ -148,5 +148,23 @@ return {
 				desc = "Search diagnostic with Google",
 			},
 		},
-	}
+	},
+	{
+		'LeonHeidelbach/trailblazer.nvim',
+		config = function()
+			require('trailblazer').setup({
+				mappings = {
+					nv = {
+						motions = {
+							new_trail_mark = '<leader>l',
+							track_back = '<leader>b',
+						},
+						actions = {
+							delete_all_trail_marks = ',L',
+						},
+					},
+				},
+			})
+		end
+	},
 }
