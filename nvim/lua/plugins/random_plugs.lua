@@ -170,8 +170,7 @@ return {
 	{
 		'tpope/vim-fugitive',
 		config = function()
-			local x = 1
-			print(x)
+			vim.keymap.set('n', '<leader>gb', '<cmd>Git blame<CR>', { silent = true })
 		end
 	},
 }

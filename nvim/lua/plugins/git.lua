@@ -56,7 +56,7 @@ return {
 		config = function()
 			local neogit = require('neogit')
 			neogit.setup {}
-			vim.keymap.set('n', '<leader>g', '<CMD>Neogit<CR>', { silent = true, noremap = true })
+			vim.keymap.set('n', '<leader>gg', '<CMD>Neogit<CR>', { silent = true, noremap = true })
 		end
 	}
 }
