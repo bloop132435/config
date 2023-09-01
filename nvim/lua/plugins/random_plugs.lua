@@ -168,6 +168,6 @@ return {
 		end
 	},
 	{
-		'something/wrong',
-	}
+		'tpope/vim-fugitive'
+	},
 }
