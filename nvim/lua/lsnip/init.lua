@@ -35,6 +35,12 @@ ls.config.set_config({
 				virt_text = { { '<--', 'Search' } },
 			},
 		},
+		[types.insertNode] = {
+			unvisited = {
+				virt_text = { { '|', 'Conceal' } },
+				virt_text_pos = 'inline',
+			},
+		},
 	},
 	load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
 		cpp = { 'c' },

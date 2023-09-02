@@ -48,18 +48,6 @@ return {
 		'machakann/vim-sandwich'
 	},
 	{
-		'AckslD/nvim-neoclip.lua',
-		dependencies = {
-			'kkharji/sqlite.lua',
-		},
-		config = function()
-			require('neoclip').setup({
-				enable_persistent_history = true,
-			})
-			vim.keymap.set('n', '<leader>\'', '<cmd>Telescope neoclip<CR>')
-		end,
-	},
-	{
 		'cappyzawa/trim.nvim',
 		config = function()
 			require('trim').setup()
@@ -67,5 +55,44 @@ return {
 	},
 	{
 		'tpope/vim-endwise',
-	}
+	},
+	{
+		'zdcthomas/yop.nvim',
+		config = function()
+			--[[ require('yop').op_map({ 'n', 'v' }, '<leader>a', function(lines, info)
+				if #lines == 1 then
+					return lines
+				end
+				local contains_eq = true
+				local contains_comma = true
+				local contains_define = true
+				local contains_parens = true
+				local contains_braces = true
+				local contains_brackets = true
+				for _, l in pairs(lines) do
+					if string.find(l, "=") == nil then
+						contains_eq = false
+					end
+					if string.find(l, ",") == nil then
+						contains_comma = false
+					end
+					if string.find(l, "#define") == nil then
+						contains_define = false
+					end
+					if string.find(l, "%(") == nil or string.find(l, "%)") == nil then
+						contains_parens = false
+					end
+					if string.find(l, "{") == nil or string.find(l, "}") == nil then
+						contains_braces = false
+					end
+					if string.find(l, "%[") == nil or string.find(l, "%]") == nil then
+						contains_braces = false
+					end
+				end
+				print(vim.inspect({ ["contains_eq"] = contains_eq, ["contains_comma"] = contains_comma,
+					["contains_define"] = contains_define, ["contains_parens"] = contains_parens,
+					["contains_braces"] = contains_braces, ["contains_brackets"] = contains_brackets, }))
+			end) ]]
+		end
+	},
 }

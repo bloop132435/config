@@ -157,7 +157,7 @@ return {
 					nv = {
 						motions = {
 							new_trail_mark = '<leader>l',
-							track_back = '<leader>b',
+							track_back = '<leader>;',
 						},
 						actions = {
 							delete_all_trail_marks = ',L',
