@@ -141,7 +141,7 @@ ls.add_snippets('c', {
 	s(
 		'hg',
 		fmt([[
-			#ifdef {}
+			#ifndef {}
 			#define {}
 
 			{}
@@ -204,5 +204,18 @@ ls.add_snippets('c', {
 				d(3, elif_node_rec, {}),
 			}
 		)
+	),
+	s(
+		'f',
+		fmt([[
+			{}({}){{
+				{}
+			}}{}
+		]],{
+			i(1),
+			i(2),
+			i(3),
+			i(0),
+		})
 	),
 })

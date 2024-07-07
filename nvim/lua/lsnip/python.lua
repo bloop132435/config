@@ -26,27 +26,44 @@ local parse = require("luasnip.util.parser").parse_snippet
 local ms = ls.multi_snippet
 local k = require("luasnip.nodes.key_indexer").new_key
 
-ls.config.set_config({
-	history = true,
-	updateevents = 'TextChanged,TextChangedI',
-	ext_opts = {
-		[types.choiceNode] = {
-			active = {
-				virt_text = { { '<--', 'Search' } },
-			},
-		},
-		[types.insertNode] = {
-			unvisited = {
-				virt_text = { { '|', 'Conceal' } },
-				virt_text_pos = 'inline',
-			},
-		},
-	},
-	load_ft_func = require("luasnip.extras.filetype_functions").extend_load_ft({
-		cpp = { 'c' },
+local elif_node_rec
+elif_node_rec = function()
+	return sn(nil,{c(1, {
+			i(1),
+			sn(nil, fmt([[
+				elif {}:
+					{}
+				{}
+			]],{i(1),i(2),d(3, elif_node_rec, {})})),
+			sn(nil, fmt([[
+				else:
+					{}
+				{}
+			]],{i(1),i(0)}))
+		})
 	})
-})
+end
 
-require('lsnip.c')
-require('lsnip.all')
-require('lsnip.python')
+ls.add_snippets('python', {
+	s(
+		'main',
+		fmt([[
+			def main():
+				{}
+			if __name__ == "__main__":
+				main()
+		]],{i(0)})
+	),
+	s(
+		'iff',
+		fmt([[
+			if {}:
+				{}
+			{}
+		]],{
+			i(1),
+			i(2),
+			d(3,elif_node_rec,{})
+		})
+	),
+})

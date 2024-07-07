@@ -34,3 +34,11 @@ autocmd({ 'BufRead', 'BufNew' }, {
 	pattern = { "*.h" },
 	command = "set ft=c"
 })
+
+-- set .v files to verilog filetype
+augroup('VFileType', { clear = true })
+autocmd({ 'BufRead', 'BufNew' }, {
+	group = 'VFileType',
+	pattern = { "*.v" },
+	command = "set ft=verilog"
+})

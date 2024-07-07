@@ -25,6 +25,7 @@ lsp.clangd.setup(on_attach_add({ capabilities = capabilities }))
 lsp.pyright.setup(on_attach_add({ capabilities = capabilities }))
 lsp.rust_analyzer.setup(on_attach_add({ capabilities = capabilities }))
 lsp.zls.setup(on_attach_add({ capabilities = capabilities }))
+lsp.vhdl_ls.setup(on_attach_add({capabilities = capabilities}))
 lsp.lua_ls.setup(on_attach_add({
 	capabilities = capabilities,
 	settings = {
@@ -36,3 +37,4 @@ lsp.lua_ls.setup(on_attach_add({
 		},
 	},
 }))
+lsp.hdl_checker.setup(on_attach_add({capabilities = capabilities}))
