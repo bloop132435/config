@@ -6,8 +6,9 @@ export AVR_CPU_FREQUENCY_HZ=16000000
 # export PATH=$PATH:~/.config/tmux
 # export PATH=$PATH:~/downloads/squashfs-root/usr/bin
 # export PATH=$PATH:/home/gqian/cling/bin
-export PATH=/opt/homebrew/bin:$PATH
 export PATH=/Users/gqian/Library/Python/3.8/bin:$PATH
+export PATH=/opt/homebrew/bin:$PATH
+export PATH=/Users/gqian/.local/oss-cad-suite/bin:$PATH
 # export DOTNET_ROOT=$HOME/dotnet
 # export PATH=$PATH:$HOME/dotnet
 # export PATH=$PATH:$HOME/programs/utils/webscraping
@@ -20,10 +21,10 @@ export TERMINAL=st
 export FZF_DEFAULT_OPTS='--tabstop=4 --preview="bat {} " --layout=reverse --border  --color=fg:#f8f8f2,bg:-1,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:-1,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --bind=ctrl-f:preview-half-page-down,ctrl-b:preview-half-page-up'
 export FZF_COMPLETION_TRIGGER='##'
 alias vi=nvim
-alias l=exa\ -a
-alias ll=exa\ -al
-alias ls=exa
-alias tree=exa\ -aTl
+alias l=eza\ -a
+alias ll=eza\ -al
+alias ls=eza
+alias tree=eza\ -aTl
 alias q=exit
 alias python=python3
 

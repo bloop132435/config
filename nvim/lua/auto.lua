@@ -37,7 +37,7 @@ autocmd({ 'BufRead', 'BufNew' }, {
 
 -- set .v files to verilog filetype
 augroup('VFileType', { clear = true })
-autocmd({ 'BufRead', 'BufNew' }, {
+autocmd({ 'BufRead', 'BufNew','BufEnter' }, {
 	group = 'VFileType',
 	pattern = { "*.v" },
 	command = "set ft=verilog"
